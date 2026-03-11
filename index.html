@@ -86,6 +86,29 @@
             background-color: #d1fae5;
             color: #059669;
         }
+        .lang-tab {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .lang-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .copy-all-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        .copy-all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
     </style>
 <base target="_blank">
 </head>
@@ -97,33 +120,26 @@
             <p class="text-white/80 text-lg">Level Upgrade Calculator | Kalkulator Naik Taraf</p>
         </div>
 
-        <!-- Language Tabs -->
-        <div class="glass-panel rounded-2xl p-2 mb-6 flex justify-center gap-2 flex-wrap">
-            <button onclick="setLanguage('zh')" id="tab-zh" class="tab-btn active px-6 py-2 rounded-xl font-medium">中文</button>
-            <button onclick="setLanguage('en')" id="tab-en" class="tab-btn px-6 py-2 rounded-xl font-medium">English</button>
-            <button onclick="setLanguage('ms')" id="tab-ms" class="tab-btn px-6 py-2 rounded-xl font-medium">Bahasa Melayu</button>
-        </div>
-
         <div class="grid lg:grid-cols-2 gap-6">
             <!-- Left Panel: Calculator -->
             <div class="glass-panel rounded-3xl p-6 md:p-8 shadow-2xl">
-                <h2 class="text-2xl font-bold mb-6 gradient-text" data-i18n="calculator_title">升级计算器</h2>
+                <h2 class="text-2xl font-bold mb-6 gradient-text">升级计算器</h2>
 
                 <!-- Current Balance Input -->
                 <div class="mb-6">
-                    <label class="block text-gray-700 font-medium mb-2" data-i18n="current_balance">当前储蓄钱包余额 (RM)</label>
+                    <label class="block text-gray-700 font-medium mb-2">当前储蓄钱包余额 (RM)</label>
                     <div class="relative">
                         <input type="number" id="currentBalance" value="30" 
                                class="input-field w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 outline-none text-lg font-semibold"
                                placeholder="输入当前余额">
-                        <span id="balanceStatus" class="status-badge status-low absolute right-3 top-3">Low Balance</span>
+                        <span id="balanceStatus" class="status-badge status-low absolute right-3 top-3">低余额</span>
                     </div>
-                    <p class="text-sm text-gray-500 mt-2" id="balanceHint">R1等级：余额<49显示自动离职文案，≥49显示标准升级文案</p>
+                    <p class="text-sm text-gray-500 mt-2">R1等级：余额&lt;49显示自动离职文案，≥49显示标准升级文案</p>
                 </div>
 
                 <!-- Target Level Selection -->
                 <div class="mb-6">
-                    <label class="block text-gray-700 font-medium mb-3" data-i18n="target_level">选择目标等级</label>
+                    <label class="block text-gray-700 font-medium mb-3">选择目标等级</label>
                     <div class="grid grid-cols-3 gap-3">
                         <div onclick="selectLevel('R1')" id="card-R1" class="level-card active border-2 border-purple-500 rounded-2xl p-4 text-center">
                             <div class="text-2xl font-bold text-purple-600">R1</div>
@@ -147,21 +163,21 @@
                 <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-6 border border-purple-100">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="text-center">
-                            <div class="text-gray-500 text-sm mb-1" data-i18n="required_amount">所需金额</div>
+                            <div class="text-gray-500 text-sm mb-1">所需金额</div>
                             <div class="text-3xl font-bold text-purple-600" id="requiredAmount">RM 150</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-gray-500 text-sm mb-1" data-i18n="shortfall">差额</div>
+                            <div class="text-gray-500 text-sm mb-1">差额</div>
                             <div class="text-3xl font-bold text-red-500" id="shortfallAmount">RM 120</div>
                         </div>
                     </div>
                     <div class="mt-4 pt-4 border-t border-purple-200">
                         <div class="flex justify-between items-center">
-                            <span class="text-gray-600" data-i18n="daily_income">升级后每日收入</span>
+                            <span class="text-gray-600">升级后每日收入</span>
                             <span class="text-2xl font-bold text-green-600" id="dailyIncome">RM 5</span>
                         </div>
                         <div class="flex justify-between items-center mt-2">
-                            <span class="text-gray-600" data-i18n="monthly_income">升级后每月收入</span>
+                            <span class="text-gray-600">升级后每月收入</span>
                             <span class="text-xl font-bold text-green-600" id="monthlyIncome">RM 150</span>
                         </div>
                     </div>
@@ -169,7 +185,7 @@
 
                 <!-- Quick Presets -->
                 <div class="mt-6">
-                    <label class="block text-gray-700 font-medium mb-2" data-i18n="quick_preset">快速预设</label>
+                    <label class="block text-gray-700 font-medium mb-2">快速预设</label>
                     <div class="flex gap-2 flex-wrap">
                         <button onclick="setBalance(30)" class="px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg text-sm transition font-medium">RM 30 (&lt;49)</button>
                         <button onclick="setBalance(50)" class="px-4 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg text-sm transition font-medium">RM 50 (≥49)</button>
@@ -182,15 +198,22 @@
 
             <!-- Right Panel: Generated Content -->
             <div class="glass-panel rounded-3xl p-6 md:p-8 shadow-2xl">
-                <div class="flex justify-between items-center mb-6">
+                <div class="flex justify-between items-center mb-4">
                     <div>
-                        <h2 class="text-2xl font-bold gradient-text" data-i18n="generated_copy">生成文案</h2>
+                        <h2 class="text-2xl font-bold gradient-text">生成文案</h2>
                         <span id="templateType" class="text-sm text-purple-600 font-medium">自动离职模板</span>
                     </div>
-                    <button onclick="copyContent()" id="copyBtn" class="copy-btn px-4 py-2 bg-purple-600 text-white rounded-xl flex items-center gap-2 font-medium">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        <span data-i18n="copy">复制</span>
+                    <button onclick="copyAllLanguages()" class="copy-all-btn px-4 py-2 text-white rounded-xl flex items-center gap-2 font-medium text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        <span>复制全部三种语言</span>
                     </button>
+                </div>
+
+                <!-- Language Tabs -->
+                <div class="flex gap-2 mb-4 border-b border-gray-200">
+                    <button onclick="switchLanguage('zh')" id="lang-tab-zh" class="lang-tab active px-4 py-2 rounded-t-lg font-medium border-b-2 border-transparent">中文</button>
+                    <button onclick="switchLanguage('en')" id="lang-tab-en" class="lang-tab px-4 py-2 rounded-t-lg font-medium border-b-2 border-transparent text-gray-600 hover:text-purple-600">English</button>
+                    <button onclick="switchLanguage('ms')" id="lang-tab-ms" class="lang-tab px-4 py-2 rounded-t-lg font-medium border-b-2 border-transparent text-gray-600 hover:text-purple-600">Bahasa Melayu</button>
                 </div>
 
                 <!-- Warning Box -->
@@ -198,15 +221,44 @@
                     <div class="flex items-start gap-2">
                         <svg class="w-5 h-5 text-yellow-700 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                         <div>
-                            <div class="font-semibold text-yellow-800 mb-1" data-i18n="important_notice">重要提示</div>
-                            <div class="text-sm text-yellow-700" data-i18n="notice_content">R1等级根据余额自动切换文案模板：&lt;49显示自动离职，≥49显示标准升级</div>
+                            <div class="font-semibold text-yellow-800 mb-1">重要提示</div>
+                            <div class="text-sm text-yellow-700">R1等级根据余额自动切换文案模板：&lt;49显示自动离职，≥49显示标准升级</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Generated Text Area -->
-                <div id="contentDisplay" class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 min-h-[400px] whitespace-pre-wrap text-gray-700 leading-relaxed overflow-y-auto max-h-[600px] text-sm md:text-base">
-                    <!-- Content will be generated here -->
+                <!-- Generated Text Areas -->
+                <div id="content-zh" class="content-section active">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-medium text-gray-600">中文版本</span>
+                        <button onclick="copySingleLanguage('zh')" class="copy-btn px-3 py-1 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg text-xs font-medium flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            复制
+                        </button>
+                    </div>
+                    <div id="contentDisplay-zh" class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 min-h-[300px] whitespace-pre-wrap text-gray-700 leading-relaxed overflow-y-auto max-h-[500px] text-sm md:text-base"></div>
+                </div>
+
+                <div id="content-en" class="content-section">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-medium text-gray-600">English Version</span>
+                        <button onclick="copySingleLanguage('en')" class="copy-btn px-3 py-1 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg text-xs font-medium flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            Copy
+                        </button>
+                    </div>
+                    <div id="contentDisplay-en" class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 min-h-[300px] whitespace-pre-wrap text-gray-700 leading-relaxed overflow-y-auto max-h-[500px] text-sm md:text-base"></div>
+                </div>
+
+                <div id="content-ms" class="content-section">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-medium text-gray-600">Versi Bahasa Melayu</span>
+                        <button onclick="copySingleLanguage('ms')" class="copy-btn px-3 py-1 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg text-xs font-medium flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            Salin
+                        </button>
+                    </div>
+                    <div id="contentDisplay-ms" class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 min-h-[300px] whitespace-pre-wrap text-gray-700 leading-relaxed overflow-y-auto max-h-[500px] text-sm md:text-base"></div>
                 </div>
 
                 <!-- Info Cards -->
@@ -214,14 +266,14 @@
                     <div class="bg-yellow-50 rounded-xl p-4 border border-yellow-200">
                         <div class="flex items-center gap-2 mb-2">
                             <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="font-semibold text-yellow-800" data-i18n="grace_period">宽限期</span>
+                            <span class="font-semibold text-yellow-800">宽限期</span>
                         </div>
-                        <p class="text-sm text-yellow-700" data-i18n="grace_period_desc">7天特权期，享受差额补齐优惠</p>
+                        <p class="text-sm text-yellow-700">7天特权期，享受差额补齐优惠</p>
                     </div>
                     <div class="bg-blue-50 rounded-xl p-4 border border-blue-200">
                         <div class="flex items-center gap-2 mb-2">
                             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="font-semibold text-blue-800" data-i18n="act_info">法案信息</span>
+                            <span class="font-semibold text-blue-800">法案信息</span>
                         </div>
                         <p class="text-sm text-blue-700">《2025年零工工作者法案》(第872号法案)</p>
                     </div>
@@ -231,7 +283,7 @@
 
         <!-- Level Reference Table -->
         <div class="glass-panel rounded-3xl p-6 md:p-8 mt-6 shadow-2xl">
-            <h3 class="text-xl font-bold mb-4 gradient-text" data-i18n="level_reference">等级收益参考表</h3>
+            <h3 class="text-xl font-bold mb-4 gradient-text">等级收益参考表</h3>
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead>
@@ -293,33 +345,27 @@
     </div>
 
     <script>
-        // Data structure - R1, R2, R3 with full level progression
+        // Data structure
         const levelData = {
             'R1': { 
                 amount: 150, 
                 daily: 5, 
                 monthly: 150,
-                prevLevel: 'R⭐️',
                 prevDaily: 3,
-                prevName: 'R0',
                 fullAmount: 150
             },
             'R2': { 
                 amount: 450, 
                 daily: 15, 
                 monthly: 450,
-                prevLevel: 'R1',
                 prevDaily: 5,
-                prevName: 'R1',
                 fullAmount: 450
             },
             'R3': { 
                 amount: 1350, 
                 daily: 45, 
                 monthly: 1350,
-                prevLevel: 'R2',
                 prevDaily: 15,
-                prevName: 'R2',
                 fullAmount: 1350
             }
         };
@@ -327,307 +373,284 @@
         let currentLevel = 'R1';
         let currentLang = 'zh';
 
-        // Translations
-        const translations = {
-            zh: {
-                calculator_title: "升级计算器",
-                current_balance: "当前储蓄钱包余额 (RM)",
-                target_level: "选择目标等级",
-                required_amount: "所需金额",
-                shortfall: "差额",
-                daily_income: "升级后每日收入",
-                monthly_income: "升级后每月收入",
-                quick_preset: "快速预设",
-                generated_copy: "生成文案",
-                copy: "复制",
-                copied: "已复制!",
-                grace_period: "宽限期",
-                grace_period_desc: "7天特权期，享受差额补齐优惠",
-                act_info: "法案信息",
-                level_reference: "等级收益参考表",
-                important_notice: "重要提示",
-                notice_content: "R1等级根据余额自动切换文案模板：<49显示自动离职，≥49显示标准升级",
-                template_resignation: "自动离职模板",
-                template_standard: "标准升级模板",
-                status_low: "低余额",
-                status_normal: "正常",
-                generateContent: (balance, level, data, shortfall) => {
-                    const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
+        // Content generators for each language
+        const contentGenerators = {
+            zh: (balance, level, data, shortfall) => {
+                const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
+                
+                if (level === 'R1') {
+                    if (balance < 49) {
+                        return `您可能已经注意到，为积极响应政府相关公告，平台正有序调整相关政策，旨在确保各项机制可在 *《零工工作者法案 2025》（第872号法案）* 正式实施前完成合规对接，相关要求预计将于 *2026 年 3 月底前* 全面落实。
 
-                    if (level === 'R1') {
-                        // R1 special logic: <49 vs >=49
-                        if (balance < 49) {
-                            return `您可能已经注意到，为积极响应政府相关公告，我们正在对平台政策进行有序调整，以确保相关机制在《零工工作者法案 2025》（第872号法案）实施前完成合规对接，并预计于 2026年3月底前落实相关要求。
+基于上述调整，平台现 *正式推出全新的账号等级模式*。凡符合条件的成员，均可享有 *7 天特权期*，在更有利的条件下完成账号等级升级。
 
-基于此，平台正式推出全新的账号等级模式。符合条件的成员将享有 7天特权期，可在更有利的条件下完成等级升级。
+目前，您的储蓄钱包余额为 *RM${balance}*，距离升级至 *R1 级别*（可享受 *每日收入 RM${data.daily}*）仍需补足 *RM${shortfall}*。
 
-目前，您的储蓄钱包余额为 RM${balance}，距离升级至 R1 级别（可享受 每日收入 RM5）尚差 RM${shortfall}。
+*升级收益对比说明：*
 
-升级收益对比
-原 R⭐️ 级别：充值 RM150，每日收入 RM3
-现 R1 级别：充值 RM150，每日收入 RM5（收益提升约 ${increase}%）
+原 *R⭐️ 级别*：  
+充值 *RM${data.amount}*，每日收入 *RM${data.prevDaily}*
 
-在 7天特权期内，您仅需 补足 RM${shortfall} 差额，即可完成升级，并开始享受更高的每日收入。
+现 *R1 级别*：  
+充值 *RM${data.amount}*，每日收入 *RM${data.daily}*（收益提升约 *${increase}%*）
 
-请注意：
-特权期内，账号仍将按照 R0 级别的过渡收益标准 进行结算；
-特权期结束后，如仍未完成升级，如仍未完成升级，账号将按平台规则视为自动离职处理。`;
-                        } else {
-                            return `您可能已经注意到，为积极响应政府相关公告，我们正在对平台政策进行有序调整，以确保相关机制在《零工工作者法案 2025》（第872号法案）实施前完成合规对接，并预计于 2026年3月底前落实相关要求。
+在 *7 天特权期内*，您仅需 *补足 RM${shortfall} 差额*，即可完成升级，并 *立即开始享受更高的每日收入回报*。
 
-基于此，平台正式推出全新的账号等级模式。符合条件的成员将享有 7天特权期，可在更有利的条件下完成等级升级。
+*请您留意以下重要事项：*
 
-目前，您的储蓄钱包余额为 RM${balance}，距离升级至 R1 级别（可享受 每日收入 RM5）尚差 RM${shortfall}。
+* 特权期内，账号将 *暂按 R0 级别的过渡收益标准* 进行结算；  
+* 特权期结束后，如仍 *未完成升级*，账号将 *根据平台规则自动视为离职处理*。`;
+                    } else {
+                        return `您可能已经注意到，为积极响应政府相关公告，平台正有序调整相关政策，旨在确保各项机制可在 *《零工工作者法案 2025》（第872号法案）* 正式实施前完成合规对接，相关要求预计将于 *2026 年 3 月底前* 全面落实。
 
-升级收益对比
-原 R⭐️ 级别：充值 RM150，每日收入 RM3
-现 R1 级别：充值 RM150，每日收入 RM5（收益提升约 ${increase}%）
+基于上述调整，平台现 *正式推出全新的账号等级模式*。凡符合条件的成员，均可享有 *7 天特权期*，在更有利的条件下完成账号等级升级。
 
-在 7天特权期内，您仅需 补足 RM${shortfall} 差额，即可完成升级，并开始享受更高的每日收入。
+目前，您的储蓄钱包余额为 *RM${balance}*，距离升级至 *R1 级别*（可享受 *每日收入 RM${data.daily}*）仍需补足 *RM${shortfall}*。
 
-请注意：
-特权期内，账号仍将按照 R0 级别的过渡收益标准 进行结算；
-特权期结束后，如仍未完成升级，将不再支持差额补齐方式，后续如需升级至 R1 级别，需按平台规则 一次性充值 RM150 完成全额升级。`;
-                        }
-                    } else if (level === 'R2') {
-                        return `您可能已经注意到，为积极响应政府相关公告，我们正在对平台政策进行有序调整，以确保相关机制在《零工工作者法案 2025》（第872号法案）实施前完成合规对接，并预计于 2026年3月底前落实相关要求。
+*升级收益对比说明：*
 
-基于此，平台正式推出全新的账号等级模式。符合条件的成员将享有 7天特权期，可在更有利的条件下完成等级升级。
+原 *R⭐️ 级别*：  
+充值 *RM${data.amount}*，每日收入 *RM${data.prevDaily}*
 
-目前，您的储蓄钱包余额为 RM${balance}，距离升级至 R2 级别（可享受 每日收入 RM15）尚差 RM${shortfall}。
+现 *R1 级别*：  
+充值 *RM${data.amount}*，每日收入 *RM${data.daily}*（收益提升约 *${increase}%*）
 
-升级收益对比
-当前 R1 级别：已充值 RM150，每日收入 RM5
-现 R2 级别：充值 RM450，每日收入 RM15（收益提升约 ${increase}%）
+在 *7 天特权期内*，您仅需 *补足 RM${shortfall} 差额*，即可完成升级，并 *立即开始享受更高的每日收入回报*。
 
-在 7天特权期内，您仅需 补足 RM${shortfall} 差额，即可完成升级，并开始享受更高的每日收入。
+*请您留意以下重要事项：*
 
-请注意：
-特权期内，账号将按照 R1 级别的过渡收益标准 进行结算；
-特权期结束后，如仍未完成升级，将不再支持差额补齐方式，后续如需升级至 R2 级别，需按平台规则 一次性充值 RM450 完成全额升级。`;
-                    } else if (level === 'R3') {
-                        return `您可能已经注意到，为积极响应政府相关公告，我们正在对平台政策进行有序调整，以确保相关机制在《零工工作者法案 2025》（第872号法案）实施前完成合规对接，并预计于 2026年3月底前落实相关要求。
-
-基于此，平台正式推出全新的账号等级模式。符合条件的成员将享有 7天特权期，可在更有利的条件下完成等级升级。
-
-目前，您的储蓄钱包余额为 RM${balance}，距离升级至 R3 级别（可享受 每日收入 RM45）尚差 RM${shortfall}。
-
-升级收益对比
-当前 R2 级别：已充值 RM450，每日收入 RM15
-现 R3 级别：充值 RM1350，每日收入 RM45（收益提升约 ${increase}%）
-
-在 7天特权期内，您仅需 补足 RM${shortfall} 差额，即可完成升级，并开始享受更高的每日收入。
-
-请注意：
-特权期内，账号将按照 R2 级别的过渡收益标准 进行结算；
-特权期结束后，如仍未完成升级，将不再支持差额补齐方式，后续如需升级至 R3 级别，需按平台规则 一次性充值 RM1350 完成全额升级。`;
+* 特权期内，账号将 *暂按 R0 级别的过渡收益标准* 进行结算；  
+* 特权期结束后，如仍 *未完成升级*，将不再支持差额补齐方式，后续如需升级至 R1 级别，需按平台规则 *一次性充值 RM${data.fullAmount} 完成全额升级*。`;
                     }
+                } else if (level === 'R2') {
+                    return `您可能已经注意到，为积极响应政府相关公告，平台正有序调整相关政策，旨在确保各项机制可在 *《零工工作者法案 2025》（第872号法案）* 正式实施前完成合规对接，相关要求预计将于 *2026 年 3 月底前* 全面落实。
+
+基于上述调整，平台现 *正式推出全新的账号等级模式*。凡符合条件的成员，均可享有 *7 天特权期*，在更有利的条件下完成账号等级升级。
+
+目前，您的储蓄钱包余额为 *RM${balance}*，距离升级至 *R2 级别*（可享受 *每日收入 RM${data.daily}*）仍需补足 *RM${shortfall}*。
+
+*升级收益对比说明：*
+
+当前 *R1 级别*：  
+已充值 *RM150*，每日收入 *RM${data.prevDaily}*
+
+现 *R2 级别*：  
+充值 *RM${data.amount}*，每日收入 *RM${data.daily}*（收益提升约 *${increase}%*）
+
+在 *7 天特权期内*，您仅需 *补足 RM${shortfall} 差额*，即可完成升级，并 *立即开始享受更高的每日收入回报*。
+
+*请您留意以下重要事项：*
+
+* 特权期内，账号将 *暂按 R1 级别的过渡收益标准* 进行结算；  
+* 特权期结束后，如仍 *未完成升级*，将不再支持差额补齐方式，后续如需升级至 R2 级别，需按平台规则 *一次性充值 RM${data.fullAmount} 完成全额升级*。`;
+                } else if (level === 'R3') {
+                    return `您可能已经注意到，为积极响应政府相关公告，平台正有序调整相关政策，旨在确保各项机制可在 *《零工工作者法案 2025》（第872号法案）* 正式实施前完成合规对接，相关要求预计将于 *2026 年 3 月底前* 全面落实。
+
+基于上述调整，平台现 *正式推出全新的账号等级模式*。凡符合条件的成员，均可享有 *7 天特权期*，在更有利的条件下完成账号等级升级。
+
+目前，您的储蓄钱包余额为 *RM${balance}*，距离升级至 *R3 级别*（可享受 *每日收入 RM${data.daily}*）仍需补足 *RM${shortfall}*。
+
+*升级收益对比说明：*
+
+当前 *R2 级别*：  
+已充值 *RM450*，每日收入 *RM${data.prevDaily}*
+
+现 *R3 级别*：  
+充值 *RM${data.amount}*，每日收入 *RM${data.daily}*（收益提升约 *${increase}%*）
+
+在 *7 天特权期内*，您仅需 *补足 RM${shortfall} 差额*，即可完成升级，并 *立即开始享受更高的每日收入回报*。
+
+*请您留意以下重要事项：*
+
+* 特权期内，账号将 *暂按 R2 级别的过渡收益标准* 进行结算；  
+* 特权期结束后，如仍 *未完成升级*，将不再支持差额补齐方式，后续如需升级至 R3 级别，需按平台规则 *一次性充值 RM${data.fullAmount} 完成全额升级*。`;
                 }
             },
-            en: {
-                calculator_title: "Upgrade Calculator",
-                current_balance: "Current Wallet Balance (RM)",
-                target_level: "Select Target Level",
-                required_amount: "Required Amount",
-                shortfall: "Shortfall",
-                daily_income: "Daily Income After Upgrade",
-                monthly_income: "Monthly Income After Upgrade",
-                quick_preset: "Quick Presets",
-                generated_copy: "Generated Content",
-                copy: "Copy",
-                copied: "Copied!",
-                grace_period: "Grace Period",
-                grace_period_desc: "7-day privilege period with top-up difference discount",
-                act_info: "Act Information",
-                level_reference: "Level Income Reference",
-                important_notice: "Important Notice",
-                notice_content: "R1 level auto-switches template based on balance: <49 shows resignation, ≥49 shows standard upgrade",
-                template_resignation: "Resignation Template",
-                template_standard: "Standard Upgrade Template",
-                status_low: "Low Balance",
-                status_normal: "Normal",
-                generateContent: (balance, level, data, shortfall) => {
-                    const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
+            
+            en: (balance, level, data, shortfall) => {
+                const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
+                
+                if (level === 'R1') {
+                    if (balance < 49) {
+                        return `You may have noticed that in response to relevant government announcements, we are systematically adjusting platform policies to ensure compliance with the *Gig Workers Act 2025 (Act 872)* before its implementation, expected to be fully completed by *end of March 2026*.
 
-                    if (level === 'R1') {
-                        if (balance < 49) {
-                            return `You may have noticed that in response to relevant government announcements, we are systematically adjusting platform policies to ensure compliance with the upcoming "Gig Workers Act 2025" (Act 872) before its implementation, expected to be completed by end of March 2026.
+Based on these adjustments, the platform is officially launching a *new account level system*. Eligible members will enjoy a *7-day privilege period* to complete level upgrades under more favorable conditions.
 
-Based on this, the platform officially launches a new account level system. Eligible members will enjoy a 7-day privilege period to complete level upgrades under more favorable conditions.
+Currently, your savings wallet balance is *RM${balance}*, which is *RM${shortfall} short* of upgrading to *Level R1* (enjoying *daily income of RM${data.daily}*).
 
-Currently, your savings wallet balance is RM${balance}, which is RM${shortfall} short of upgrading to Level R1 (enjoying daily income of RM5).
+*Upgrade Benefits Comparison:*
 
-Upgrade Benefits Comparison:
-Previous R⭐️ Level: Top-up RM150, Daily Income RM3
-Current R1 Level: Top-up RM150, Daily Income RM5 (Income increase of approximately ${increase}%)
+Previous *R⭐️ Level*:  
+Top-up *RM${data.amount}*, Daily Income *RM${data.prevDaily}*
 
-During the 7-day privilege period, you only need to pay the remaining RM${shortfall} to complete the upgrade and start enjoying higher daily income.
+Current *R1 Level*:  
+Top-up *RM${data.amount}*, Daily Income *RM${data.daily}* (Income increase of approximately *${increase}%*)
 
-Please Note:
-During the privilege period, accounts will be settled according to the transitional income standards of R0 level;
-After the privilege period ends, if the upgrade is not completed, if the upgrade is still not completed, the account will be treated as automatic resignation according to platform rules.`;
-                        } else {
-                            return `You may have noticed that in response to relevant government announcements, we are systematically adjusting platform policies to ensure compliance with the upcoming "Gig Workers Act 2025" (Act 872) before its implementation, expected to be completed by end of March 2026.
+During the *7-day privilege period*, you only need to *pay the remaining RM${shortfall}* to complete the upgrade and *immediately start enjoying higher daily income returns*.
 
-Based on this, the platform officially launches a new account level system. Eligible members will enjoy a 7-day privilege period to complete level upgrades under more favorable conditions.
+*Important Notes:*
 
-Currently, your savings wallet balance is RM${balance}, which is RM${shortfall} short of upgrading to Level R1 (enjoying daily income of RM5).
+* During the privilege period, accounts will be settled according to the *transitional income standards of R0 level*;
+* After the privilege period ends, if the upgrade is *not completed*, the account will be *treated as automatic resignation* according to platform rules.`;
+                    } else {
+                        return `You may have noticed that in response to relevant government announcements, we are systematically adjusting platform policies to ensure compliance with the *Gig Workers Act 2025 (Act 872)* before its implementation, expected to be fully completed by *end of March 2026*.
 
-Upgrade Benefits Comparison:
-Previous R⭐️ Level: Top-up RM150, Daily Income RM3
-Current R1 Level: Top-up RM150, Daily Income RM5 (Income increase of approximately ${increase}%)
+Based on these adjustments, the platform is officially launching a *new account level system*. Eligible members will enjoy a *7-day privilege period* to complete level upgrades under more favorable conditions.
 
-During the 7-day privilege period, you only need to pay the remaining RM${shortfall} to complete the upgrade and start enjoying higher daily income.
+Currently, your savings wallet balance is *RM${balance}*, which is *RM${shortfall} short* of upgrading to *Level R1* (enjoying *daily income of RM${data.daily}*).
 
-Please Note:
-During the privilege period, accounts will be settled according to the transitional income standards of R0 level;
-After the privilege period ends, if the upgrade is not completed, the difference payment method will no longer be supported. For subsequent upgrade to R1 level, a one-time full payment of RM150 is required according to platform rules.`;
-                        }
-                    } else if (level === 'R2') {
-                        return `You may have noticed that in response to relevant government announcements, we are systematically adjusting platform policies to ensure compliance with the upcoming "Gig Workers Act 2025" (Act 872) before its implementation, expected to be completed by end of March 2026.
+*Upgrade Benefits Comparison:*
 
-Based on this, the platform officially launches a new account level system. Eligible members will enjoy a 7-day privilege period to complete level upgrades under more favorable conditions.
+Previous *R⭐️ Level*:  
+Top-up *RM${data.amount}*, Daily Income *RM${data.prevDaily}*
 
-Currently, your savings wallet balance is RM${balance}, which is RM${shortfall} short of upgrading to Level R2 (enjoying daily income of RM15).
+Current *R1 Level*:  
+Top-up *RM${data.amount}*, Daily Income *RM${data.daily}* (Income increase of approximately *${increase}%*)
 
-Upgrade Benefits Comparison:
-Current R1 Level: Already topped up RM150, Daily Income RM5
-Current R2 Level: Top-up RM450, Daily Income RM15 (Income increase of approximately ${increase}%)
+During the *7-day privilege period*, you only need to *pay the remaining RM${shortfall}* to complete the upgrade and *immediately start enjoying higher daily income returns*.
 
-During the 7-day privilege period, you only need to pay the remaining RM${shortfall} to complete the upgrade and start enjoying higher daily income.
+*Important Notes:*
 
-Please Note:
-During the privilege period, accounts will be settled according to the transitional income standards of R1 level;
-After the privilege period ends, if the upgrade is not completed, the difference payment method will no longer be supported. For subsequent upgrade to R2 level, a one-time full payment of RM450 is required according to platform rules.`;
-                    } else if (level === 'R3') {
-                        return `You may have noticed that in response to relevant government announcements, we are systematically adjusting platform policies to ensure compliance with the upcoming "Gig Workers Act 2025" (Act 872) before its implementation, expected to be completed by end of March 2026.
-
-Based on this, the platform officially launches a new account level system. Eligible members will enjoy a 7-day privilege period to complete level upgrades under more favorable conditions.
-
-Currently, your savings wallet balance is RM${balance}, which is RM${shortfall} short of upgrading to Level R3 (enjoying daily income of RM45).
-
-Upgrade Benefits Comparison:
-Current R2 Level: Already topped up RM450, Daily Income RM15
-Current R3 Level: Top-up RM1350, Daily Income RM45 (Income increase of approximately ${increase}%)
-
-During the 7-day privilege period, you only need to pay the remaining RM${shortfall} to complete the upgrade and start enjoying higher daily income.
-
-Please Note:
-During the privilege period, accounts will be settled according to the transitional income standards of R2 level;
-After the privilege period ends, if the upgrade is not completed, the difference payment method will no longer be supported. For subsequent upgrade to R3 level, a one-time full payment of RM1350 is required according to platform rules.`;
+* During the privilege period, accounts will be settled according to the *transitional income standards of R0 level*;
+* After the privilege period ends, if the upgrade is *not completed*, the difference payment method will no longer be supported. For subsequent upgrade to R1 level, a *one-time full payment of RM${data.fullAmount}* is required according to platform rules.`;
                     }
+                } else if (level === 'R2') {
+                    return `You may have noticed that in response to relevant government announcements, we are systematically adjusting platform policies to ensure compliance with the *Gig Workers Act 2025 (Act 872)* before its implementation, expected to be fully completed by *end of March 2026*.
+
+Based on these adjustments, the platform is officially launching a *new account level system*. Eligible members will enjoy a *7-day privilege period* to complete level upgrades under more favorable conditions.
+
+Currently, your savings wallet balance is *RM${balance}*, which is *RM${shortfall} short* of upgrading to *Level R2* (enjoying *daily income of RM${data.daily}*).
+
+*Upgrade Benefits Comparison:*
+
+Current *R1 Level*:  
+Already topped up *RM150*, Daily Income *RM${data.prevDaily}*
+
+Current *R2 Level*:  
+Top-up *RM${data.amount}*, Daily Income *RM${data.daily}* (Income increase of approximately *${increase}%*)
+
+During the *7-day privilege period*, you only need to *pay the remaining RM${shortfall}* to complete the upgrade and *immediately start enjoying higher daily income returns*.
+
+*Important Notes:*
+
+* During the privilege period, accounts will be settled according to the *transitional income standards of R1 level*;
+* After the privilege period ends, if the upgrade is *not completed*, the difference payment method will no longer be supported. For subsequent upgrade to R2 level, a *one-time full payment of RM${data.fullAmount}* is required according to platform rules.`;
+                } else if (level === 'R3') {
+                    return `You may have noticed that in response to relevant government announcements, we are systematically adjusting platform policies to ensure compliance with the *Gig Workers Act 2025 (Act 872)* before its implementation, expected to be fully completed by *end of March 2026*.
+
+Based on these adjustments, the platform is officially launching a *new account level system*. Eligible members will enjoy a *7-day privilege period* to complete level upgrades under more favorable conditions.
+
+Currently, your savings wallet balance is *RM${balance}*, which is *RM${shortfall} short* of upgrading to *Level R3* (enjoying *daily income of RM${data.daily}*).
+
+*Upgrade Benefits Comparison:*
+
+Current *R2 Level*:  
+Already topped up *RM450*, Daily Income *RM${data.prevDaily}*
+
+Current *R3 Level*:  
+Top-up *RM${data.amount}*, Daily Income *RM${data.daily}* (Income increase of approximately *${increase}%*)
+
+During the *7-day privilege period*, you only need to *pay the remaining RM${shortfall}* to complete the upgrade and *immediately start enjoying higher daily income returns*.
+
+*Important Notes:*
+
+* During the privilege period, accounts will be settled according to the *transitional income standards of R2 level*;
+* After the privilege period ends, if the upgrade is *not completed*, the difference payment method will no longer be supported. For subsequent upgrade to R3 level, a *one-time full payment of RM${data.fullAmount}* is required according to platform rules.`;
                 }
             },
-            ms: {
-                calculator_title: "Kalkulator Naik Taraf",
-                current_balance: "Baki Dompet Semasa (RM)",
-                target_level: "Pilih Tahap Sasaran",
-                required_amount: "Jumlah Diperlukan",
-                shortfall: "Kekurangan",
-                daily_income: "Pendapatan Harian Selepas Naik Taraf",
-                monthly_income: "Pendapatan Bulanan Selepas Naik Taraf",
-                quick_preset: "Preset Pantas",
-                generated_copy: "Kandungan Dijana",
-                copy: "Salin",
-                copied: "Disalin!",
-                grace_period: "Tempoh Tenggang",
-                grace_period_desc: "Tempoh keistimewaan 7 hari dengan diskaun tambah nilai baki",
-                act_info: "Maklumat Akta",
-                level_reference: "Jadual Pendapatan Tahap",
-                important_notice: "Notis Penting",
-                notice_content: "Tahap R1 menukar templat automatik berdasarkan baki: <49 tunjukkan peletakan jawatan, ≥49 tunjukkan naik taraf standard",
-                template_resignation: "Templat Peletakan Jawatan",
-                template_standard: "Templat Naik Taraf Standard",
-                status_low: "Baki Rendah",
-                status_normal: "Normal",
-                generateContent: (balance, level, data, shortfall) => {
-                    const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
+            
+            ms: (balance, level, data, shortfall) => {
+                const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
+                
+                if (level === 'R1') {
+                    if (balance < 49) {
+                        return `Anda mungkin telah perhatikan bahawa sebagai respons kepada pengumuman kerajaan yang berkaitan, kami sedang menyesuaikan dasar platform secara sistematik untuk memastikan pematuhan dengan *Akta Pekerja Gig 2025 (Akta 872)* sebelum pelaksanaannya, dijangka selesai sepenuhnya menjelang *akhir Mac 2026*.
 
-                    if (level === 'R1') {
-                        if (balance < 49) {
-                            return `Anda mungkin telah perhatikan bahawa sebagai respons kepada pengumuman kerajaan yang berkaitan, kami sedang menyesuaikan dasar platform secara sistematik untuk memastikan pematuhan dengan "Akta Pekerja Gig 2025" (Akta 872) yang akan datang sebelum pelaksanaannya, dijangka selesai menjelang akhir Mac 2026.
+Berdasarkan pelarasan ini, platform secara rasmi melancarkan *sistem tahap akaun baharu*. Ahli yang layak akan menikmati *tempoh keistimewaan 7 hari* untuk menyelesaikan naik taraf tahap dalam keadaan yang lebih menguntungkan.
 
-Berdasarkan ini, platform secara rasmi melancarkan sistem tahap akaun baharu. Ahli yang layak akan menikmati tempoh keistimewaan 7 hari untuk menyelesaikan naik taraf tahap dalam keadaan yang lebih menguntungkan.
+Pada masa ini, baki dompet simpanan anda ialah *RM${balance}*, iaitu *kurang RM${shortfall}* untuk menaik taraf ke *Tahap R1* (menikmati *pendapatan harian RM${data.daily}*).
 
-Pada masa ini, baki dompet simpanan anda ialah RM${balance}, iaitu kurang RM${shortfall} untuk menaik taraf ke Tahap R1 (menikmati pendapatan harian RM5).
+*Perbandingan Faedah Naik Taraf:*
 
-Perbandingan Faedah Naik Taraf:
-Tahap R⭐️ Sebelumnya: Tambah nilai RM150, Pendapatan Harian RM3
-Tahap R1 Semasa: Tambah nilai RM150, Pendapatan Harian RM5 (Peningkatan pendapatan kira-kira ${increase}%)
+Tahap *R⭐️ Sebelumnya*:  
+Tambah nilai *RM${data.amount}*, Pendapatan Harian *RM${data.prevDaily}*
 
-Semasa tempoh keistimewaan 7 hari, anda hanya perlu membayar baki RM${shortfall} untuk melengkapkan naik taraf dan mula menikmati pendapatan harian yang lebih tinggi.
+Tahap *R1 Semasa*:  
+Tambah nilai *RM${data.amount}*, Pendapatan Harian *RM${data.daily}* (Peningkatan pendapatan kira-kira *${increase}%*)
 
-Sila Ambil Perhatian:
-Semasa tempoh keistimewaan, akaun akan dijelaskan mengikut piawaian pendapatan peralihan tahap R0;
-Selepas tempoh keistimewaan berakhir, jika naik taraf tidak dilengkapkan, jika naik taraf masih tidak dilengkapkan, akaun akan dianggap sebagai peletakan jawatan automatik mengikut peraturan platform.`;
-                        } else {
-                            return `Anda mungkin telah perhatikan bahawa sebagai respons kepada pengumuman kerajaan yang berkaitan, kami sedang menyesuaikan dasar platform secara sistematik untuk memastikan pematuhan dengan "Akta Pekerja Gig 2025" (Akta 872) yang akan datang sebelum pelaksanaannya, dijangka selesai menjelang akhir Mac 2026.
+Semasa *tempoh keistimewaan 7 hari*, anda hanya perlu *membayar baki RM${shortfall}* untuk melengkapkan naik taraf dan *mula menikmati pendapatan harian yang lebih tinggi dengan segera*.
 
-Berdasarkan ini, platform secara rasmi melancarkan sistem tahap akaun baharu. Ahli yang layak akan menikmati tempoh keistimewaan 7 hari untuk menyelesaikan naik taraf tahap dalam keadaan yang lebih menguntungkan.
+*Nota Penting:*
 
-Pada masa ini, baki dompet simpanan anda ialah RM${balance}, iaitu kurang RM${shortfall} untuk menaik taraf ke Tahap R1 (menikmati pendapatan harian RM5).
+* Semasa tempoh keistimewaan, akaun akan dijelaskan mengikut *piawaian pendapatan peralihan tahap R0*;
+* Selepas tempoh keistimewaan berakhir, jika naik taraf *tidak dilengkapkan*, akaun akan *dianggap sebagai peletakan jawatan automatik* mengikut peraturan platform.`;
+                    } else {
+                        return `Anda mungkin telah perhatikan bahawa sebagai respons kepada pengumuman kerajaan yang berkaitan, kami sedang menyesuaikan dasar platform secara sistematik untuk memastikan pematuhan dengan *Akta Pekerja Gig 2025 (Akta 872)* sebelum pelaksanaannya, dijangka selesai sepenuhnya menjelang *akhir Mac 2026*.
 
-Perbandingan Faedah Naik Taraf:
-Tahap R⭐️ Sebelumnya: Tambah nilai RM150, Pendapatan Harian RM3
-Tahap R1 Semasa: Tambah nilai RM150, Pendapatan Harian RM5 (Peningkatan pendapatan kira-kira ${increase}%)
+Berdasarkan pelarasan ini, platform secara rasmi melancarkan *sistem tahap akaun baharu*. Ahli yang layak akan menikmati *tempoh keistimewaan 7 hari* untuk menyelesaikan naik taraf tahap dalam keadaan yang lebih menguntungkan.
 
-Semasa tempoh keistimewaan 7 hari, anda hanya perlu membayar baki RM${shortfall} untuk melengkapkan naik taraf dan mula menikmati pendapatan harian yang lebih tinggi.
+Pada masa ini, baki dompet simpanan anda ialah *RM${balance}*, iaitu *kurang RM${shortfall}* untuk menaik taraf ke *Tahap R1* (menikmati *pendapatan harian RM${data.daily}*).
 
-Sila Ambil Perhatian:
-Semasa tempoh keistimewaan, akaun akan dijelaskan mengikut piawaian pendapatan peralihan tahap R0;
-Selepas tempoh keistimewaan berakhir, jika naik taraf tidak dilengkapkan, kaedah pembayaran baki tidak lagi disokong. Untuk naik taraf seterusnya ke tahap R1, pembayaran penuh sekali RM150 diperlukan mengikut peraturan platform.`;
-                        }
-                    } else if (level === 'R2') {
-                        return `Anda mungkin telah perhatikan bahawa sebagai respons kepada pengumuman kerajaan yang berkaitan, kami sedang menyesuaikan dasar platform secara sistematik untuk memastikan pematuhan dengan "Akta Pekerja Gig 2025" (Akta 872) yang akan datang sebelum pelaksanaannya, dijangka selesai menjelang akhir Mac 2026.
+*Perbandingan Faedah Naik Taraf:*
 
-Berdasarkan ini, platform secara rasmi melancarkan sistem tahap akaun baharu. Ahli yang layak akan menikmati tempoh keistimewaan 7 hari untuk menyelesaikan naik taraf tahap dalam keadaan yang lebih menguntungkan.
+Tahap *R⭐️ Sebelumnya*:  
+Tambah nilai *RM${data.amount}*, Pendapatan Harian *RM${data.prevDaily}*
 
-Pada masa ini, baki dompet simpanan anda ialah RM${balance}, iaitu kurang RM${shortfall} untuk menaik taraf ke Tahap R2 (menikmati pendapatan harian RM15).
+Tahap *R1 Semasa*:  
+Tambah nilai *RM${data.amount}*, Pendapatan Harian *RM${data.daily}* (Peningkatan pendapatan kira-kira *${increase}%*)
 
-Perbandingan Faedah Naik Taraf:
-Tahap R1 Semasa: Sudah menambah nilai RM150, Pendapatan Harian RM5
-Tahap R2 Semasa: Tambah nilai RM450, Pendapatan Harian RM15 (Peningkatan pendapatan kira-kira ${increase}%)
+Semasa *tempoh keistimewaan 7 hari*, anda hanya perlu *membayar baki RM${shortfall}* untuk melengkapkan naik taraf dan *mula menikmati pendapatan harian yang lebih tinggi dengan segera*.
 
-Semasa tempoh keistimewaan 7 hari, anda hanya perlu membayar baki RM${shortfall} untuk melengkapkan naik taraf dan mula menikmati pendapatan harian yang lebih tinggi.
+*Nota Penting:*
 
-Sila Ambil Perhatian:
-Semasa tempoh keistimewaan, akaun akan dijelaskan mengikut piawaian pendapatan peralihan tahap R1;
-Selepas tempoh keistimewaan berakhir, jika naik taraf tidak dilengkapkan, kaedah pembayaran baki tidak lagi disokong. Untuk naik taraf seterusnya ke tahap R2, pembayaran penuh sekali RM450 diperlukan mengikut peraturan platform.`;
-                    } else if (level === 'R3') {
-                        return `Anda mungkin telah perhatikan bahawa sebagai respons kepada pengumuman kerajaan yang berkaitan, kami sedang menyesuaikan dasar platform secara sistematik untuk memastikan pematuhan dengan "Akta Pekerja Gig 2025" (Akta 872) yang akan datang sebelum pelaksanaannya, dijangka selesai menjelang akhir Mac 2026.
-
-Berdasarkan ini, platform secara rasmi melancarkan sistem tahap akaun baharu. Ahli yang layak akan menikmati tempoh keistimewaan 7 hari untuk menyelesaikan naik taraf tahap dalam keadaan yang lebih menguntungkan.
-
-Pada masa ini, baki dompet simpanan anda ialah RM${balance}, iaitu kurang RM${shortfall} untuk menaik taraf ke Tahap R3 (menikmati pendapatan harian RM45).
-
-Perbandingan Faedah Naik Taraf:
-Tahap R2 Semasa: Sudah menambah nilai RM450, Pendapatan Harian RM15
-Tahap R3 Semasa: Tambah nilai RM1350, Pendapatan Harian RM45 (Peningkatan pendapatan kira-kira ${increase}%)
-
-Semasa tempoh keistimewaan 7 hari, anda hanya perlu membayar baki RM${shortfall} untuk melengkapkan naik taraf dan mula menikmati pendapatan harian yang lebih tinggi.
-
-Sila Ambil Perhatian:
-Semasa tempoh keistimewaan, akaun akan dijelaskan mengikut piawaian pendapatan peralihan tahap R2;
-Selepas tempoh keistimewaan berakhir, jika naik taraf tidak dilengkapkan, kaedah pembayaran baki tidak lagi disokong. Untuk naik taraf seterusnya ke tahap R3, pembayaran penuh sekali RM1350 diperlukan mengikut peraturan platform.`;
+* Semasa tempoh keistimewaan, akaun akan dijelaskan mengikut *piawaian pendapatan peralihan tahap R0*;
+* Selepas tempoh keistimewaan berakhir, jika naik taraf *tidak dilengkapkan*, kaedah pembayaran baki tidak lagi disokong. Untuk naik taraf seterusnya ke tahap R1, *pembayaran penuh sekali RM${data.fullAmount}* diperlukan mengikut peraturan platform.`;
                     }
+                } else if (level === 'R2') {
+                    return `Anda mungkin telah perhatikan bahawa sebagai respons kepada pengumuman kerajaan yang berkaitan, kami sedang menyesuaikan dasar platform secara sistematik untuk memastikan pematuhan dengan *Akta Pekerja Gig 2025 (Akta 872)* sebelum pelaksanaannya, dijangka selesai sepenuhnya menjelang *akhir Mac 2026*.
+
+Berdasarkan pelarasan ini, platform secara rasmi melancarkan *sistem tahap akaun baharu*. Ahli yang layak akan menikmati *tempoh keistimewaan 7 hari* untuk menyelesaikan naik taraf tahap dalam keadaan yang lebih menguntungkan.
+
+Pada masa ini, baki dompet simpanan anda ialah *RM${balance}*, iaitu *kurang RM${shortfall}* untuk menaik taraf ke *Tahap R2* (menikmati *pendapatan harian RM${data.daily}*).
+
+*Perbandingan Faedah Naik Taraf:*
+
+Tahap *R1 Semasa*:  
+Sudah menambah nilai *RM150*, Pendapatan Harian *RM${data.prevDaily}*
+
+Tahap *R2 Semasa*:  
+Tambah nilai *RM${data.amount}*, Pendapatan Harian *RM${data.daily}* (Peningkatan pendapatan kira-kira *${increase}%*)
+
+Semasa *tempoh keistimewaan 7 hari*, anda hanya perlu *membayar baki RM${shortfall}* untuk melengkapkan naik taraf dan *mula menikmati pendapatan harian yang lebih tinggi dengan segera*.
+
+*Nota Penting:*
+
+* Semasa tempoh keistimewaan, akaun akan dijelaskan mengikut *piawaian pendapatan peralihan tahap R1*;
+* Selepas tempoh keistimewaan berakhir, jika naik taraf *tidak dilengkapkan*, kaedah pembayaran baki tidak lagi disokong. Untuk naik taraf seterusnya ke tahap R2, *pembayaran penuh sekali RM${data.fullAmount}* diperlukan mengikut peraturan platform.`;
+                } else if (level === 'R3') {
+                    return `Anda mungkin telah perhatikan bahawa sebagai respons kepada pengumuman kerajaan yang berkaitan, kami sedang menyesuaikan dasar platform secara sistematik untuk memastikan pematuhan dengan *Akta Pekerja Gig 2025 (Akta 872)* sebelum pelaksanaannya, dijangka selesai sepenuhnya menjelang *akhir Mac 2026*.
+
+Berdasarkan pelarasan ini, platform secara rasmi melancarkan *sistem tahap akaun baharu*. Ahli yang layak akan menikmati *tempoh keistimewaan 7 hari* untuk menyelesaikan naik taraf tahap dalam keadaan yang lebih menguntungkan.
+
+Pada masa ini, baki dompet simpanan anda ialah *RM${balance}*, iaitu *kurang RM${shortfall}* untuk menaik taraf ke *Tahap R3* (menikmati *pendapatan harian RM${data.daily}*).
+
+*Perbandingan Faedah Naik Taraf:*
+
+Tahap *R2 Semasa*:  
+Sudah menambah nilai *RM450*, Pendapatan Harian *RM${data.prevDaily}*
+
+Tahap *R3 Semasa*:  
+Tambah nilai *RM${data.amount}*, Pendapatan Harian *RM${data.daily}* (Peningkatan pendapatan kira-kira *${increase}%*)
+
+Semasa *tempoh keistimewaan 7 hari*, anda hanya perlu *membayar baki RM${shortfall}* untuk melengkapkan naik taraf dan *mula menikmati pendapatan harian yang lebih tinggi dengan segera*.
+
+*Nota Penting:*
+
+* Semasa tempoh keistimewaan, akaun akan dijelaskan mengikut *piawaian pendapatan peralihan tahap R2*;
+* Selepas tempoh keistimewaan berakhir, jika naik taraf *tidak dilengkapkan*, kaedah pembayaran baki tidak lagi disokong. Untuk naik taraf seterusnya ke tahap R3, *pembayaran penuh sekali RM${data.fullAmount}* diperlukan mengikut peraturan platform.`;
                 }
             }
         };
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`tab-${lang}`).classList.add('active');
-
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) {
-                    el.textContent = translations[lang][key];
-                }
-            });
-
-            updateCalculation();
-        }
 
         function selectLevel(level) {
             currentLevel = level;
@@ -646,6 +669,21 @@ Selepas tempoh keistimewaan berakhir, jika naik taraf tidak dilengkapkan, kaedah
             updateCalculation();
         }
 
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.classList.add('text-gray-600');
+            });
+            document.getElementById(`lang-tab-${lang}`).classList.add('active');
+            document.getElementById(`lang-tab-${lang}`).classList.remove('text-gray-600');
+            
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(`content-${lang}`).classList.add('active');
+        }
+
         function updateCalculation() {
             const balance = parseFloat(document.getElementById('currentBalance').value) || 0;
             const data = levelData[currentLevel];
@@ -658,17 +696,17 @@ Selepas tempoh keistimewaan berakhir, jika naik taraf tidak dilengkapkan, kaedah
             if (currentLevel === 'R1') {
                 if (balance < 49) {
                     statusBadge.className = 'status-badge status-low absolute right-3 top-3';
-                    statusBadge.textContent = translations[currentLang].status_low;
-                    templateType.textContent = translations[currentLang].template_resignation;
+                    statusBadge.textContent = '低余额';
+                    templateType.textContent = '自动离职模板';
                 } else {
                     statusBadge.className = 'status-badge status-normal absolute right-3 top-3';
-                    statusBadge.textContent = translations[currentLang].status_normal;
-                    templateType.textContent = translations[currentLang].template_standard;
+                    statusBadge.textContent = '正常';
+                    templateType.textContent = '标准升级模板';
                 }
             } else {
                 statusBadge.className = 'status-badge status-normal absolute right-3 top-3';
-                statusBadge.textContent = translations[currentLang].status_normal;
-                templateType.textContent = translations[currentLang].template_standard;
+                statusBadge.textContent = '正常';
+                templateType.textContent = '标准升级模板';
             }
 
             document.getElementById('requiredAmount').textContent = `RM ${data.amount.toLocaleString()}`;
@@ -676,20 +714,42 @@ Selepas tempoh keistimewaan berakhir, jika naik taraf tidak dilengkapkan, kaedah
             document.getElementById('dailyIncome').textContent = `RM ${data.daily}`;
             document.getElementById('monthlyIncome').textContent = `RM ${data.monthly.toLocaleString()}`;
 
-            const content = translations[currentLang].generateContent(balance, currentLevel, data, shortfall);
-            document.getElementById('contentDisplay').textContent = content;
+            // Generate content for all languages
+            ['zh', 'en', 'ms'].forEach(lang => {
+                const content = contentGenerators[lang](balance, currentLevel, data, shortfall);
+                document.getElementById(`contentDisplay-${lang}`).textContent = content;
+            });
         }
 
-        function copyContent() {
-            const content = document.getElementById('contentDisplay').textContent;
+        function copySingleLanguage(lang) {
+            const content = document.getElementById(`contentDisplay-${lang}`).textContent;
             navigator.clipboard.writeText(content).then(() => {
-                const btn = document.getElementById('copyBtn');
+                const btn = document.querySelector(`#content-${lang} .copy-btn`);
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <span>已复制</span>';
                 btn.classList.add('copied');
-                btn.querySelector('span').textContent = translations[currentLang].copied;
-
+                
                 setTimeout(() => {
+                    btn.innerHTML = originalText;
                     btn.classList.remove('copied');
-                    btn.querySelector('span').textContent = translations[currentLang].copy;
+                }, 2000);
+            });
+        }
+
+        function copyAllLanguages() {
+            const zhContent = document.getElementById('contentDisplay-zh').textContent;
+            const enContent = document.getElementById('contentDisplay-en').textContent;
+            const msContent = document.getElementById('contentDisplay-ms').textContent;
+            
+            const combinedContent = `【中文】\n${zhContent}\n\n【English】\n${enContent}\n\n【Bahasa Melayu】\n${msContent}`;
+            
+            navigator.clipboard.writeText(combinedContent).then(() => {
+                const btn = document.querySelector('.copy-all-btn');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <span>已全部复制!</span>';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
                 }, 2000);
             });
         }
