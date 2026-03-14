@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -134,6 +135,7 @@
             color: #059669;
         }
     </style>
+<base target="_blank">
 <base target="_blank">
 <base target="_blank">
 </head>
@@ -464,158 +466,175 @@
             standard: {
                 zh: (balance, level, data, shortfall) => {
                     const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
-                    
+
                     if (level === 'R1' && balance < 49) {
-                        return `您可能已经注意到，为积极响应政府相关公告，平台正有序调整相关政策，旨在确保各项机制可在 *《零工工作者法案 2025》（第872号法案）* 正式实施前完成合规对接，相关要求预计将于 *2026 年 3 月底前* 全面落实。
+                        return `重要通知｜今天为最后升级日
 
-基于上述调整，平台现 *正式推出全新的账号等级模式*。凡符合条件的成员，均可享有 *7 天特权期*，在更有利的条件下完成账号等级升级。
+目前，您的储蓄钱包余额为 *RM${balance}*，
+距离升级至 *${level} 级别*（每日收入 *RM${data.daily}*）仍需补足 *RM${shortfall}*。
 
-目前，您的储蓄钱包余额为 *RM${balance}*，距离升级至 *${level} 级别*（可享受 *每日收入 RM${data.daily}*）仍需补足 *RM${shortfall}*。
+*升级收益对比*
 
-*升级收益对比说明：*
-
-原 *${data.prevLevel} 级别*：  
+*${data.prevLevel} 级别*：
 充值 *RM${data.fullAmount}*，每日收入 *RM${data.prevDaily}*
-
-现 *${level} 级别*：  
+*${level} 级别*：
 充值 *RM${data.amount}*，每日收入 *RM${data.daily}*（收益提升约 *${increase}%*）
 
-在 *7 天特权期内*，您仅需 *补足 RM${shortfall} 差额*，即可完成升级，并 *立即开始享受更高的每日收入回报*。
+*最终提醒（请务必留意）*
 
-*请您留意以下重要事项：*
-
-* 特权期内，账号将 *暂按 ${data.prevLevel} 级别的过渡收益标准* 进行结算；  
-* 特权期结束后，如仍 *未完成升级*，账号将 *根据平台规则自动视为离职处理*。`;
+*今天是账号升级的最后一天。*
+截至今日结束前，
+凡未完成升级至 ${level} 的账号，系统将依据平台规则自动视为离职处理，
+账号将停止参与任何收益结算，且不再保留升级资格。
+这是平台在政策调整及合规过渡期间，
+给予成员的最后一次升级机会。
+请尚未完成升级的成员，
+务必于今天内完成操作，
+以免影响账号状态及后续权益。
+感谢您的理解与配合。🙏`;
                     } else {
-                        return `您可能已经注意到，为积极响应政府相关公告，平台正有序调整相关政策，旨在确保各项机制可在 *《零工工作者法案 2025》（第872号法案）* 正式实施前完成合规对接，相关要求预计将于 *2026 年 3 月底前* 全面落实。
+                        return `重要通知｜今天为最后升级日
 
-基于上述调整，平台现 *正式推出全新的账号等级模式*。凡符合条件的成员，均可享有 *7 天特权期*，在更有利的条件下完成账号等级升级。
+目前，您的储蓄钱包余额为 *RM${balance}*，
+距离升级至 *${level} 级别*（每日收入 *RM${data.daily}*）仍需补足 *RM${shortfall}*。
 
-目前，您的储蓄钱包余额为 *RM${balance}*，距离升级至 *${level} 级别*（可享受 *每日收入 RM${data.daily}*）仍需补足 *RM${shortfall}*。
+*升级收益对比*
 
-*升级收益对比说明：*
-
-${data.prevAmount > 0 ? `当前 *${data.prevLevel} 级别*：  
+${data.prevAmount > 0 ? `*${data.prevLevel} 级别*：
 已充值 *RM${data.prevAmount}*，每日收入 *RM${data.prevDaily}*
 
-现` : `原 *${data.prevLevel} 级别*：  
+现` : `*${data.prevLevel} 级别*：
 充值 *RM${data.fullAmount}*，每日收入 *RM${data.prevDaily}*
 
-现`} *${level} 级别*：  
+现`} *${level} 级别*：
 充值 *RM${data.amount}*，每日收入 *RM${data.daily}*（收益提升约 *${increase}%*）
 
-在 *7 天特权期内*，您仅需 *补足 RM${shortfall} 差额*，即可完成升级，并 *立即开始享受更高的每日收入回报*。
+*最终提醒（请务必留意）*
 
-*请您留意以下重要事项：*
-
-* 特权期内，账号将 *暂按 ${data.prevLevel} 级别的过渡收益标准* 进行结算；  
-* 特权期结束后，如仍 *未完成升级*，将不再支持差额补齐方式，后续如需升级至 ${level} 级别，需按平台规则 *一次性充值 RM${data.fullAmount} 完成全额升级*。`;
+*今天是账号升级的最后一天。*
+截至今日结束前，
+凡未完成升级至 ${level} 的账号，系统将依据平台规则自动视为离职处理，
+账号将停止参与任何收益结算，且不再保留升级资格。
+这是平台在政策调整及合规过渡期间，
+给予成员的最后一次升级机会。
+请尚未完成升级的成员，
+务必于今天内完成操作，
+以免影响账号状态及后续权益。
+感谢您的理解与配合。🙏`;
                     }
-                },
-                
-                en: (balance, level, data, shortfall) => {
+                },en: (balance, level, data, shortfall) => {
                     const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
-                    
+
                     if (level === 'R1' && balance < 49) {
-                        return `You may have noticed that in response to relevant government announcements, we are systematically adjusting platform policies to ensure compliance with the *Gig Workers Act 2025 (Act 872)* before its implementation, expected to be fully completed by *end of March 2026*.
+                        return `Important Notice | Last Day for Upgrade Today
 
-Based on these adjustments, the platform is officially launching a *new account level system*. Eligible members will enjoy a *7-day privilege period* to complete level upgrades under more favorable conditions.
+Currently, your savings wallet balance is *RM${balance}*,
+You are *RM${shortfall} short* of upgrading to *Level ${level}* (enjoying *daily income of RM${data.daily}*).
 
-Currently, your savings wallet balance is *RM${balance}*, which is *RM${shortfall} short* of upgrading to *Level ${level}* (enjoying *daily income of RM${data.daily}*).
+*Upgrade Benefits Comparison*
 
-*Upgrade Benefits Comparison:*
-
-Previous *${data.prevLevel} Level*:  
+*${data.prevLevel} Level*:
 Top-up *RM${data.fullAmount}*, Daily Income *RM${data.prevDaily}*
-
-Current *${level} Level*:  
+*${level} Level*:
 Top-up *RM${data.amount}*, Daily Income *RM${data.daily}* (Income increase of approximately *${increase}%*)
 
-During the *7-day privilege period*, you only need to *pay the remaining RM${shortfall}* to complete the upgrade and *immediately start enjoying higher daily income returns*.
+*Final Reminder (Please Pay Attention)*
 
-*Important Notes:*
-
-* During the privilege period, accounts will be settled according to the *transitional income standards of ${data.prevLevel} level*;
-* After the privilege period ends, if the upgrade is *not completed*, the account will be *treated as automatic resignation* according to platform rules.`;
+*Today is the last day for account upgrade.*
+Before the end of today,
+All accounts that have not completed upgrade to ${level} will be treated as automatic resignation according to platform rules,
+The account will stop participating in any income settlement and will no longer retain upgrade eligibility.
+This is the last upgrade opportunity given to members by the platform during the policy adjustment and compliance transition period.
+Members who have not yet completed the upgrade,
+Please complete the operation within today,
+So as not to affect the account status and subsequent rights.
+Thank you for your understanding and cooperation.🙏`;
                     } else {
-                        return `You may have noticed that in response to relevant government announcements, we are systematically adjusting platform policies to ensure compliance with the *Gig Workers Act 2025 (Act 872)* before its implementation, expected to be fully completed by *end of March 2026*.
+                        return `Important Notice | Last Day for Upgrade Today
 
-Based on these adjustments, the platform is officially launching a *new account level system*. Eligible members will enjoy a *7-day privilege period* to complete level upgrades under more favorable conditions.
+Currently, your savings wallet balance is *RM${balance}*,
+You are *RM${shortfall} short* of upgrading to *Level ${level}* (enjoying *daily income of RM${data.daily}*).
 
-Currently, your savings wallet balance is *RM${balance}*, which is *RM${shortfall} short* of upgrading to *Level ${level}* (enjoying *daily income of RM${data.daily}*).
+*Upgrade Benefits Comparison*
 
-*Upgrade Benefits Comparison:*
-
-${data.prevAmount > 0 ? `Current *${data.prevLevel} Level*:  
+${data.prevAmount > 0 ? `*${data.prevLevel} Level*:
 Already topped up *RM${data.prevAmount}*, Daily Income *RM${data.prevDaily}*
 
-Current` : `Previous *${data.prevLevel} Level*:  
+Current` : `*${data.prevLevel} Level*:
 Top-up *RM${data.fullAmount}*, Daily Income *RM${data.prevDaily}*
 
-Current`} *${level} Level*:  
+Current`} *${level} Level*:
 Top-up *RM${data.amount}*, Daily Income *RM${data.daily}* (Income increase of approximately *${increase}%*)
 
-During the *7-day privilege period*, you only need to *pay the remaining RM${shortfall}* to complete the upgrade and *immediately start enjoying higher daily income returns*.
+*Final Reminder (Please Pay Attention)*
 
-*Important Notes:*
-
-* During the privilege period, accounts will be settled according to the *transitional income standards of ${data.prevLevel} level*;
-* After the privilege period ends, if the upgrade is *not completed*, the difference payment method will no longer be supported. For subsequent upgrade to ${level} level, a *one-time full payment of RM${data.fullAmount}* is required according to platform rules.`;
+*Today is the last day for account upgrade.*
+Before the end of today,
+All accounts that have not completed upgrade to ${level} will be treated as automatic resignation according to platform rules,
+The account will stop participating in any income settlement and will no longer retain upgrade eligibility.
+This is the last upgrade opportunity given to members by the platform during the policy adjustment and compliance transition period.
+Members who have not yet completed the upgrade,
+Please complete the operation within today,
+So as not to affect the account status and subsequent rights.
+Thank you for your understanding and cooperation.🙏`;
                     }
-                },
-                
-                ms: (balance, level, data, shortfall) => {
+                },ms: (balance, level, data, shortfall) => {
                     const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
-                    
+
                     if (level === 'R1' && balance < 49) {
-                        return `Anda mungkin telah perhatikan bahawa sebagai respons kepada pengumuman kerajaan yang berkaitan, kami sedang menyesuaikan dasar platform secara sistematik untuk memastikan pematuhan dengan *Akta Pekerja Gig 2025 (Akta 872)* sebelum pelaksanaannya, dijangka selesai sepenuhnya menjelang *akhir Mac 2026*.
+                        return `Notis Penting | Hari Terakhir untuk Naik Taraf Hari Ini
 
-Berdasarkan pelarasan ini, platform secara rasmi melancarkan *sistem tahap akaun baharu*. Ahli yang layak akan menikmati *tempoh keistimewaan 7 hari* untuk menyelesaikan naik taraf tahap dalam keadaan yang lebih menguntungkan.
+Pada masa ini, baki dompet simpanan anda ialah *RM${balance}*,
+Anda *kurang RM${shortfall}* untuk menaik taraf ke *Tahap ${level}* (menikmati *pendapatan harian RM${data.daily}*).
 
-Pada masa ini, baki dompet simpanan anda ialah *RM${balance}*, iaitu *kurang RM${shortfall}* untuk menaik taraf ke *Tahap ${level}* (menikmati *pendapatan harian RM${data.daily}*).
+*Perbandingan Faedah Naik Taraf*
 
-*Perbandingan Faedah Naik Taraf:*
-
-Tahap *${data.prevLevel} Sebelumnya*:  
+*Tahap ${data.prevLevel}*:
 Tambah nilai *RM${data.fullAmount}*, Pendapatan Harian *RM${data.prevDaily}*
-
-Tahap *${level} Semasa*:  
+*Tahap ${level}*:
 Tambah nilai *RM${data.amount}*, Pendapatan Harian *RM${data.daily}* (Peningkatan pendapatan kira-kira *${increase}%*)
 
-Semasa *tempoh keistimewaan 7 hari*, anda hanya perlu *membayar baki RM${shortfall}* untuk melengkapkan naik taraf dan *mula menikmati pendapatan harian yang lebih tinggi dengan segera*.
+*Peringatan Akhir (Sila Beri Perhatian)*
 
-*Nota Penting:*
-
-* Semasa tempoh keistimewaan, akaun akan dijelaskan mengikut *piawaian pendapatan peralihan tahap ${data.prevLevel}*;
-* Selepas tempoh keistimewaan berakhir, jika naik taraf *tidak dilengkapkan*, akaun akan *dianggap sebagai peletakan jawatan automatik* mengikut peraturan platform.`;
+*Hari ini ialah hari terakhir untuk naik taraf akaun.*
+Sebelum akhir hari ini,
+Semua akaun yang belum menyelesaikan naik taraf ke ${level} akan dianggap sebagai peletakan jawatan automatik mengikut peraturan platform,
+Akaun akan berhenti menyertai sebarang penjelasan pendapatan dan tidak lagi mengekalkan kelayakan naik taraf.
+Ini ialah peluang naik taraf terakhir yang diberikan kepada ahli oleh platform semasa tempoh penyesuaian dasar dan peralihan pematuhan.
+Ahli yang masih belum menyelesaikan naik taraf,
+Sila lengkapkan operasi dalam hari ini,
+Supaya tidak menjejaskan status akaun dan hak berikutnya.
+Terima kasih atas pemahaman dan kerjasama anda.🙏`;
                     } else {
-                        return `Anda mungkin telah perhatikan bahawa sebagai respons kepada pengumuman kerajaan yang berkaitan, kami sedang menyesuaikan dasar platform secara sistematik untuk memastikan pematuhan dengan *Akta Pekerja Gig 2025 (Akta 872)* sebelum pelaksanaannya, dijangka selesai sepenuhnya menjelang *akhir Mac 2026*.
+                        return `Notis Penting | Hari Terakhir untuk Naik Taraf Hari Ini
 
-Berdasarkan pelarasan ini, platform secara rasmi melancarkan *sistem tahap akaun baharu*. Ahli yang layak akan menikmati *tempoh keistimewaan 7 hari* untuk menyelesaikan naik taraf tahap dalam keadaan yang lebih menguntungkan.
+Pada masa ini, baki dompet simpanan anda ialah *RM${balance}*,
+Anda *kurang RM${shortfall}* untuk menaik taraf ke *Tahap ${level}* (menikmati *pendapatan harian RM${data.daily}*).
 
-Pada masa ini, baki dompet simpanan anda ialah *RM${balance}*, iaitu *kurang RM${shortfall}* untuk menaik taraf ke *Tahap ${level}* (menikmati *pendapatan harian RM${data.daily}*).
+*Perbandingan Faedah Naik Taraf*
 
-*Perbandingan Faedah Naik Taraf:*
-
-${data.prevAmount > 0 ? `Tahap *${data.prevLevel} Semasa*:  
+${data.prevAmount > 0 ? `*Tahap ${data.prevLevel}*:
 Sudah menambah nilai *RM${data.prevAmount}*, Pendapatan Harian *RM${data.prevDaily}*
 
-Tahap` : `Tahap *${data.prevLevel} Sebelumnya*:  
+Tahap` : `*Tahap ${data.prevLevel}*:
 Tambah nilai *RM${data.fullAmount}*, Pendapatan Harian *RM${data.prevDaily}*
 
-Tahap`} *${level} Semasa*:  
+Tahap`} *${level} Semasa*:
 Tambah nilai *RM${data.amount}*, Pendapatan Harian *RM${data.daily}* (Peningkatan pendapatan kira-kira *${increase}%*)
 
-Semasa *tempoh keistimewaan 7 hari*, anda hanya perlu *membayar baki RM${shortfall}* untuk melengkapkan naik taraf dan *mula menikmati pendapatan harian yang lebih tinggi dengan segera*.
+*Peringatan Akhir (Sila Beri Perhatian)*
 
-*Nota Penting:*
-
-* Semasa tempoh keistimewaan, akaun akan dijelaskan mengikut *piawaian pendapatan peralihan tahap ${data.prevLevel}*;
-* Selepas tempoh keistimewaan berakhir, jika naik taraf *tidak dilengkapkan*, kaedah pembayaran baki tidak lagi disokong. Untuk naik taraf seterusnya ke tahap ${level}, *pembayaran penuh sekali RM${data.fullAmount}* diperlukan mengikut peraturan platform.`;
+*Hari ini ialah hari terakhir untuk naik taraf akaun.*
+Sebelum akhir hari ini,
+Semua akaun yang belum menyelesaikan naik taraf ke ${level} akan dianggap sebagai peletakan jawatan automatik mengikut peraturan platform,
+Akaun akan berhenti menyertai sebarang penjelasan pendapatan dan tidak lagi mengekalkan kelayakan naik taraf.
+Ini ialah peluang naik taraf terakhir yang diberikan kepada ahli oleh platform semasa tempoh penyesuaian dasar dan peralihan pematuhan.
+Ahli yang masih belum menyelesaikan naik taraf,
+Sila lengkapkan operasi dalam hari ini,
+Supaya tidak menjejaskan status akaun dan hak berikutnya.
+Terima kasih atas pemahaman dan kerjasama anda.🙏`;
                     }
-                }
-            },
-            
+                },            
             special: {
                 zh: (balance, level, data, shortfall) => {
                     const fee = (balance * 0.1).toFixed(2);
@@ -704,6 +723,7 @@ semua permohonan naik taraf baki akan dihentikan.
 Hari ini ialah peluang terakhir anda, sila rebutnya. 🙏`;
                 }
             }
+        }
         };
 
         function selectLevel(level) {
