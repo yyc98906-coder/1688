@@ -623,24 +623,27 @@ Semasa *tempoh keistimewaan 7 hari*, anda hanya perlu *membayar baki RM${shortfa
 
                     return `您当前储蓄钱包余额 RM${balance}，
 距离升级 ${level} 仅差 RM${shortfall}。
-⏰ 限时特殊期（仅剩2天）
-补齐差价即可直接升级 ${level}。
+⏰ 限时特殊期 · 今天最后一天
+补齐差价，即可直接升级 ${level}。
 📌 下周起规则调整：
 需新充值 RM${data.fullAmount} 才可激活 ${level}。
 届时 RM${balance} 将返还至灵活钱包，
 提取时需支付 10% 手续费（RM${fee}）。
-💡 现在升级更划算
+💡 今天升级最划算
 仅需充值 RM${shortfall}，即可：
 
 ✅ 立即成为 ${level}，享受每日收益
 ✅ 直接省下 RM${savings} 手续费
 
-⚠️ 特殊期结束后，仅支持全额充值升级。
-📅 3月13日–15日｜🎯 ${data.prevLevel} ➝ ${level}
+⚠️ 今天结束后，
+将不再支持差价升级，
+仅可通过全额充值激活。
+📅 截止今天（3月15日）
+🎯 升级目标：${data.prevLevel} ➝ ${level}
 🎁 升级即送 1 个额外现金码
-🕛 3月16日 00:00 后，
-所有差价升级将停止受理。
-请把握最后机会。🙏`;
+🕛 3月16日 00:00 起，
+所有差价升级申请将全部停止。
+今天是最后机会，请务必把握。 🙏`;
                 },
 
                 en: (balance, level, data, shortfall) => {
@@ -649,24 +652,27 @@ Semasa *tempoh keistimewaan 7 hari*, anda hanya perlu *membayar baki RM${shortfa
 
                     return `Your current savings wallet balance: RM${balance},
 Only RM${shortfall} away from upgrading to ${level}.
-⏰ Limited Special Period (Only 2 days left)
+⏰ Limited Special Period · Last Day Today
 Pay the difference to upgrade to ${level} immediately.
 📌 Rule changes starting next week:
 New top-up of RM${data.fullAmount} required to activate ${level}.
 Your RM${balance} will be returned to flexible wallet,
 but 10% withdrawal fee (RM${fee}) applies upon extraction.
-💡 Upgrade now for better value
+💡 Upgrade today for best value
 Just top up RM${shortfall} to:
 
 ✅ Instantly become ${level}, enjoy daily income
 ✅ Save RM${savings} withdrawal fee directly
 
-⚠️ After special period ends, only full payment upgrades accepted.
-📅 Mar 13-15｜🎯 ${data.prevLevel} ➝ ${level}
+⚠️ After today ends,
+difference upgrades will no longer be supported,
+only full payment activation available.
+📅 Deadline: Today (Mar 15)
+🎯 Upgrade: ${data.prevLevel} ➝ ${level}
 🎁 Free 1 extra cash code upon upgrade
-🕛 After Mar 16 00:00,
-all difference upgrades will cease.
-Seize this last chance.🙏`;
+🕛 Starting Mar 16 00:00,
+all difference upgrade applications will cease.
+Today is your last chance, please seize it. 🙏`;
                 },
 
                 ms: (balance, level, data, shortfall) => {
@@ -675,24 +681,27 @@ Seize this last chance.🙏`;
 
                     return `Baki dompet simpanan anda: RM${balance},
 Hanya kurang RM${shortfall} untuk menaik taraf ke ${level}.
-⏰ Tempoh Khas Terhad (Tinggal 2 hari sahaja)
+⏰ Tempoh Khas Terhad · Hari Terakhir Hari Ini
 Tambah baki untuk menaik taraf ke ${level} dengan segera.
 📌 Perubahan peraturan bermula minggu depan:
 Tambah nilai baharu RM${data.fullAmount} diperlukan untuk mengaktifkan ${level}.
 RM${balance} anda akan dipulangkan ke dompet fleksibel,
 tetapi caj pengeluaran 10% (RM${fee}) dikenakan semasa pengeluaran.
-💡 Naik taraf sekarang lebih berbaloi
+💡 Naik taraf hari ini paling berbaloi
 Hanya tambah nilai RM${shortfall} untuk:
 
 ✅ Segera menjadi ${level}, nikmati pendapatan harian
 ✅ Jimat caj pengeluaran RM${savings} terus
 
-⚠️ Selepas tempoh khas berakhir, hanya naik taraf penuh diterima.
-📅 13-15 Mac｜🎯 ${data.prevLevel} ➝ ${level}
+⚠️ Selepas hari ini berakhir,
+naik taraf baki tidak lagi disokong,
+hanya pengaktifan pembayaran penuh tersedia.
+📅 Tarikh Akhir: Hari Ini (15 Mac)
+🎯 Naik Taraf: ${data.prevLevel} ➝ ${level}
 🎁 1 kod tunai tambahan percuma semasa naik taraf
-🕛 Selepas 16 Mac 00:00,
-semua naik taraf baki akan dihentikan.
-Rebut peluang terakhir ini.🙏`;
+🕛 Bermula 16 Mac 00:00,
+semua permohonan naik taraf baki akan dihentikan.
+Hari ini ialah peluang terakhir anda, sila rebutnya. 🙏`;
                 }
             }
         };
