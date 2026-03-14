@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -133,6 +134,7 @@
             color: #059669;
         }
     </style>
+<base target="_blank">
 <base target="_blank">
 </head>
 <body class="p-4 md:p-8">
@@ -618,73 +620,79 @@ Semasa *tempoh keistimewaan 7 hari*, anda hanya perlu *membayar baki RM${shortfa
                 zh: (balance, level, data, shortfall) => {
                     const fee = (balance * 0.1).toFixed(2);
                     const savings = (balance * 0.1).toFixed(2);
-                    
-                    return `您当前的储蓄钱包余额为 *RM${balance}*，距离升级为 *${level}* 仅差 *RM${shortfall}*。
 
-*本周限时特殊期*
-只需补齐差价，即可*直接升级为 ${level}*。
+                    return `您当前储蓄钱包余额 RM${balance}，
+距离升级 ${level} 仅差 RM${shortfall}。
+⏰ 限时特殊期（仅剩2天）
+补齐差价即可直接升级 ${level}。
+📌 下周起规则调整：
+需新充值 RM${data.fullAmount} 才可激活 ${level}。
+届时 RM${balance} 将返还至灵活钱包，
+提取时需支付 10% 手续费（RM${fee}）。
+💡 现在升级更划算
+仅需充值 RM${shortfall}，即可：
 
-需要注意的是：
-从*下周起*，${level} 的激活规则将调整为——  
-必须*新充值 RM${data.fullAmount}* 才能激活 ${level}。  
-激活后，您储蓄钱包中的 *RM${balance}* 将自动返还至灵活钱包；  
-但当您提取这笔 RM${balance} 时，将产生 *10% 手续费（RM${fee}）*。
+✅ 立即成为 ${level}，享受每日收益
+✅ 直接省下 RM${savings} 手续费
 
-*现在升级更划算*
-当前只需充值 *RM${shortfall}*，即可：
-- 立即成为 *${level}*，开始享受*每日收益*
-- 直接省下 *RM${savings}* 的取款手续费
-
-⚠️ 特殊期结束后，将不再支持差价升级，  
-只能通过*全额充值*激活对应等级。`;
+⚠️ 特殊期结束后，仅支持全额充值升级。
+📅 3月13日–15日｜🎯 ${data.prevLevel} ➝ ${level}
+🎁 升级即送 1 个额外现金码
+🕛 3月16日 00:00 后，
+所有差价升级将停止受理。
+请把握最后机会。🙏`;
                 },
-                
+
                 en: (balance, level, data, shortfall) => {
                     const fee = (balance * 0.1).toFixed(2);
                     const savings = (balance * 0.1).toFixed(2);
-                    
-                    return `Your current savings wallet balance is *RM${balance}*, just *RM${shortfall}* away from upgrading to *${level}*.
 
-*This Week's Limited Special Period*
-Simply pay the difference to *upgrade directly to ${level}*.
+                    return `Your current savings wallet balance: RM${balance},
+Only RM${shortfall} away from upgrading to ${level}.
+⏰ Limited Special Period (Only 2 days left)
+Pay the difference to upgrade to ${level} immediately.
+📌 Rule changes starting next week:
+New top-up of RM${data.fullAmount} required to activate ${level}.
+Your RM${balance} will be returned to flexible wallet,
+but 10% withdrawal fee (RM${fee}) applies upon extraction.
+💡 Upgrade now for better value
+Just top up RM${shortfall} to:
 
-Please note:
-Starting *next week*, the ${level} activation rules will be adjusted to——  
-You must *top up RM${data.fullAmount}* to activate ${level}.  
-After activation, your *RM${balance}* in the savings wallet will be automatically returned to your flexible wallet;  
-However, when you withdraw this RM${balance}, a *10% withdrawal fee (RM${fee})* will apply.
+✅ Instantly become ${level}, enjoy daily income
+✅ Save RM${savings} withdrawal fee directly
 
-*Upgrade Now for Better Value*
-Currently, you only need to top up *RM${shortfall}* to:
-- Immediately become *${level}* and start enjoying *daily income*
-- Save *RM${savings}* in withdrawal fees directly
-
-⚠️ After the special period ends, difference upgrades will no longer be supported.  
-You can only activate the corresponding level through *full payment*.`;
+⚠️ After special period ends, only full payment upgrades accepted.
+📅 Mar 13-15｜🎯 ${data.prevLevel} ➝ ${level}
+🎁 Free 1 extra cash code upon upgrade
+🕛 After Mar 16 00:00,
+all difference upgrades will cease.
+Seize this last chance.🙏`;
                 },
-                
+
                 ms: (balance, level, data, shortfall) => {
                     const fee = (balance * 0.1).toFixed(2);
                     const savings = (balance * 0.1).toFixed(2);
-                    
-                    return `Baki dompet simpanan anda semasa ialah *RM${balance}*, hanya kurang *RM${shortfall}* untuk menaik taraf ke *${level}*.
 
-*Tempoh Khas Terhad Minggu Ini*
-Hanya perlu tambah baki untuk *menaik taraf terus ke ${level}*.
+                    return `Baki dompet simpanan anda: RM${balance},
+Hanya kurang RM${shortfall} untuk menaik taraf ke ${level}.
+⏰ Tempoh Khas Terhad (Tinggal 2 hari sahaja)
+Tambah baki untuk menaik taraf ke ${level} dengan segera.
+📌 Perubahan peraturan bermula minggu depan:
+Tambah nilai baharu RM${data.fullAmount} diperlukan untuk mengaktifkan ${level}.
+RM${balance} anda akan dipulangkan ke dompet fleksibel,
+tetapi caj pengeluaran 10% (RM${fee}) dikenakan semasa pengeluaran.
+💡 Naik taraf sekarang lebih berbaloi
+Hanya tambah nilai RM${shortfall} untuk:
 
-Perlu diambil perhatian:
-Bermula *minggu depan*, peraturan pengaktifan ${level} akan diselaraskan kepada——  
-Anda mesti *tambah nilai RM${data.fullAmount}* untuk mengaktifkan ${level}.  
-Selepas pengaktifan, *RM${balance}* anda dalam dompet simpanan akan dipulangkan secara automatik ke dompet fleksibel;  
-Namun, apabila anda mengeluarkan RM${balance} ini, *caj pengeluaran 10% (RM${fee})* akan dikenakan.
+✅ Segera menjadi ${level}, nikmati pendapatan harian
+✅ Jimat caj pengeluaran RM${savings} terus
 
-*Naik Taraf Sekarang Lebih Berbaloi*
-Pada masa ini, anda hanya perlu tambah nilai *RM${shortfall}* untuk:
-- Segera menjadi *${level}* dan mula menikmati *pendapatan harian*
-- Jimat *RM${savings}* caj pengeluaran terus
-
-⚠️ Selepas tempoh khas berakhir, naik taraf baki tidak lagi disokong.  
-Anda hanya boleh mengaktifkan tahap yang berkenaan melalui *pembayaran penuh*.`;
+⚠️ Selepas tempoh khas berakhir, hanya naik taraf penuh diterima.
+📅 13-15 Mac｜🎯 ${data.prevLevel} ➝ ${level}
+🎁 1 kod tunai tambahan percuma semasa naik taraf
+🕛 Selepas 16 Mac 00:00,
+semua naik taraf baki akan dihentikan.
+Rebut peluang terakhir ini.🙏`;
                 }
             }
         };
