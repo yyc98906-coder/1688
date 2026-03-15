@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -138,6 +136,7 @@
 <base target="_blank">
 <base target="_blank">
 <base target="_blank">
+<base target="_blank">
 </head>
 <body class="p-4 md:p-8">
     <div class="max-w-6xl mx-auto">
@@ -161,7 +160,7 @@
                                placeholder="输入当前余额">
                         <span id="balanceStatus" class="status-badge status-low absolute right-3 top-3">低余额</span>
                     </div>
-                    <p class="text-sm text-gray-500 mt-2">R1等级：余额&lt;49显示自动离职文案，≥49显示标准升级文案</p>
+                    <p class="text-sm text-gray-500 mt-2">R1等级：余额&lt;49显示自动离职文案，≥49显示差额升级文案</p>
                 </div>
 
                 <!-- Target Level Selection -->
@@ -186,35 +185,6 @@
                     </div>
                 </div>
 
-                <!-- Template Selection -->
-                <div class="mb-6">
-                    <label class="block text-gray-700 font-medium mb-3">选择文案模板</label>
-                    <div class="space-y-3">
-                        <div onclick="selectTemplate('standard')" id="template-standard" class="template-card active bg-white rounded-xl p-4 border-2 border-gray-200">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <div class="font-semibold text-gray-800">标准升级模板</div>
-                                    <div class="text-sm text-gray-500 mt-1">包含法案信息、收益对比、7天特权期说明</div>
-                                </div>
-                                <div class="text-purple-600">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                </div>
-                            </div>
-                        </div>
-                        <div onclick="selectTemplate('special')" id="template-special" class="template-card bg-white rounded-xl p-4 border-2 border-gray-200">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <div class="font-semibold text-gray-800">限时特殊期模板 <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full ml-2">NEW</span></div>
-                                    <div class="text-sm text-gray-500 mt-1">包含10%手续费计算、下周新规则预警、立即升级优惠</div>
-                                </div>
-                                <div class="text-gray-400">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Calculation Results -->
                 <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-6 border border-purple-100">
                     <div class="grid grid-cols-2 gap-4">
@@ -225,30 +195,6 @@
                         <div class="text-center">
                             <div class="text-gray-500 text-sm mb-1">差额</div>
                             <div class="text-3xl font-bold text-red-500" id="shortfallAmount">RM 120</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Special Template Calculations -->
-                    <div id="specialCalculations" class="mt-4 pt-4 border-t border-purple-200 hidden">
-                        <div class="grid grid-cols-2 gap-4 mb-4">
-                            <div class="fee-highlight rounded-xl p-3 text-center">
-                                <div class="text-xs font-medium mb-1">10%取款手续费</div>
-                                <div class="text-xl font-bold" id="withdrawalFee">RM 3.00</div>
-                            </div>
-                            <div class="savings-highlight rounded-xl p-3 text-center">
-                                <div class="text-xs font-medium mb-1">立即升级可省</div>
-                                <div class="text-xl font-bold" id="savingsAmount">RM 3.00</div>
-                            </div>
-                        </div>
-                        <div class="bg-white rounded-lg p-3 text-sm text-gray-600 border border-gray-200">
-                            <div class="flex justify-between items-center mb-1">
-                                <span>当前余额返还:</span>
-                                <span class="font-semibold" id="returnAmount">RM 30</span>
-                            </div>
-                            <div class="flex justify-between items-center text-red-600">
-                                <span>提取时手续费(10%):</span>
-                                <span class="font-bold" id="feeAmountDisplay">RM 3.00</span>
-                            </div>
                         </div>
                     </div>
 
@@ -282,7 +228,7 @@
                 <div class="flex justify-between items-center mb-4">
                     <div>
                         <h2 class="text-2xl font-bold gradient-text">生成文案</h2>
-                        <span id="templateType" class="text-sm text-purple-600 font-medium">标准升级模板</span>
+                        <span id="templateType" class="text-sm text-purple-600 font-medium">自动离职模板</span>
                     </div>
                     <button onclick="copyAllLanguages()" class="copy-all-btn px-4 py-2 text-white rounded-xl flex items-center gap-2 font-medium text-sm">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
@@ -303,7 +249,7 @@
                         <svg class="w-5 h-5 text-yellow-700 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                         <div>
                             <div class="font-semibold text-yellow-800 mb-1">重要提示</div>
-                            <div class="text-sm text-yellow-700" id="noticeContent">标准模板：包含完整法案合规信息及7天特权期说明</div>
+                            <div class="text-sm text-yellow-700" id="noticeContent">余额低于RM49显示自动离职文案，≥49显示差额升级文案</div>
                         </div>
                     </div>
                 </div>
@@ -459,26 +405,22 @@
 
         let currentLevel = 'R1';
         let currentLang = 'zh';
-        let currentTemplate = 'standard';
 
         // Content generators for each language - 使用单星号 * 代替双星号 **
         const contentGenerators = {
-            standard: {
+            // 49以下（低余额）- 自动离职文案
+            lowBalance: {
                 zh: (balance, level, data, shortfall) => {
                     const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
-
-                    if (level === 'R1' && balance < 49) {
-                        return `重要通知｜今天为最后升级日
+                    return `*重要通知｜今天为最后升级日*
 
 目前，您的储蓄钱包余额为 *RM${balance}*，
 距离升级至 *${level} 级别*（每日收入 *RM${data.daily}*）仍需补足 *RM${shortfall}*。
 
 *升级收益对比*
 
-*${data.prevLevel} 级别*：
-充值 *RM${data.fullAmount}*，每日收入 *RM${data.prevDaily}*
-*${level} 级别*：
-充值 *RM${data.amount}*，每日收入 *RM${data.daily}*（收益提升约 *${increase}%*）
+*${data.prevLevel} 级别*：充值 *RM${data.fullAmount}*，每日收入 *RM${data.prevDaily}*
+*${level} 级别*：充值 *RM${data.amount}*，每日收入 *RM${data.daily}*（收益提升约 *${increase}%*）
 
 *最终提醒（请务必留意）*
 
@@ -492,238 +434,110 @@
 务必于今天内完成操作，
 以免影响账号状态及后续权益。
 感谢您的理解与配合。🙏`;
-                    } else {
-                        return `重要通知｜今天为最后升级日
-
-目前，您的储蓄钱包余额为 *RM${balance}*，
-距离升级至 *${level} 级别*（每日收入 *RM${data.daily}*）仍需补足 *RM${shortfall}*。
-
-*升级收益对比*
-
-${data.prevAmount > 0 ? `*${data.prevLevel} 级别*：
-已充值 *RM${data.prevAmount}*，每日收入 *RM${data.prevDaily}*
-
-现` : `*${data.prevLevel} 级别*：
-充值 *RM${data.fullAmount}*，每日收入 *RM${data.prevDaily}*
-
-现`} *${level} 级别*：
-充值 *RM${data.amount}*，每日收入 *RM${data.daily}*（收益提升约 *${increase}%*）
-
-*最终提醒（请务必留意）*
-
-*今天是账号升级的最后一天。*
-截至今日结束前，
-凡未完成升级至 ${level} 的账号，系统将依据平台规则自动视为离职处理，
-账号将停止参与任何收益结算，且不再保留升级资格。
-这是平台在政策调整及合规过渡期间，
-给予成员的最后一次升级机会。
-请尚未完成升级的成员，
-务必于今天内完成操作，
-以免影响账号状态及后续权益。
-感谢您的理解与配合。🙏`;
-                    }
-                },en: (balance, level, data, shortfall) => {
-                    const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
-
-                    if (level === 'R1' && balance < 49) {
-                        return `Important Notice | Last Day for Upgrade Today
-
-Currently, your savings wallet balance is *RM${balance}*,
-You are *RM${shortfall} short* of upgrading to *Level ${level}* (enjoying *daily income of RM${data.daily}*).
-
-*Upgrade Benefits Comparison*
-
-*${data.prevLevel} Level*:
-Top-up *RM${data.fullAmount}*, Daily Income *RM${data.prevDaily}*
-*${level} Level*:
-Top-up *RM${data.amount}*, Daily Income *RM${data.daily}* (Income increase of approximately *${increase}%*)
-
-*Final Reminder (Please Pay Attention)*
-
-*Today is the last day for account upgrade.*
-Before the end of today,
-All accounts that have not completed upgrade to ${level} will be treated as automatic resignation according to platform rules,
-The account will stop participating in any income settlement and will no longer retain upgrade eligibility.
-This is the last upgrade opportunity given to members by the platform during the policy adjustment and compliance transition period.
-Members who have not yet completed the upgrade,
-Please complete the operation within today,
-So as not to affect the account status and subsequent rights.
-Thank you for your understanding and cooperation.🙏`;
-                    } else {
-                        return `Important Notice | Last Day for Upgrade Today
-
-Currently, your savings wallet balance is *RM${balance}*,
-You are *RM${shortfall} short* of upgrading to *Level ${level}* (enjoying *daily income of RM${data.daily}*).
-
-*Upgrade Benefits Comparison*
-
-${data.prevAmount > 0 ? `*${data.prevLevel} Level*:
-Already topped up *RM${data.prevAmount}*, Daily Income *RM${data.prevDaily}*
-
-Current` : `*${data.prevLevel} Level*:
-Top-up *RM${data.fullAmount}*, Daily Income *RM${data.prevDaily}*
-
-Current`} *${level} Level*:
-Top-up *RM${data.amount}*, Daily Income *RM${data.daily}* (Income increase of approximately *${increase}%*)
-
-*Final Reminder (Please Pay Attention)*
-
-*Today is the last day for account upgrade.*
-Before the end of today,
-All accounts that have not completed upgrade to ${level} will be treated as automatic resignation according to platform rules,
-The account will stop participating in any income settlement and will no longer retain upgrade eligibility.
-This is the last upgrade opportunity given to members by the platform during the policy adjustment and compliance transition period.
-Members who have not yet completed the upgrade,
-Please complete the operation within today,
-So as not to affect the account status and subsequent rights.
-Thank you for your understanding and cooperation.🙏`;
-                    }
-                },ms: (balance, level, data, shortfall) => {
-                    const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
-
-                    if (level === 'R1' && balance < 49) {
-                        return `Notis Penting | Hari Terakhir untuk Naik Taraf Hari Ini
-
-Pada masa ini, baki dompet simpanan anda ialah *RM${balance}*,
-Anda *kurang RM${shortfall}* untuk menaik taraf ke *Tahap ${level}* (menikmati *pendapatan harian RM${data.daily}*).
-
-*Perbandingan Faedah Naik Taraf*
-
-*Tahap ${data.prevLevel}*:
-Tambah nilai *RM${data.fullAmount}*, Pendapatan Harian *RM${data.prevDaily}*
-*Tahap ${level}*:
-Tambah nilai *RM${data.amount}*, Pendapatan Harian *RM${data.daily}* (Peningkatan pendapatan kira-kira *${increase}%*)
-
-*Peringatan Akhir (Sila Beri Perhatian)*
-
-*Hari ini ialah hari terakhir untuk naik taraf akaun.*
-Sebelum akhir hari ini,
-Semua akaun yang belum menyelesaikan naik taraf ke ${level} akan dianggap sebagai peletakan jawatan automatik mengikut peraturan platform,
-Akaun akan berhenti menyertai sebarang penjelasan pendapatan dan tidak lagi mengekalkan kelayakan naik taraf.
-Ini ialah peluang naik taraf terakhir yang diberikan kepada ahli oleh platform semasa tempoh penyesuaian dasar dan peralihan pematuhan.
-Ahli yang masih belum menyelesaikan naik taraf,
-Sila lengkapkan operasi dalam hari ini,
-Supaya tidak menjejaskan status akaun dan hak berikutnya.
-Terima kasih atas pemahaman dan kerjasama anda.🙏`;
-                    } else {
-                        return `Notis Penting | Hari Terakhir untuk Naik Taraf Hari Ini
-
-Pada masa ini, baki dompet simpanan anda ialah *RM${balance}*,
-Anda *kurang RM${shortfall}* untuk menaik taraf ke *Tahap ${level}* (menikmati *pendapatan harian RM${data.daily}*).
-
-*Perbandingan Faedah Naik Taraf*
-
-${data.prevAmount > 0 ? `*Tahap ${data.prevLevel}*:
-Sudah menambah nilai *RM${data.prevAmount}*, Pendapatan Harian *RM${data.prevDaily}*
-
-Tahap` : `*Tahap ${data.prevLevel}*:
-Tambah nilai *RM${data.fullAmount}*, Pendapatan Harian *RM${data.prevDaily}*
-
-Tahap`} *${level} Semasa*:
-Tambah nilai *RM${data.amount}*, Pendapatan Harian *RM${data.daily}* (Peningkatan pendapatan kira-kira *${increase}%*)
-
-*Peringatan Akhir (Sila Beri Perhatian)*
-
-*Hari ini ialah hari terakhir untuk naik taraf akaun.*
-Sebelum akhir hari ini,
-Semua akaun yang belum menyelesaikan naik taraf ke ${level} akan dianggap sebagai peletakan jawatan automatik mengikut peraturan platform,
-Akaun akan berhenti menyertai sebarang penjelasan pendapatan dan tidak lagi mengekalkan kelayakan naik taraf.
-Ini ialah peluang naik taraf terakhir yang diberikan kepada ahli oleh platform semasa tempoh penyesuaian dasar dan peralihan pematuhan.
-Ahli yang masih belum menyelesaikan naik taraf,
-Sila lengkapkan operasi dalam hari ini,
-Supaya tidak menjejaskan status akaun dan hak berikutnya.
-Terima kasih atas pemahaman dan kerjasama anda.🙏`;
-                    }
-                },            
-            special: {
-                zh: (balance, level, data, shortfall) => {
-                    const fee = (balance * 0.1).toFixed(2);
-                    const savings = (balance * 0.1).toFixed(2);
-
-                    return `您当前储蓄钱包余额 RM${balance}，
-距离升级 ${level} 仅差 RM${shortfall}。
-⏰ 限时特殊期 · 今天最后一天
-补齐差价，即可直接升级 ${level}。
-📌 下周起规则调整：
-需新充值 RM${data.fullAmount} 才可激活 ${level}。
-届时 RM${balance} 将返还至灵活钱包，
-提取时需支付 10% 手续费（RM${fee}）。
-💡 今天升级最划算
-仅需充值 RM${shortfall}，即可：
-
-✅ 立即成为 ${level}，享受每日收益
-✅ 直接省下 RM${savings} 手续费
-
-⚠️ 今天结束后，
-将不再支持差价升级，
-仅可通过全额充值激活。
-📅 截止今天（3月15日）
-🎯 升级目标：${data.prevLevel} ➝ ${level}
-🎁 升级即送 1 个额外现金码
-🕛 3月16日 00:00 起，
-所有差价升级申请将全部停止。
-今天是最后机会，请务必把握。 🙏`;
                 },
-
                 en: (balance, level, data, shortfall) => {
-                    const fee = (balance * 0.1).toFixed(2);
-                    const savings = (balance * 0.1).toFixed(2);
+                    const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
+                    return `*Important Notice | Last Day for Upgrade Today*
 
-                    return `Your current savings wallet balance: RM${balance},
-Only RM${shortfall} away from upgrading to ${level}.
-⏰ Limited Special Period · Last Day Today
-Pay the difference to upgrade to ${level} immediately.
-📌 Rule changes starting next week:
-New top-up of RM${data.fullAmount} required to activate ${level}.
-Your RM${balance} will be returned to flexible wallet,
-but 10% withdrawal fee (RM${fee}) applies upon extraction.
-💡 Upgrade today for best value
-Just top up RM${shortfall} to:
+Currently, your savings wallet balance is *RM${balance}*,
+You are *RM${shortfall} short* of upgrading to *Level ${level}* (enjoying *daily income of RM${data.daily}*).
 
-✅ Instantly become ${level}, enjoy daily income
-✅ Save RM${savings} withdrawal fee directly
+*Upgrade Benefits Comparison*
 
-⚠️ After today ends,
-difference upgrades will no longer be supported,
-only full payment activation available.
-📅 Deadline: Today (Mar 15)
-🎯 Upgrade: ${data.prevLevel} ➝ ${level}
-🎁 Free 1 extra cash code upon upgrade
-🕛 Starting Mar 16 00:00,
-all difference upgrade applications will cease.
-Today is your last chance, please seize it. 🙏`;
+*${data.prevLevel} Level*: Top-up *RM${data.fullAmount}*, Daily Income *RM${data.prevDaily}*
+*${level} Level*: Top-up *RM${data.amount}*, Daily Income *RM${data.daily}* (Income increase of approximately *${increase}%*)
+
+*Final Reminder (Please Pay Attention)*
+
+*Today is the last day for account upgrade.*
+Before the end of today,
+All accounts that have not completed upgrade to ${level} will be treated as automatic resignation according to platform rules,
+The account will stop participating in any income settlement and will no longer retain upgrade eligibility.
+This is the last upgrade opportunity given to members by the platform during the policy adjustment and compliance transition period.
+Members who have not yet completed the upgrade,
+Please complete the operation within today,
+So as not to affect the account status and subsequent rights.
+Thank you for your understanding and cooperation.🙏`;
                 },
-
                 ms: (balance, level, data, shortfall) => {
-                    const fee = (balance * 0.1).toFixed(2);
-                    const savings = (balance * 0.1).toFixed(2);
+                    const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
+                    return `*Notis Penting | Hari Terakhir untuk Naik Taraf Hari Ini*
 
-                    return `Baki dompet simpanan anda: RM${balance},
-Hanya kurang RM${shortfall} untuk menaik taraf ke ${level}.
-⏰ Tempoh Khas Terhad · Hari Terakhir Hari Ini
-Tambah baki untuk menaik taraf ke ${level} dengan segera.
-📌 Perubahan peraturan bermula minggu depan:
-Tambah nilai baharu RM${data.fullAmount} diperlukan untuk mengaktifkan ${level}.
-RM${balance} anda akan dipulangkan ke dompet fleksibel,
-tetapi caj pengeluaran 10% (RM${fee}) dikenakan semasa pengeluaran.
-💡 Naik taraf hari ini paling berbaloi
-Hanya tambah nilai RM${shortfall} untuk:
+Pada masa ini, baki dompet simpanan anda ialah *RM${balance}*,
+Anda *kurang RM${shortfall}* untuk menaik taraf ke *Tahap ${level}* (menikmati *pendapatan harian RM${data.daily}*).
 
-✅ Segera menjadi ${level}, nikmati pendapatan harian
-✅ Jimat caj pengeluaran RM${savings} terus
+*Perbandingan Faedah Naik Taraf*
 
-⚠️ Selepas hari ini berakhir,
-naik taraf baki tidak lagi disokong,
-hanya pengaktifan pembayaran penuh tersedia.
-📅 Tarikh Akhir: Hari Ini (15 Mac)
-🎯 Naik Taraf: ${data.prevLevel} ➝ ${level}
-🎁 1 kod tunai tambahan percuma semasa naik taraf
-🕛 Bermula 16 Mac 00:00,
-semua permohonan naik taraf baki akan dihentikan.
-Hari ini ialah peluang terakhir anda, sila rebutnya. 🙏`;
+*Tahap ${data.prevLevel}*: Tambah nilai *RM${data.fullAmount}*, Pendapatan Harian *RM${data.prevDaily}*
+*Tahap ${level}*: Tambah nilai *RM${data.amount}*, Pendapatan Harian *RM${data.daily}* (Peningkatan pendapatan kira-kira *${increase}%*)
+
+*Peringatan Akhir (Sila Beri Perhatian)*
+
+*Hari ini ialah hari terakhir untuk naik taraf akaun.*
+Sebelum akhir hari ini,
+Semua akaun yang belum menyelesaikan naik taraf ke ${level} akan dianggap sebagai peletakan jawatan automatik mengikut peraturan platform,
+Akaun akan berhenti menyertai sebarang penjelasan pendapatan dan tidak lagi mengekalkan kelayakan naik taraf.
+Ini ialah peluang naik taraf terakhir yang diberikan kepada ahli oleh platform semasa tempoh penyesuaian dasar dan peralihan pematuhan.
+Ahli yang masih belum menyelesaikan naik taraf,
+Sila lengkapkan operasi dalam hari ini,
+Supaya tidak menjejaskan status akaun dan hak berikutnya.
+Terima kasih atas pemahaman dan kerjasama anda.🙏`;
+                }
+            },
+            // 49以上（正常余额）- 差额升级文案
+            normalBalance: {
+                zh: (balance, level, data, shortfall) => {
+                    return `您的储蓄钱包目前有 *RM${balance}*，
+灵活钱包余额 *RM0*。
+现在只需再补 *RM${shortfall}*，
+即可升级至 *${level}*，
+升级后每天可获得 *RM${data.daily}* 收入。
+
+⏰ *今天是补差额的最后一天*
+从明天起，升级将统一为 *RM${data.fullAmount}*，
+现有现金代码将全部失效。
+
+🎁 *今日升级额外福利*
+今天完成升级，
+还可额外获得 *1 个现金代码*。
+机会仅限今天，
+是否现在就升级至 ${level}？`;
+                },
+                en: (balance, level, data, shortfall) => {
+                    return `Your savings wallet currently has *RM${balance}*,
+Flexible wallet balance *RM0*.
+Now you only need to top up *RM${shortfall}* more,
+To upgrade to *${level}*,
+After upgrade, you can earn *RM${data.daily}* daily income.
+
+⏰ *Today is the last day to pay the difference*
+Starting from tomorrow, upgrade will be unified to *RM${data.fullAmount}*,
+All existing cash codes will become invalid.
+
+🎁 *Extra Benefits for Today's Upgrade*
+Complete the upgrade today,
+You can also get *1 extra cash code*.
+Opportunity is only available today,
+Would you like to upgrade to ${level} now?`;
+                },
+                ms: (balance, level, data, shortfall) => {
+                    return `Dompet simpanan anda kini mempunyai *RM${balance}*,
+Baki dompet fleksibel *RM0*.
+Sekarang anda hanya perlu menambah *RM${shortfall}* lagi,
+Untuk menaik taraf ke *${level}*,
+Selepas naik taraf, anda boleh memperoleh *RM${data.daily}* pendapatan harian.
+
+⏰ *Hari ini ialah hari terakhir untuk membayar baki*
+Bermula dari esok, naik taraf akan diseragamkan kepada *RM${data.fullAmount}*,
+Semua kod tunai sedia ada akan menjadi tidak sah.
+
+🎁 *Faedah Tambahan untuk Naik Taraf Hari Ini*
+Lengkapkan naik taraf hari ini,
+Anda juga boleh mendapat *1 kod tunai tambahan*.
+Peluang hanya tersedia hari ini,
+Adakah anda ingin menaik taraf ke ${level} sekarang?`;
                 }
             }
-        }
         };
 
         function selectLevel(level) {
@@ -735,40 +549,6 @@ Hari ini ialah peluang terakhir anda, sila rebutnya. 🙏`;
             const selectedCard = document.getElementById(`card-${level}`);
             selectedCard.classList.add('active');
             selectedCard.style.borderColor = '#667eea';
-            updateCalculation();
-        }
-
-        function selectTemplate(template) {
-            currentTemplate = template;
-            document.querySelectorAll('.template-card').forEach(card => {
-                card.classList.remove('active');
-                card.classList.remove('border-purple-500');
-                card.classList.add('border-gray-200');
-                card.querySelector('.text-purple-600')?.classList.remove('text-purple-600');
-                card.querySelector('.text-gray-400')?.classList.add('text-gray-400');
-            });
-            
-            const selectedCard = document.getElementById(`template-${template}`);
-            selectedCard.classList.add('active');
-            selectedCard.classList.remove('border-gray-200');
-            selectedCard.classList.add('border-purple-500');
-            
-            const icon = selectedCard.querySelector('svg');
-            if (icon) {
-                icon.classList.remove('text-gray-400');
-                icon.classList.add('text-purple-600');
-            }
-
-            // Show/hide special calculations
-            const specialCalc = document.getElementById('specialCalculations');
-            if (template === 'special') {
-                specialCalc.classList.remove('hidden');
-                document.getElementById('noticeContent').textContent = '限时特殊期模板：包含10%手续费计算、下周新规则预警、立即升级优惠说明';
-            } else {
-                specialCalc.classList.add('hidden');
-                document.getElementById('noticeContent').textContent = '标准模板：包含完整法案合规信息及7天特权期说明';
-            }
-            
             updateCalculation();
         }
 
@@ -799,26 +579,22 @@ Hari ini ialah peluang terakhir anda, sila rebutnya. 🙏`;
 
             // Update status badge
             const statusBadge = document.getElementById('balanceStatus');
-            const templateType = document.getElementById('templateType');
+            const templateTypeLabel = document.getElementById('templateType');
+            const noticeContent = document.getElementById('noticeContent');
 
-            if (currentLevel === 'R1') {
-                if (balance < 49) {
-                    statusBadge.className = 'status-badge status-low absolute right-3 top-3';
-                    statusBadge.textContent = '低余额';
-                } else {
-                    statusBadge.className = 'status-badge status-normal absolute right-3 top-3';
-                    statusBadge.textContent = '正常';
-                }
+            // 判断使用哪种文案：R1且余额<49使用低余额文案，否则使用正常文案
+            const isLowBalance = currentLevel === 'R1' && balance < 49;
+            
+            if (isLowBalance) {
+                statusBadge.className = 'status-badge status-low absolute right-3 top-3';
+                statusBadge.textContent = '低余额';
+                templateTypeLabel.textContent = '自动离职模板';
+                noticeContent.textContent = '余额低于RM49显示自动离职文案，包含法案合规信息及最终提醒';
             } else {
                 statusBadge.className = 'status-badge status-normal absolute right-3 top-3';
                 statusBadge.textContent = '正常';
-            }
-
-            // Update template type label
-            if (currentTemplate === 'special') {
-                templateType.textContent = '限时特殊期模板';
-            } else {
-                templateType.textContent = (currentLevel === 'R1' && balance < 49) ? '自动离职模板' : '标准升级模板';
+                templateTypeLabel.textContent = '差额升级模板';
+                noticeContent.textContent = '余额≥RM49显示差额升级文案，包含补差额优惠及今日福利说明';
             }
 
             document.getElementById('requiredAmount').textContent = `RM ${data.amount.toLocaleString()}`;
@@ -826,19 +602,11 @@ Hari ini ialah peluang terakhir anda, sila rebutnya. 🙏`;
             document.getElementById('dailyIncome').textContent = `RM ${data.daily}`;
             document.getElementById('monthlyIncome').textContent = `RM ${data.monthly.toLocaleString()}`;
 
-            // Update special calculations if visible
-            if (currentTemplate === 'special') {
-                const fee = (balance * 0.1).toFixed(2);
-                const savings = (balance * 0.1).toFixed(2);
-                document.getElementById('withdrawalFee').textContent = `RM ${fee}`;
-                document.getElementById('savingsAmount').textContent = `RM ${savings}`;
-                document.getElementById('returnAmount').textContent = `RM ${balance}`;
-                document.getElementById('feeAmountDisplay').textContent = `RM ${fee}`;
-            }
-
             // Generate content for all languages
+            const templateKey = isLowBalance ? 'lowBalance' : 'normalBalance';
+            
             ['zh', 'en', 'ms'].forEach(lang => {
-                const generator = contentGenerators[currentTemplate][lang];
+                const generator = contentGenerators[templateKey][lang];
                 const content = generator(balance, currentLevel, data, shortfall);
                 document.getElementById(`contentDisplay-${lang}`).textContent = content;
             });
