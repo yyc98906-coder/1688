@@ -135,8 +135,6 @@
     </style>
 <base target="_blank">
 <base target="_blank">
-<base target="_blank">
-<base target="_blank">
 </head>
 <body class="p-4 md:p-8">
     <div class="max-w-6xl mx-auto">
@@ -484,11 +482,10 @@ Supaya tidak menjejaskan status akaun dan hak berikutnya.
 Terima kasih atas pemahaman dan kerjasama anda.🙏`;
                 }
             },
-            // 49以上（正常余额）- 差额升级文案
+            // 49以上（正常余额）- 差额升级文案（已去掉灵活钱包余额）
             normalBalance: {
                 zh: (balance, level, data, shortfall) => {
-                    return `您的储蓄钱包目前有 *RM${balance}*，
-灵活钱包余额 *RM0*。
+                    return `您的储蓄钱包目前有 *RM${balance}*。
 现在只需再补 *RM${shortfall}*，
 即可升级至 *${level}*，
 升级后每天可获得 *RM${data.daily}* 收入。
@@ -504,8 +501,7 @@ Terima kasih atas pemahaman dan kerjasama anda.🙏`;
 是否现在就升级至 ${level}？`;
                 },
                 en: (balance, level, data, shortfall) => {
-                    return `Your savings wallet currently has *RM${balance}*,
-Flexible wallet balance *RM0*.
+                    return `Your savings wallet currently has *RM${balance}*.
 Now you only need to top up *RM${shortfall}* more,
 To upgrade to *${level}*,
 After upgrade, you can earn *RM${data.daily}* daily income.
@@ -521,8 +517,7 @@ Opportunity is only available today,
 Would you like to upgrade to ${level} now?`;
                 },
                 ms: (balance, level, data, shortfall) => {
-                    return `Dompet simpanan anda kini mempunyai *RM${balance}*,
-Baki dompet fleksibel *RM0*.
+                    return `Dompet simpanan anda kini mempunyai *RM${balance}*.
 Sekarang anda hanya perlu menambah *RM${shortfall}* lagi,
 Untuk menaik taraf ke *${level}*,
 Selepas naik taraf, anda boleh memperoleh *RM${data.daily}* pendapatan harian.
