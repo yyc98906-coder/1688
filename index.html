@@ -3,654 +3,620 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>等级升级计算器 | Level Upgrade Calculator | Kalkulator Naik Taraf</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>下级统计表 - 可编辑版</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            font-family: 'Noto Sans SC', 'Noto Sans', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
+            padding: 40px 20px;
+            color: #e94560;
         }
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #e94560;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+            letter-spacing: 2px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #a0a0a0;
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .level-card {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .level-card:hover {
+        .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.2);
         }
-        .level-card.active {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-            transform: scale(1.05);
+        .stat-label {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
         }
-        .template-card {
+        .stat-value {
+            color: #e94560;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
+        }
+        .table-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        input[type="text"], input[type="number"] {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(233, 69, 96, 0.3);
+            border-radius: 10px;
+            padding: 12px 20px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
             transition: all 0.3s ease;
-            cursor: pointer;
-            border: 2px solid transparent;
         }
-        .template-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 15px rgba(233, 69, 96, 0.3);
         }
-        .template-card.active {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+        input[type="text"]::placeholder, input[type="number"]::placeholder {
+            color: #666;
         }
-        .copy-btn {
-            transition: all 0.2s ease;
+        .account-input {
+            flex: 2;
+            min-width: 200px;
         }
-        .copy-btn:hover {
-            transform: scale(1.05);
+        .number-input {
+            flex: 1;
+            min-width: 150px;
         }
-        .copy-btn.copied {
-            background-color: #10b981;
-        }
-        .tab-btn {
-            transition: all 0.3s ease;
-        }
-        .tab-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        button {
+            background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 30px;
             color: white;
-        }
-        .input-field {
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .input-field:focus {
-            transform: scale(1.02);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.4);
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        button:active {
+            transform: scale(0.95);
         }
-        .floating {
-            animation: float 3s ease-in-out infinite;
+        .btn-delete {
+            background: linear-gradient(135deg, #ff4757 0%, #cc3744 100%);
+            padding: 8px 20px;
+            font-size: 0.85rem;
         }
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
-        .highlight-box {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border-left: 4px solid #f59e0b;
+        thead {
+            background: rgba(233, 69, 96, 0.2);
         }
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 9999px;
-            font-size: 0.75rem;
+        th {
+            color: #e94560;
+            padding: 15px;
+            text-align: left;
             font-weight: 600;
-            margin-left: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
         }
-        .status-low {
-            background-color: #fee2e2;
-            color: #dc2626;
+        td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
         }
-        .status-normal {
-            background-color: #d1fae5;
-            color: #059669;
+        tr:hover {
+            background: rgba(233, 69, 96, 0.1);
         }
-        .lang-tab {
-            transition: all 0.3s ease;
-            cursor: pointer;
+        .rank {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: rgba(233, 69, 96, 0.3);
+            border-radius: 50%;
+            color: #e94560;
+            font-weight: bold;
+            font-size: 0.9rem;
         }
-        .lang-tab.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .rank.top {
+            background: #e94560;
             color: white;
-            border-color: transparent;
+            box-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
         }
-        .content-section {
-            display: none;
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
         }
-        .content-section.active {
-            display: block;
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
         }
-        .copy-all-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .btn-clear {
+            background: transparent;
+            border: 2px solid #e94560;
+            color: #e94560;
+        }
+        .btn-clear:hover {
+            background: rgba(233, 69, 96, 0.1);
+        }
+
+        /* 可编辑样式 */
+        .editable-cell {
+            cursor: pointer;
+            position: relative;
             transition: all 0.3s ease;
         }
-        .copy-all-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        .editable-cell:hover {
+            color: #ff6b6b;
         }
-        .fee-highlight {
-            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-            border: 2px solid #ef4444;
-            color: #dc2626;
+        .editable-cell::after {
+            content: '✎';
+            margin-left: 8px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        .savings-highlight {
-            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-            border: 2px solid #10b981;
-            color: #059669;
+        .editable-cell:hover::after {
+            opacity: 1;
+        }
+        .edit-input {
+            background: rgba(233, 69, 96, 0.2);
+            border: 2px solid #e94560;
+            border-radius: 6px;
+            padding: 5px 10px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            width: 100px;
+            text-align: center;
+            outline: none;
+        }
+        .account-name-cell {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .account-name-cell:hover {
+            color: #ff6b6b;
+        }
+        .account-name-cell::after {
+            content: '✎';
+            margin-left: 8px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .account-name-cell:hover::after {
+            opacity: 1;
+        }
+        .name-input {
+            background: rgba(233, 69, 96, 0.2);
+            border: 2px solid #e94560;
+            border-radius: 6px;
+            padding: 5px 10px;
+            color: #fff;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .updating {
+            animation: pulse 0.3s ease;
+            color: #ffd700;
         }
     </style>
 <base target="_blank">
-<base target="_blank">
 </head>
-<body class="p-4 md:p-8">
-    <div class="max-w-6xl mx-auto">
-        <!-- Header -->
-        <div class="text-center mb-8 floating">
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">等级升级计算器</h1>
-            <p class="text-white/80 text-lg">Level Upgrade Calculator | Kalkulator Naik Taraf</p>
-        </div>
+<body>
+    <div class="container">
+        <h1>下级统计表</h1>
+        <p class="subtitle">点击数字或账户名可直接修改</p>
 
-        <div class="grid lg:grid-cols-2 gap-6">
-            <!-- Left Panel: Calculator -->
-            <div class="glass-panel rounded-3xl p-6 md:p-8 shadow-2xl">
-                <h2 class="text-2xl font-bold mb-6 gradient-text">升级计算器</h2>
-
-                <!-- Current Balance Input -->
-                <div class="mb-6">
-                    <label class="block text-gray-700 font-medium mb-2">当前储蓄钱包余额 (RM)</label>
-                    <div class="relative">
-                        <input type="number" id="currentBalance" value="30" 
-                               class="input-field w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 outline-none text-lg font-semibold"
-                               placeholder="输入当前余额">
-                        <span id="balanceStatus" class="status-badge status-low absolute right-3 top-3">低余额</span>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-2">R1等级：余额&lt;49显示自动离职文案，≥49显示差额升级文案</p>
-                </div>
-
-                <!-- Target Level Selection -->
-                <div class="mb-6">
-                    <label class="block text-gray-700 font-medium mb-3">选择目标等级</label>
-                    <div class="grid grid-cols-3 gap-3">
-                        <div onclick="selectLevel('R1')" id="card-R1" class="level-card active border-2 border-purple-500 rounded-2xl p-4 text-center">
-                            <div class="text-2xl font-bold text-purple-600">R1</div>
-                            <div class="text-sm text-gray-500 mt-1">RM 150</div>
-                            <div class="text-xs text-green-600 mt-1 font-medium">RM 5/日</div>
-                        </div>
-                        <div onclick="selectLevel('R2')" id="card-R2" class="level-card border-2 border-gray-200 rounded-2xl p-4 text-center">
-                            <div class="text-2xl font-bold text-purple-600">R2</div>
-                            <div class="text-sm text-gray-500 mt-1">RM 450</div>
-                            <div class="text-xs text-green-600 mt-1 font-medium">RM 15/日</div>
-                        </div>
-                        <div onclick="selectLevel('R3')" id="card-R3" class="level-card border-2 border-gray-200 rounded-2xl p-4 text-center">
-                            <div class="text-2xl font-bold text-purple-600">R3</div>
-                            <div class="text-sm text-gray-500 mt-1">RM 1350</div>
-                            <div class="text-xs text-green-600 mt-1 font-medium">RM 45/日</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Calculation Results -->
-                <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-6 border border-purple-100">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="text-center">
-                            <div class="text-gray-500 text-sm mb-1">所需金额</div>
-                            <div class="text-3xl font-bold text-purple-600" id="requiredAmount">RM 150</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-gray-500 text-sm mb-1">差额</div>
-                            <div class="text-3xl font-bold text-red-500" id="shortfallAmount">RM 120</div>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 pt-4 border-t border-purple-200">
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-600">升级后每日收入</span>
-                            <span class="text-2xl font-bold text-green-600" id="dailyIncome">RM 5</span>
-                        </div>
-                        <div class="flex justify-between items-center mt-2">
-                            <span class="text-gray-600">升级后每月收入</span>
-                            <span class="text-xl font-bold text-green-600" id="monthlyIncome">RM 150</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Presets -->
-                <div class="mt-6">
-                    <label class="block text-gray-700 font-medium mb-2">快速预设</label>
-                    <div class="flex gap-2 flex-wrap">
-                        <button onclick="setBalance(30)" class="px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg text-sm transition font-medium">RM 30 (&lt;49)</button>
-                        <button onclick="setBalance(50)" class="px-4 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg text-sm transition font-medium">RM 50 (≥49)</button>
-                        <button onclick="setBalance(100)" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg text-sm transition font-medium">RM 100</button>
-                        <button onclick="setBalance(200)" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm transition">RM 200</button>
-                        <button onclick="setBalance(700)" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm transition">RM 700</button>
-                    </div>
-                </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">总账户数</div>
+                <div class="stat-value" id="totalAccounts">0</div>
             </div>
-
-            <!-- Right Panel: Generated Content -->
-            <div class="glass-panel rounded-3xl p-6 md:p-8 shadow-2xl">
-                <div class="flex justify-between items-center mb-4">
-                    <div>
-                        <h2 class="text-2xl font-bold gradient-text">生成文案</h2>
-                        <span id="templateType" class="text-sm text-purple-600 font-medium">自动离职模板</span>
-                    </div>
-                    <button onclick="copyAllLanguages()" class="copy-all-btn px-4 py-2 text-white rounded-xl flex items-center gap-2 font-medium text-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        <span>复制全部三种语言</span>
-                    </button>
-                </div>
-
-                <!-- Language Tabs -->
-                <div class="flex gap-2 mb-4 border-b border-gray-200">
-                    <button onclick="switchLanguage('zh')" id="lang-tab-zh" class="lang-tab active px-4 py-2 rounded-t-lg font-medium border-b-2 border-transparent">中文</button>
-                    <button onclick="switchLanguage('en')" id="lang-tab-en" class="lang-tab px-4 py-2 rounded-t-lg font-medium border-b-2 border-transparent text-gray-600 hover:text-purple-600">English</button>
-                    <button onclick="switchLanguage('ms')" id="lang-tab-ms" class="lang-tab px-4 py-2 rounded-t-lg font-medium border-b-2 border-transparent text-gray-600 hover:text-purple-600">Bahasa Melayu</button>
-                </div>
-
-                <!-- Warning Box -->
-                <div class="highlight-box rounded-xl p-4 mb-4">
-                    <div class="flex items-start gap-2">
-                        <svg class="w-5 h-5 text-yellow-700 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                        <div>
-                            <div class="font-semibold text-yellow-800 mb-1">重要提示</div>
-                            <div class="text-sm text-yellow-700" id="noticeContent">余额低于RM49显示自动离职文案，≥49显示差额升级文案</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Generated Text Areas -->
-                <div id="content-zh" class="content-section active">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-sm font-medium text-gray-600">中文版本</span>
-                        <button onclick="copySingleLanguage('zh')" class="copy-btn px-3 py-1 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg text-xs font-medium flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            复制
-                        </button>
-                    </div>
-                    <div id="contentDisplay-zh" class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 min-h-[300px] whitespace-pre-wrap text-gray-700 leading-relaxed overflow-y-auto max-h-[500px] text-sm md:text-base"></div>
-                </div>
-
-                <div id="content-en" class="content-section">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-sm font-medium text-gray-600">English Version</span>
-                        <button onclick="copySingleLanguage('en')" class="copy-btn px-3 py-1 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg text-xs font-medium flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            Copy
-                        </button>
-                    </div>
-                    <div id="contentDisplay-en" class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 min-h-[300px] whitespace-pre-wrap text-gray-700 leading-relaxed overflow-y-auto max-h-[500px] text-sm md:text-base"></div>
-                </div>
-
-                <div id="content-ms" class="content-section">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-sm font-medium text-gray-600">Versi Bahasa Melayu</span>
-                        <button onclick="copySingleLanguage('ms')" class="copy-btn px-3 py-1 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg text-xs font-medium flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            Salin
-                        </button>
-                    </div>
-                    <div id="contentDisplay-ms" class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 min-h-[300px] whitespace-pre-wrap text-gray-700 leading-relaxed overflow-y-auto max-h-[500px] text-sm md:text-base"></div>
-                </div>
-
-                <!-- Info Cards -->
-                <div class="mt-6 grid grid-cols-2 gap-4">
-                    <div class="bg-yellow-50 rounded-xl p-4 border border-yellow-200">
-                        <div class="flex items-center gap-2 mb-2">
-                            <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="font-semibold text-yellow-800">宽限期</span>
-                        </div>
-                        <p class="text-sm text-yellow-700">7天特权期，享受差额补齐优惠</p>
-                    </div>
-                    <div class="bg-blue-50 rounded-xl p-4 border border-blue-200">
-                        <div class="flex items-center gap-2 mb-2">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="font-semibold text-blue-800">法案信息</span>
-                        </div>
-                        <p class="text-sm text-blue-700">《2025年零工工作者法案》(第872号法案)</p>
-                    </div>
-                </div>
+            <div class="stat-card">
+                <div class="stat-label">下级总数</div>
+                <div class="stat-value" id="totalSubordinates">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">平均下级数</div>
+                <div class="stat-value" id="avgSubordinates">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">最高下级数</div>
+                <div class="stat-value" id="maxSubordinates">0</div>
             </div>
         </div>
 
-        <!-- Level Reference Table -->
-        <div class="glass-panel rounded-3xl p-6 md:p-8 mt-6 shadow-2xl">
-            <h3 class="text-xl font-bold mb-4 gradient-text">等级收益参考表</h3>
-            <div class="overflow-x-auto">
-                <table class="w-full">
-                    <thead>
-                        <tr class="border-b-2 border-purple-100">
-                            <th class="text-left py-3 px-4 text-gray-600">等级</th>
-                            <th class="text-center py-3 px-4 text-gray-600">升级金额</th>
-                            <th class="text-center py-3 px-4 text-gray-600">每日收入</th>
-                            <th class="text-center py-3 px-4 text-gray-600">每月收入</th>
-                            <th class="text-center py-3 px-4 text-gray-600">逾期全额充值</th>
-                        </tr>
-                    </thead>
-                    <tbody id="levelTable">
-                        <tr class="border-b border-gray-100 hover:bg-purple-50 transition bg-purple-50">
-                            <td class="py-3 px-4 font-semibold text-purple-600">R1</td>
-                            <td class="text-center py-3 px-4">RM 150</td>
-                            <td class="text-center py-3 px-4 text-green-600 font-medium">RM 5</td>
-                            <td class="text-center py-3 px-4 text-green-600">RM 150</td>
-                            <td class="text-center py-3 px-4 text-red-600 font-medium">RM 150</td>
-                        </tr>
-                        <tr class="border-b border-gray-100 hover:bg-purple-50 transition">
-                            <td class="py-3 px-4 font-semibold text-purple-600">R2</td>
-                            <td class="text-center py-3 px-4">RM 450</td>
-                            <td class="text-center py-3 px-4 text-green-600 font-medium">RM 15</td>
-                            <td class="text-center py-3 px-4 text-green-600">RM 450</td>
-                            <td class="text-center py-3 px-4 text-red-600 font-medium">RM 450</td>
-                        </tr>
-                        <tr class="border-b border-gray-100 hover:bg-purple-50 transition">
-                            <td class="py-3 px-4 font-semibold text-purple-600">R3</td>
-                            <td class="text-center py-3 px-4">RM 1,350</td>
-                            <td class="text-center py-3 px-4 text-green-600 font-medium">RM 45</td>
-                            <td class="text-center py-3 px-4 text-green-600">RM 1,350</td>
-                            <td class="text-center py-3 px-4 text-red-600 font-medium">RM 1,350</td>
-                        </tr>
-                        <tr class="border-b border-gray-100 hover:bg-purple-50 transition">
-                            <td class="py-3 px-4 font-semibold text-purple-600">R4</td>
-                            <td class="text-center py-3 px-4">RM 4,800</td>
-                            <td class="text-center py-3 px-4 text-green-600 font-medium">RM 160</td>
-                            <td class="text-center py-3 px-4 text-green-600">RM 4,800</td>
-                            <td class="text-center py-3 px-4 text-red-600 font-medium">RM 4,800</td>
-                        </tr>
-                        <tr class="border-b border-gray-100 hover:bg-purple-50 transition">
-                            <td class="py-3 px-4 font-semibold text-purple-600">R5</td>
-                            <td class="text-center py-3 px-4">RM 14,400</td>
-                            <td class="text-center py-3 px-4 text-green-600 font-medium">RM 480</td>
-                            <td class="text-center py-3 px-4 text-green-600">RM 14,400</td>
-                            <td class="text-center py-3 px-4 text-red-600 font-medium">RM 14,400</td>
-                        </tr>
-                        <tr class="border-b border-gray-100 hover:bg-purple-50 transition">
-                            <td class="py-3 px-4 font-semibold text-purple-600">R6</td>
-                            <td class="text-center py-3 px-4">RM 36,000</td>
-                            <td class="text-center py-3 px-4 text-green-600 font-medium">RM 1,200</td>
-                            <td class="text-center py-3 px-4 text-green-600">RM 36,000</td>
-                            <td class="text-center py-3 px-4 text-red-600 font-medium">RM 36,000</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="table-container">
+            <div class="controls">
+                <input type="text" class="account-input" id="accountInput" placeholder="输入账户名称..." onkeypress="handleEnter(event)">
+                <input type="number" class="number-input" id="numberInput" placeholder="下级数量" min="0" onkeypress="handleEnter(event)">
+                <button onclick="addAccount()">添加账户</button>
+            </div>
+
+            <table id="statsTable">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">排名</th>
+                        <th>账户名称 (点击编辑)</th>
+                        <th style="width: 150px;">下级数量 (点击编辑)</th>
+                        <th style="width: 200px;">占比</th>
+                        <th style="width: 100px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr class="empty-state">
+                        <td colspan="5">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            <p>暂无数据，请添加账户</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="action-buttons">
+                <button class="btn-clear" onclick="clearAll()">清空全部</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Data structure
-        const levelData = {
-            'R1': { 
-                amount: 150, 
-                daily: 5, 
-                monthly: 150,
-                prevDaily: 3,
-                fullAmount: 150,
-                prevLevel: 'R⭐️',
-                prevAmount: 0
-            },
-            'R2': { 
-                amount: 450, 
-                daily: 15, 
-                monthly: 450,
-                prevDaily: 5,
-                fullAmount: 450,
-                prevLevel: 'R1',
-                prevAmount: 150
-            },
-            'R3': { 
-                amount: 1350, 
-                daily: 45, 
-                monthly: 1350,
-                prevDaily: 15,
-                fullAmount: 1350,
-                prevLevel: 'R2',
-                prevAmount: 450
+        let accounts = [];
+        let editingId = null;
+        let editingField = null;
+
+        function handleEnter(event) {
+            if (event.key === 'Enter') {
+                addAccount();
             }
-        };
+        }
 
-        let currentLevel = 'R1';
-        let currentLang = 'zh';
+        function addAccount() {
+            const accountInput = document.getElementById('accountInput');
+            const numberInput = document.getElementById('numberInput');
 
-        // Content generators for each language - 使用单星号 * 代替双星号 **
-        const contentGenerators = {
-            // 49以下（低余额）- 自动离职文案
-            lowBalance: {
-                zh: (balance, level, data, shortfall) => {
-                    const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
-                    return `*重要通知｜今天为最后升级日*
+            const accountName = accountInput.value.trim();
+            const subordinateCount = parseInt(numberInput.value) || 0;
 
-目前，您的储蓄钱包余额为 *RM${balance}*，
-距离升级至 *${level} 级别*（每日收入 *RM${data.daily}*）仍需补足 *RM${shortfall}*。
+            if (!accountName) {
+                accountInput.style.borderColor = '#ff4757';
+                setTimeout(() => {
+                    accountInput.style.borderColor = 'rgba(233, 69, 96, 0.3)';
+                }, 1000);
+                return;
+            }
 
-*升级收益对比*
+            accounts.push({
+                name: accountName,
+                count: subordinateCount,
+                id: Date.now()
+            });
 
-*${data.prevLevel} 级别*：充值 *RM${data.fullAmount}*，每日收入 *RM${data.prevDaily}*
-*${level} 级别*：充值 *RM${data.amount}*，每日收入 *RM${data.daily}*（收益提升约 *${increase}%*）
+            accountInput.value = '';
+            numberInput.value = '';
+            accountInput.focus();
 
-*最终提醒（请务必留意）*
+            updateDisplay();
+        }
 
-*今天是账号升级的最后一天。*
-截至今日结束前，
-凡未完成升级至 ${level} 的账号，系统将依据平台规则自动视为离职处理，
-账号将停止参与任何收益结算，且不再保留升级资格。
-这是平台在政策调整及合规过渡期间，
-给予成员的最后一次升级机会。
-请尚未完成升级的成员，
-务必于今天内完成操作，
-以免影响账号状态及后续权益。
-感谢您的理解与配合。🙏`;
-                },
-                en: (balance, level, data, shortfall) => {
-                    const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
-                    return `*Important Notice | Last Day for Upgrade Today*
+        function deleteAccount(id) {
+            accounts = accounts.filter(acc => acc.id !== id);
+            updateDisplay();
+        }
 
-Currently, your savings wallet balance is *RM${balance}*,
-You are *RM${shortfall} short* of upgrading to *Level ${level}* (enjoying *daily income of RM${data.daily}*).
+        function clearAll() {
+            if (accounts.length === 0) return;
+            if (confirm('确定要清空所有数据吗？')) {
+                accounts = [];
+                updateDisplay();
+            }
+        }
 
-*Upgrade Benefits Comparison*
+        // 开始编辑下级数量
+        function startEditCount(id, currentValue) {
+            if (editingId !== null) {
+                saveEdit();
+            }
 
-*${data.prevLevel} Level*: Top-up *RM${data.fullAmount}*, Daily Income *RM${data.prevDaily}*
-*${level} Level*: Top-up *RM${data.amount}*, Daily Income *RM${data.daily}* (Income increase of approximately *${increase}%*)
+            editingId = id;
+            editingField = 'count';
 
-*Final Reminder (Please Pay Attention)*
+            const cell = document.getElementById(`count-${id}`);
+            cell.innerHTML = `<input type="number" class="edit-input" id="edit-input-${id}" value="${currentValue}" min="0" onblur="saveEdit()" onkeypress="handleEditEnter(event)">`;
 
-*Today is the last day for account upgrade.*
-Before the end of today,
-All accounts that have not completed upgrade to ${level} will be treated as automatic resignation according to platform rules,
-The account will stop participating in any income settlement and will no longer retain upgrade eligibility.
-This is the last upgrade opportunity given to members by the platform during the policy adjustment and compliance transition period.
-Members who have not yet completed the upgrade,
-Please complete the operation within today,
-So as not to affect the account status and subsequent rights.
-Thank you for your understanding and cooperation.🙏`;
-                },
-                ms: (balance, level, data, shortfall) => {
-                    const increase = Math.round((data.daily - data.prevDaily) / data.prevDaily * 100);
-                    return `*Notis Penting | Hari Terakhir untuk Naik Taraf Hari Ini*
+            const input = document.getElementById(`edit-input-${id}`);
+            input.focus();
+            input.select();
+        }
 
-Pada masa ini, baki dompet simpanan anda ialah *RM${balance}*,
-Anda *kurang RM${shortfall}* untuk menaik taraf ke *Tahap ${level}* (menikmati *pendapatan harian RM${data.daily}*).
+        // 开始编辑账户名
+        function startEditName(id, currentValue) {
+            if (editingId !== null) {
+                saveEdit();
+            }
 
-*Perbandingan Faedah Naik Taraf*
+            editingId = id;
+            editingField = 'name';
 
-*Tahap ${data.prevLevel}*: Tambah nilai *RM${data.fullAmount}*, Pendapatan Harian *RM${data.prevDaily}*
-*Tahap ${level}*: Tambah nilai *RM${data.amount}*, Pendapatan Harian *RM${data.daily}* (Peningkatan pendapatan kira-kira *${increase}%*)
+            const cell = document.getElementById(`name-${id}`);
+            cell.innerHTML = `<input type="text" class="name-input" id="edit-input-${id}" value="${escapeHtml(currentValue)}" onblur="saveEdit()" onkeypress="handleEditEnter(event)">`;
 
-*Peringatan Akhir (Sila Beri Perhatian)*
+            const input = document.getElementById(`edit-input-${id}`);
+            input.focus();
+            input.select();
+        }
 
-*Hari ini ialah hari terakhir untuk naik taraf akaun.*
-Sebelum akhir hari ini,
-Semua akaun yang belum menyelesaikan naik taraf ke ${level} akan dianggap sebagai peletakan jawatan automatik mengikut peraturan platform,
-Akaun akan berhenti menyertai sebarang penjelasan pendapatan dan tidak lagi mengekalkan kelayakan naik taraf.
-Ini ialah peluang naik taraf terakhir yang diberikan kepada ahli oleh platform semasa tempoh penyesuaian dasar dan peralihan pematuhan.
-Ahli yang masih belum menyelesaikan naik taraf,
-Sila lengkapkan operasi dalam hari ini,
-Supaya tidak menjejaskan status akaun dan hak berikutnya.
-Terima kasih atas pemahaman dan kerjasama anda.🙏`;
-                }
-            },
-            // 49以上（正常余额）- 差额升级文案（已去掉灵活钱包余额）
-            normalBalance: {
-                zh: (balance, level, data, shortfall) => {
-                    return `您的储蓄钱包目前有 *RM${balance}*。
-现在只需再补 *RM${shortfall}*，
-即可升级至 *${level}*，
-升级后每天可获得 *RM${data.daily}* 收入。
+        function handleEditEnter(event) {
+            if (event.key === 'Enter') {
+                saveEdit();
+            }
+        }
 
-⏰ *今天是补差额的最后一天*
-从明天起，升级将统一为 *RM${data.fullAmount}*，
-现有现金代码将全部失效。
+        function saveEdit() {
+            if (editingId === null) return;
 
-🎁 *今日升级额外福利*
-今天完成升级，
-还可额外获得 *1 个现金代码*。
-机会仅限今天，
-是否现在就升级至 ${level}？`;
-                },
-                en: (balance, level, data, shortfall) => {
-                    return `Your savings wallet currently has *RM${balance}*.
-Now you only need to top up *RM${shortfall}* more,
-To upgrade to *${level}*,
-After upgrade, you can earn *RM${data.daily}* daily income.
+            const input = document.getElementById(`edit-input-${editingId}`);
+            if (!input) return;
 
-⏰ *Today is the last day to pay the difference*
-Starting from tomorrow, upgrade will be unified to *RM${data.fullAmount}*,
-All existing cash codes will become invalid.
+            const newValue = input.value.trim();
+            const account = accounts.find(acc => acc.id === editingId);
 
-🎁 *Extra Benefits for Today's Upgrade*
-Complete the upgrade today,
-You can also get *1 extra cash code*.
-Opportunity is only available today,
-Would you like to upgrade to ${level} now?`;
-                },
-                ms: (balance, level, data, shortfall) => {
-                    return `Dompet simpanan anda kini mempunyai *RM${balance}*.
-Sekarang anda hanya perlu menambah *RM${shortfall}* lagi,
-Untuk menaik taraf ke *${level}*,
-Selepas naik taraf, anda boleh memperoleh *RM${data.daily}* pendapatan harian.
-
-⏰ *Hari ini ialah hari terakhir untuk membayar baki*
-Bermula dari esok, naik taraf akan diseragamkan kepada *RM${data.fullAmount}*,
-Semua kod tunai sedia ada akan menjadi tidak sah.
-
-🎁 *Faedah Tambahan untuk Naik Taraf Hari Ini*
-Lengkapkan naik taraf hari ini,
-Anda juga boleh mendapat *1 kod tunai tambahan*.
-Peluang hanya tersedia hari ini,
-Adakah anda ingin menaik taraf ke ${level} sekarang?`;
+            if (account) {
+                if (editingField === 'count') {
+                    const numValue = parseInt(newValue) || 0;
+                    if (numValue !== account.count) {
+                        account.count = numValue;
+                        // 添加更新动画效果
+                        const row = document.getElementById(`row-${editingId}`);
+                        if (row) {
+                            row.classList.add('updating');
+                            setTimeout(() => row.classList.remove('updating'), 300);
+                        }
+                    }
+                } else if (editingField === 'name') {
+                    if (newValue && newValue !== account.name) {
+                        account.name = newValue;
+                    }
                 }
             }
-        };
 
-        function selectLevel(level) {
-            currentLevel = level;
-            document.querySelectorAll('.level-card').forEach(card => {
-                card.classList.remove('active');
-                card.style.borderColor = '#e5e7eb';
-            });
-            const selectedCard = document.getElementById(`card-${level}`);
-            selectedCard.classList.add('active');
-            selectedCard.style.borderColor = '#667eea';
-            updateCalculation();
+            editingId = null;
+            editingField = null;
+            updateDisplay();
         }
 
-        function setBalance(amount) {
-            document.getElementById('currentBalance').value = amount;
-            updateCalculation();
-        }
+        function updateDisplay() {
+            // 排序：按下级数量降序
+            accounts.sort((a, b) => b.count - a.count);
 
-        function switchLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('.lang-tab').forEach(tab => {
-                tab.classList.remove('active');
-                tab.classList.add('text-gray-600');
-            });
-            document.getElementById(`lang-tab-${lang}`).classList.add('active');
-            document.getElementById(`lang-tab-${lang}`).classList.remove('text-gray-600');
-            
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(`content-${lang}`).classList.add('active');
-        }
+            // 更新统计数据
+            const totalAccounts = accounts.length;
+            const totalSubordinates = accounts.reduce((sum, acc) => sum + acc.count, 0);
+            const avgSubordinates = totalAccounts > 0 ? (totalSubordinates / totalAccounts).toFixed(1) : 0;
+            const maxSubordinates = accounts.length > 0 ? Math.max(...accounts.map(acc => acc.count)) : 0;
 
-        function updateCalculation() {
-            const balance = parseFloat(document.getElementById('currentBalance').value) || 0;
-            const data = levelData[currentLevel];
-            const shortfall = Math.max(0, data.amount - balance);
+            // 动画更新数字
+            animateNumber('totalAccounts', totalAccounts);
+            animateNumber('totalSubordinates', totalSubordinates);
+            animateNumber('avgSubordinates', avgSubordinates);
+            animateNumber('maxSubordinates', maxSubordinates);
 
-            // Update status badge
-            const statusBadge = document.getElementById('balanceStatus');
-            const templateTypeLabel = document.getElementById('templateType');
-            const noticeContent = document.getElementById('noticeContent');
+            // 更新表格
+            const tbody = document.getElementById('tableBody');
 
-            // 判断使用哪种文案：R1且余额<49使用低余额文案，否则使用正常文案
-            const isLowBalance = currentLevel === 'R1' && balance < 49;
-            
-            if (isLowBalance) {
-                statusBadge.className = 'status-badge status-low absolute right-3 top-3';
-                statusBadge.textContent = '低余额';
-                templateTypeLabel.textContent = '自动离职模板';
-                noticeContent.textContent = '余额低于RM49显示自动离职文案，包含法案合规信息及最终提醒';
-            } else {
-                statusBadge.className = 'status-badge status-normal absolute right-3 top-3';
-                statusBadge.textContent = '正常';
-                templateTypeLabel.textContent = '差额升级模板';
-                noticeContent.textContent = '余额≥RM49显示差额升级文案，包含补差额优惠及今日福利说明';
+            if (accounts.length === 0) {
+                tbody.innerHTML = `
+                    <tr class="empty-state">
+                        <td colspan="5">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            <p>暂无数据，请添加账户</p>
+                        </td>
+                    </tr>
+                `;
+                return;
             }
 
-            document.getElementById('requiredAmount').textContent = `RM ${data.amount.toLocaleString()}`;
-            document.getElementById('shortfallAmount').textContent = `RM ${shortfall.toLocaleString()}`;
-            document.getElementById('dailyIncome').textContent = `RM ${data.daily}`;
-            document.getElementById('monthlyIncome').textContent = `RM ${data.monthly.toLocaleString()}`;
+            tbody.innerHTML = accounts.map((acc, index) => {
+                const percentage = totalSubordinates > 0 ? ((acc.count / totalSubordinates) * 100).toFixed(1) : 0;
+                const maxPercent = maxSubordinates > 0 ? ((acc.count / maxSubordinates) * 100) : 0;
 
-            // Generate content for all languages
-            const templateKey = isLowBalance ? 'lowBalance' : 'normalBalance';
-            
-            ['zh', 'en', 'ms'].forEach(lang => {
-                const generator = contentGenerators[templateKey][lang];
-                const content = generator(balance, currentLevel, data, shortfall);
-                document.getElementById(`contentDisplay-${lang}`).textContent = content;
-            });
+                // 如果正在编辑这一行，保持编辑状态
+                if (editingId === acc.id) {
+                    if (editingField === 'count') {
+                        return `
+                            <tr id="row-${acc.id}">
+                                <td><span class="rank ${index < 3 ? 'top' : ''}">${index + 1}</span></td>
+                                <td id="name-${acc.id}" class="account-name-cell" onclick="startEditName(${acc.id}, '${escapeHtml(acc.name)}')">${escapeHtml(acc.name)}</td>
+                                <td><input type="number" class="edit-input" id="edit-input-${acc.id}" value="${acc.count}" min="0" onblur="saveEdit()" onkeypress="handleEditEnter(event)"></td>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span style="min-width: 45px; font-size: 0.9rem;">${percentage}%</span>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: ${maxPercent}%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><button class="btn-delete" onclick="deleteAccount(${acc.id})">删除</button></td>
+                            </tr>
+                        `;
+                    } else {
+                        return `
+                            <tr id="row-${acc.id}">
+                                <td><span class="rank ${index < 3 ? 'top' : ''}">${index + 1}</span></td>
+                                <td><input type="text" class="name-input" id="edit-input-${acc.id}" value="${escapeHtml(acc.name)}" onblur="saveEdit()" onkeypress="handleEditEnter(event)"></td>
+                                <td id="count-${acc.id}" class="editable-cell" style="font-weight: bold; color: #e94560;" onclick="startEditCount(${acc.id}, ${acc.count})">${acc.count}</td>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span style="min-width: 45px; font-size: 0.9rem;">${percentage}%</span>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: ${maxPercent}%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><button class="btn-delete" onclick="deleteAccount(${acc.id})">删除</button></td>
+                            </tr>
+                        `;
+                    }
+                }
+
+                return `
+                    <tr id="row-${acc.id}" class="fade-in">
+                        <td><span class="rank ${index < 3 ? 'top' : ''}">${index + 1}</span></td>
+                        <td id="name-${acc.id}" class="account-name-cell" onclick="startEditName(${acc.id}, '${escapeHtml(acc.name)}')">${escapeHtml(acc.name)}</td>
+                        <td id="count-${acc.id}" class="editable-cell" style="font-weight: bold; color: #e94560;" onclick="startEditCount(${acc.id}, ${acc.count})">${acc.count}</td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="min-width: 45px; font-size: 0.9rem;">${percentage}%</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${maxPercent}%"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><button class="btn-delete" onclick="deleteAccount(${acc.id})">删除</button></td>
+                    </tr>
+                `;
+            }).join('');
         }
 
-        function copySingleLanguage(lang) {
-            const content = document.getElementById(`contentDisplay-${lang}`).textContent;
-            navigator.clipboard.writeText(content).then(() => {
-                const btn = document.querySelector(`#content-${lang} .copy-btn`);
-                const originalText = btn.innerHTML;
-                const isEnglish = lang === 'en';
-                const isMalay = lang === 'ms';
-                
-                let copiedText = '已复制';
-                if (isEnglish) copiedText = 'Copied!';
-                if (isMalay) copiedText = 'Disalin!';
-                
-                btn.innerHTML = `<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <span>${copiedText}</span>`;
-                btn.classList.add('copied');
-                
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.classList.remove('copied');
-                }, 2000);
-            });
+        function animateNumber(elementId, targetValue) {
+            const element = document.getElementById(elementId);
+            const startValue = parseFloat(element.textContent) || 0;
+            const duration = 500;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+                const current = startValue + (targetValue - startValue) * easeProgress;
+
+                if (targetValue % 1 === 0) {
+                    element.textContent = Math.round(current);
+                } else {
+                    element.textContent = current.toFixed(1);
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
         }
 
-        function copyAllLanguages() {
-            const zhContent = document.getElementById('contentDisplay-zh').textContent;
-            const enContent = document.getElementById('contentDisplay-en').textContent;
-            const msContent = document.getElementById('contentDisplay-ms').textContent;
-            
-            const combinedContent = `【中文】\n${zhContent}\n\n【English】\n${enContent}\n\n【Bahasa Melayu】\n${msContent}`;
-            
-            navigator.clipboard.writeText(combinedContent).then(() => {
-                const btn = document.querySelector('.copy-all-btn');
-                const originalHTML = btn.innerHTML;
-                btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <span>已全部复制!</span>';
-                
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-                }, 2000);
-            });
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
-        document.getElementById('currentBalance').addEventListener('input', updateCalculation);
+        // 点击外部取消编辑
+        document.addEventListener('click', function(e) {
+            if (editingId !== null && !e.target.closest('td')) {
+                saveEdit();
+            }
+        });
 
-        // Initialize
-        updateCalculation();
+        // 初始化
+        document.getElementById('accountInput').focus();
     </script>
 </body>
 </html>
