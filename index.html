@@ -3,620 +3,586 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>下级统计表 - 可编辑版</title>
+    <title>RS 统计表 - R1 R2 R3 数据管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             min-height: 100vh;
-            padding: 40px 20px;
-            color: #e94560;
         }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
+        
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        h1 {
-            text-align: center;
-            color: #e94560;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
-            letter-spacing: 2px;
+        
+        .input-field {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            transition: all 0.3s ease;
         }
-        .subtitle {
-            text-align: center;
-            color: #a0a0a0;
-            margin-bottom: 40px;
-            font-size: 1rem;
+        
+        .input-field:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            outline: none;
         }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+        
+        .row-enter {
+            animation: slideIn 0.3s ease-out;
         }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(239, 68, 68, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.4);
+        }
+        
         .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(233, 69, 96, 0.3);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
         }
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.2);
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
-        .stat-label {
-            color: #a0a0a0;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.3);
         }
-        .stat-value {
-            color: #e94560;
-            font-size: 2.5rem;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.5);
+            border-radius: 4px;
         }
-        .table-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(233, 69, 96, 0.3);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 20px;
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.8);
         }
-        .controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
+        
+        .save-indicator {
+            animation: pulse 2s infinite;
         }
-        input[type="text"], input[type="number"] {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(233, 69, 96, 0.3);
-            border-radius: 10px;
-            padding: 12px 20px;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-        input[type="text"]:focus, input[type="number"]:focus {
-            border-color: #e94560;
-            box-shadow: 0 0 15px rgba(233, 69, 96, 0.3);
-        }
-        input[type="text"]::placeholder, input[type="number"]::placeholder {
-            color: #666;
-        }
-        .account-input {
-            flex: 2;
-            min-width: 200px;
-        }
-        .number-input {
-            flex: 1;
-            min-width: 150px;
-        }
-        button {
-            background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
-            border: none;
-            border-radius: 10px;
-            padding: 12px 30px;
-            color: white;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.4);
-        }
-        button:active {
-            transform: scale(0.95);
-        }
-        .btn-delete {
-            background: linear-gradient(135deg, #ff4757 0%, #cc3744 100%);
-            padding: 8px 20px;
-            font-size: 0.85rem;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        thead {
-            background: rgba(233, 69, 96, 0.2);
-        }
-        th {
-            color: #e94560;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-        td {
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-        }
-        tr:hover {
-            background: rgba(233, 69, 96, 0.1);
-        }
-        .rank {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            background: rgba(233, 69, 96, 0.3);
-            border-radius: 50%;
-            color: #e94560;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-        .rank.top {
-            background: #e94560;
-            color: white;
-            box-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
-        }
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-        }
-        .empty-state svg {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 8px;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #e94560, #ff6b6b);
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-        .btn-clear {
-            background: transparent;
-            border: 2px solid #e94560;
-            color: #e94560;
-        }
-        .btn-clear:hover {
-            background: rgba(233, 69, 96, 0.1);
-        }
-
-        /* 可编辑样式 */
-        .editable-cell {
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        .editable-cell:hover {
-            color: #ff6b6b;
-        }
-        .editable-cell::after {
-            content: '✎';
-            margin-left: 8px;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .editable-cell:hover::after {
-            opacity: 1;
-        }
-        .edit-input {
-            background: rgba(233, 69, 96, 0.2);
-            border: 2px solid #e94560;
-            border-radius: 6px;
-            padding: 5px 10px;
-            color: #fff;
-            font-size: 1rem;
-            font-weight: bold;
-            width: 100px;
-            text-align: center;
-            outline: none;
-        }
-        .account-name-cell {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .account-name-cell:hover {
-            color: #ff6b6b;
-        }
-        .account-name-cell::after {
-            content: '✎';
-            margin-left: 8px;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .account-name-cell:hover::after {
-            opacity: 1;
-        }
-        .name-input {
-            background: rgba(233, 69, 96, 0.2);
-            border: 2px solid #e94560;
-            border-radius: 6px;
-            padding: 5px 10px;
-            color: #fff;
-            font-size: 1rem;
-            width: 100%;
-            outline: none;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fade-in {
-            animation: fadeIn 0.3s ease;
-        }
+        
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
-        .updating {
-            animation: pulse 0.3s ease;
-            color: #ffd700;
+
+        /* Account name display styles */
+        .account-display {
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+        
+        .account-display:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .account-display:hover::after {
+            content: ' ✏️';
+            opacity: 0.6;
+            font-size: 0.8em;
         }
     </style>
 <base target="_blank">
 </head>
-<body>
-    <div class="container">
-        <h1>下级统计表</h1>
-        <p class="subtitle">点击数字或账户名可直接修改</p>
+<body class="text-slate-200 p-4 md:p-8">
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">总账户数</div>
-                <div class="stat-value" id="totalAccounts">0</div>
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400 mb-2">
+                RS 统计表
+            </h1>
+            <p class="text-slate-400">R1 · R2 · R3 数据统计 · 自动保存 · 一键导出</p>
+        </div>
+
+        <!-- Stats Overview - 只统计 R1 R2 R3 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="stat-card rounded-xl p-4 border-l-4 border-emerald-500">
+                <div class="text-slate-400 text-sm mb-1">R1 总量</div>
+                <div class="text-3xl font-bold text-emerald-400" id="totalR1">0</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-label">下级总数</div>
-                <div class="stat-value" id="totalSubordinates">0</div>
+            <div class="stat-card rounded-xl p-4 border-l-4 border-purple-500">
+                <div class="text-slate-400 text-sm mb-1">R2 总量</div>
+                <div class="text-3xl font-bold text-purple-400" id="totalR2">0</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-label">平均下级数</div>
-                <div class="stat-value" id="avgSubordinates">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">最高下级数</div>
-                <div class="stat-value" id="maxSubordinates">0</div>
+            <div class="stat-card rounded-xl p-4 border-l-4 border-amber-500">
+                <div class="text-slate-400 text-sm mb-1">R3 总量</div>
+                <div class="text-3xl font-bold text-amber-400" id="totalR3">0</div>
             </div>
         </div>
 
-        <div class="table-container">
-            <div class="controls">
-                <input type="text" class="account-input" id="accountInput" placeholder="输入账户名称..." onkeypress="handleEnter(event)">
-                <input type="number" class="number-input" id="numberInput" placeholder="下级数量" min="0" onkeypress="handleEnter(event)">
-                <button onclick="addAccount()">添加账户</button>
+        <!-- Control Panel -->
+        <div class="glass-panel rounded-xl p-4 mb-6 flex flex-wrap gap-3 items-center justify-between">
+            <div class="flex items-center gap-3">
+                <button onclick="openAddModal()" class="btn-primary px-6 py-2.5 rounded-lg font-medium text-white flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    添加账户
+                </button>
+                <button onclick="downloadData()" class="btn-success px-6 py-2.5 rounded-lg font-medium text-white flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    一键下载
+                </button>
             </div>
+            
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 text-sm text-slate-400">
+                    <span class="save-indicator w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span id="saveStatus">自动保存已开启</span>
+                </div>
+                <button onclick="clearAll()" class="btn-danger px-4 py-2 rounded-lg text-sm font-medium text-white">
+                    清空数据
+                </button>
+            </div>
+        </div>
 
-            <table id="statsTable">
-                <thead>
-                    <tr>
-                        <th style="width: 80px;">排名</th>
-                        <th>账户名称 (点击编辑)</th>
-                        <th style="width: 150px;">下级数量 (点击编辑)</th>
-                        <th style="width: 200px;">占比</th>
-                        <th style="width: 100px;">操作</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <tr class="empty-state">
-                        <td colspan="5">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                            <p>暂无数据，请添加账户</p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Data Table -->
+        <div class="glass-panel rounded-xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-slate-800/50 border-b border-slate-700">
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300 w-16">序号</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300">账户名称</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-400">R1</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-purple-400">R2</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-amber-400">R3</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300">合计</th>
+                            <th class="px-6 py-4 text-center text-sm font-semibold text-slate-300 w-24">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" class="divide-y divide-slate-700/50">
+                        <!-- Rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Empty State -->
+            <div id="emptyState" class="py-16 text-center text-slate-500">
+                <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                </svg>
+                <p>暂无数据，点击"添加账户"开始录入 R1 R2 R3 数据</p>
+            </div>
+        </div>
 
-            <div class="action-buttons">
-                <button class="btn-clear" onclick="clearAll()">清空全部</button>
+        <!-- Footer Info -->
+        <div class="mt-6 text-center text-sm text-slate-500">
+            <p>数据自动保存至浏览器本地存储 · 支持 CSV 格式导出 · 点击账户名称可编辑</p>
+        </div>
+    </div>
+
+    <!-- Add Account Modal -->
+    <div id="addModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="glass-panel rounded-2xl p-6 w-full max-w-md mx-4 transform transition-all scale-100">
+            <h3 class="text-xl font-bold mb-4 text-white">添加新账户</h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm text-slate-400 mb-1">账户名称</label>
+                    <input type="text" id="newAccountName" placeholder="输入账户名称" 
+                           class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-slate-600">
+                </div>
+                
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-sm text-emerald-400 mb-1">R1 数量</label>
+                        <input type="number" id="newR1" placeholder="0" min="0"
+                               class="input-field w-full px-3 py-3 rounded-lg text-emerald-400 font-mono text-center placeholder-slate-600">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-purple-400 mb-1">R2 数量</label>
+                        <input type="number" id="newR2" placeholder="0" min="0"
+                               class="input-field w-full px-3 py-3 rounded-lg text-purple-400 font-mono text-center placeholder-slate-600">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-amber-400 mb-1">R3 数量</label>
+                        <input type="number" id="newR3" placeholder="0" min="0"
+                               class="input-field w-full px-3 py-3 rounded-lg text-amber-400 font-mono text-center placeholder-slate-600">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeAddModal()" class="flex-1 px-4 py-3 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 transition-colors">
+                    取消
+                </button>
+                <button onclick="confirmAdd()" class="flex-1 btn-primary px-4 py-3 rounded-lg text-white font-medium">
+                    确认添加
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        let accounts = [];
-        let editingId = null;
-        let editingField = null;
+        // Data Management
+        let data = [];
+        const STORAGE_KEY = 'rs_statistics_data_v3';
 
-        function handleEnter(event) {
-            if (event.key === 'Enter') {
-                addAccount();
-            }
-        }
-
-        function addAccount() {
-            const accountInput = document.getElementById('accountInput');
-            const numberInput = document.getElementById('numberInput');
-
-            const accountName = accountInput.value.trim();
-            const subordinateCount = parseInt(numberInput.value) || 0;
-
-            if (!accountName) {
-                accountInput.style.borderColor = '#ff4757';
-                setTimeout(() => {
-                    accountInput.style.borderColor = 'rgba(233, 69, 96, 0.3)';
-                }, 1000);
-                return;
-            }
-
-            accounts.push({
-                name: accountName,
-                count: subordinateCount,
-                id: Date.now()
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            renderTable();
+            updateStats();
+            
+            // Enter key to submit modal
+            document.getElementById('addModal').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    confirmAdd();
+                }
             });
+        });
 
-            accountInput.value = '';
-            numberInput.value = '';
-            accountInput.focus();
-
-            updateDisplay();
-        }
-
-        function deleteAccount(id) {
-            accounts = accounts.filter(acc => acc.id !== id);
-            updateDisplay();
-        }
-
-        function clearAll() {
-            if (accounts.length === 0) return;
-            if (confirm('确定要清空所有数据吗？')) {
-                accounts = [];
-                updateDisplay();
-            }
-        }
-
-        // 开始编辑下级数量
-        function startEditCount(id, currentValue) {
-            if (editingId !== null) {
-                saveEdit();
-            }
-
-            editingId = id;
-            editingField = 'count';
-
-            const cell = document.getElementById(`count-${id}`);
-            cell.innerHTML = `<input type="number" class="edit-input" id="edit-input-${id}" value="${currentValue}" min="0" onblur="saveEdit()" onkeypress="handleEditEnter(event)">`;
-
-            const input = document.getElementById(`edit-input-${id}`);
-            input.focus();
-            input.select();
-        }
-
-        // 开始编辑账户名
-        function startEditName(id, currentValue) {
-            if (editingId !== null) {
-                saveEdit();
-            }
-
-            editingId = id;
-            editingField = 'name';
-
-            const cell = document.getElementById(`name-${id}`);
-            cell.innerHTML = `<input type="text" class="name-input" id="edit-input-${id}" value="${escapeHtml(currentValue)}" onblur="saveEdit()" onkeypress="handleEditEnter(event)">`;
-
-            const input = document.getElementById(`edit-input-${id}`);
-            input.focus();
-            input.select();
-        }
-
-        function handleEditEnter(event) {
-            if (event.key === 'Enter') {
-                saveEdit();
-            }
-        }
-
-        function saveEdit() {
-            if (editingId === null) return;
-
-            const input = document.getElementById(`edit-input-${editingId}`);
-            if (!input) return;
-
-            const newValue = input.value.trim();
-            const account = accounts.find(acc => acc.id === editingId);
-
-            if (account) {
-                if (editingField === 'count') {
-                    const numValue = parseInt(newValue) || 0;
-                    if (numValue !== account.count) {
-                        account.count = numValue;
-                        // 添加更新动画效果
-                        const row = document.getElementById(`row-${editingId}`);
-                        if (row) {
-                            row.classList.add('updating');
-                            setTimeout(() => row.classList.remove('updating'), 300);
-                        }
-                    }
-                } else if (editingField === 'name') {
-                    if (newValue && newValue !== account.name) {
-                        account.name = newValue;
-                    }
+        // Load data from localStorage
+        function loadData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    data = JSON.parse(saved);
+                } catch (e) {
+                    data = [];
                 }
             }
-
-            editingId = null;
-            editingField = null;
-            updateDisplay();
         }
 
-        function updateDisplay() {
-            // 排序：按下级数量降序
-            accounts.sort((a, b) => b.count - a.count);
+        // Save data to localStorage (Auto-save)
+        function saveData() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            updateSaveIndicator();
+        }
 
-            // 更新统计数据
-            const totalAccounts = accounts.length;
-            const totalSubordinates = accounts.reduce((sum, acc) => sum + acc.count, 0);
-            const avgSubordinates = totalAccounts > 0 ? (totalSubordinates / totalAccounts).toFixed(1) : 0;
-            const maxSubordinates = accounts.length > 0 ? Math.max(...accounts.map(acc => acc.count)) : 0;
+        // Update save indicator animation
+        function updateSaveIndicator() {
+            const indicator = document.querySelector('.save-indicator');
+            const status = document.getElementById('saveStatus');
+            
+            indicator.classList.remove('bg-emerald-500');
+            indicator.classList.add('bg-blue-500');
+            status.textContent = '保存中...';
+            
+            setTimeout(() => {
+                indicator.classList.remove('bg-blue-500');
+                indicator.classList.add('bg-emerald-500');
+                status.textContent = '已自动保存';
+            }, 500);
+        }
 
-            // 动画更新数字
-            animateNumber('totalAccounts', totalAccounts);
-            animateNumber('totalSubordinates', totalSubordinates);
-            animateNumber('avgSubordinates', avgSubordinates);
-            animateNumber('maxSubordinates', maxSubordinates);
+        // Modal Functions
+        function openAddModal() {
+            document.getElementById('addModal').classList.remove('hidden');
+            document.getElementById('addModal').classList.add('flex');
+            document.getElementById('newAccountName').focus();
+            
+            // Clear inputs
+            document.getElementById('newAccountName').value = '';
+            document.getElementById('newR1').value = '';
+            document.getElementById('newR2').value = '';
+            document.getElementById('newR3').value = '';
+        }
 
-            // 更新表格
-            const tbody = document.getElementById('tableBody');
+        function closeAddModal() {
+            document.getElementById('addModal').classList.add('hidden');
+            document.getElementById('addModal').classList.remove('flex');
+        }
 
-            if (accounts.length === 0) {
-                tbody.innerHTML = `
-                    <tr class="empty-state">
-                        <td colspan="5">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                            <p>暂无数据，请添加账户</p>
-                        </td>
-                    </tr>
-                `;
+        function confirmAdd() {
+            const account = document.getElementById('newAccountName').value.trim();
+            const r1 = document.getElementById('newR1').value;
+            const r2 = document.getElementById('newR2').value;
+            const r3 = document.getElementById('newR3').value;
+            
+            if (!account) {
+                alert('请输入账户名称');
                 return;
             }
+            
+            const newRow = {
+                id: Date.now(),
+                account: account,
+                r1: r1 || '',
+                r2: r2 || '',
+                r3: r3 || ''
+            };
+            
+            data.push(newRow);
+            saveData();
+            renderTable();
+            updateStats();
+            closeAddModal();
+        }
 
-            tbody.innerHTML = accounts.map((acc, index) => {
-                const percentage = totalSubordinates > 0 ? ((acc.count / totalSubordinates) * 100).toFixed(1) : 0;
-                const maxPercent = maxSubordinates > 0 ? ((acc.count / maxSubordinates) * 100) : 0;
+        // Delete row
+        function deleteRow(id) {
+            if (confirm('确定要删除这条记录吗？')) {
+                data = data.filter(item => item.id !== id);
+                saveData();
+                renderTable();
+                updateStats();
+            }
+        }
 
-                // 如果正在编辑这一行，保持编辑状态
-                if (editingId === acc.id) {
-                    if (editingField === 'count') {
-                        return `
-                            <tr id="row-${acc.id}">
-                                <td><span class="rank ${index < 3 ? 'top' : ''}">${index + 1}</span></td>
-                                <td id="name-${acc.id}" class="account-name-cell" onclick="startEditName(${acc.id}, '${escapeHtml(acc.name)}')">${escapeHtml(acc.name)}</td>
-                                <td><input type="number" class="edit-input" id="edit-input-${acc.id}" value="${acc.count}" min="0" onblur="saveEdit()" onkeypress="handleEditEnter(event)"></td>
-                                <td>
-                                    <div style="display: flex; align-items: center; gap: 10px;">
-                                        <span style="min-width: 45px; font-size: 0.9rem;">${percentage}%</span>
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: ${maxPercent}%"></div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><button class="btn-delete" onclick="deleteAccount(${acc.id})">删除</button></td>
-                            </tr>
-                        `;
-                    } else {
-                        return `
-                            <tr id="row-${acc.id}">
-                                <td><span class="rank ${index < 3 ? 'top' : ''}">${index + 1}</span></td>
-                                <td><input type="text" class="name-input" id="edit-input-${acc.id}" value="${escapeHtml(acc.name)}" onblur="saveEdit()" onkeypress="handleEditEnter(event)"></td>
-                                <td id="count-${acc.id}" class="editable-cell" style="font-weight: bold; color: #e94560;" onclick="startEditCount(${acc.id}, ${acc.count})">${acc.count}</td>
-                                <td>
-                                    <div style="display: flex; align-items: center; gap: 10px;">
-                                        <span style="min-width: 45px; font-size: 0.9rem;">${percentage}%</span>
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: ${maxPercent}%"></div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><button class="btn-delete" onclick="deleteAccount(${acc.id})">删除</button></td>
-                            </tr>
-                        `;
-                    }
+        // Clear all data
+        function clearAll() {
+            if (data.length === 0) return;
+            if (confirm('确定要清空所有数据吗？此操作不可恢复！')) {
+                data = [];
+                saveData();
+                renderTable();
+                updateStats();
+            }
+        }
+
+        // Update field value
+        function updateValue(id, field, value) {
+            const item = data.find(d => d.id === id);
+            if (item) {
+                item[field] = value;
+                saveData();
+                updateStats();
+                updateRowTotal(id);
+            }
+        }
+
+        // Update single row total display
+        function updateRowTotal(id) {
+            const item = data.find(d => d.id === id);
+            if (item) {
+                const total = (parseInt(item.r1) || 0) + (parseInt(item.r2) || 0) + (parseInt(item.r3) || 0);
+                const totalCell = document.getElementById(`total-${id}`);
+                if (totalCell) {
+                    totalCell.textContent = total;
                 }
+            }
+        }
 
+        // Enable editing account name inline
+        function editAccountName(id, element) {
+            const item = data.find(d => d.id === id);
+            if (!item) return;
+            
+            const currentValue = item.account;
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = currentValue;
+            input.className = 'input-field w-full px-3 py-2 rounded-lg text-white bg-slate-800/80';
+            
+            element.innerHTML = '';
+            element.appendChild(input);
+            input.focus();
+            input.select();
+            
+            function save() {
+                const newValue = input.value.trim();
+                if (newValue) {
+                    item.account = newValue;
+                    saveData();
+                }
+                renderTable();
+            }
+            
+            input.addEventListener('blur', save);
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    save();
+                } else if (e.key === 'Escape') {
+                    renderTable();
+                }
+            });
+        }
+
+        // Calculate and update statistics
+        function updateStats() {
+            const totalR1 = data.reduce((sum, item) => sum + (parseInt(item.r1) || 0), 0);
+            const totalR2 = data.reduce((sum, item) => sum + (parseInt(item.r2) || 0), 0);
+            const totalR3 = data.reduce((sum, item) => sum + (parseInt(item.r3) || 0), 0);
+
+            document.getElementById('totalR1').textContent = totalR1.toLocaleString();
+            document.getElementById('totalR2').textContent = totalR2.toLocaleString();
+            document.getElementById('totalR3').textContent = totalR3.toLocaleString();
+        }
+
+        // Render table
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            tbody.innerHTML = data.map((item, index) => {
+                const total = (parseInt(item.r1) || 0) + (parseInt(item.r2) || 0) + (parseInt(item.r3) || 0);
                 return `
-                    <tr id="row-${acc.id}" class="fade-in">
-                        <td><span class="rank ${index < 3 ? 'top' : ''}">${index + 1}</span></td>
-                        <td id="name-${acc.id}" class="account-name-cell" onclick="startEditName(${acc.id}, '${escapeHtml(acc.name)}')">${escapeHtml(acc.name)}</td>
-                        <td id="count-${acc.id}" class="editable-cell" style="font-weight: bold; color: #e94560;" onclick="startEditCount(${acc.id}, ${acc.count})">${acc.count}</td>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span style="min-width: 45px; font-size: 0.9rem;">${percentage}%</span>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: ${maxPercent}%"></div>
-                                </div>
+                    <tr class="row-enter hover:bg-slate-800/30 transition-colors">
+                        <td class="px-6 py-4 text-slate-400 font-mono">${index + 1}</td>
+                        <td class="px-6 py-4">
+                            <div class="account-display font-medium text-white text-lg" 
+                                 onclick="editAccountName(${item.id}, this)">
+                                ${item.account || '未命名'}
                             </div>
                         </td>
-                        <td><button class="btn-delete" onclick="deleteAccount(${acc.id})">删除</button></td>
+                        <td class="px-6 py-4">
+                            <input type="number" 
+                                   value="${item.r1}" 
+                                   placeholder="0"
+                                   min="0"
+                                   class="input-field w-24 px-3 py-2 rounded-lg text-emerald-400 font-mono text-center placeholder-slate-600"
+                                   oninput="updateValue(${item.id}, 'r1', this.value)">
+                        </td>
+                        <td class="px-6 py-4">
+                            <input type="number" 
+                                   value="${item.r2}" 
+                                   placeholder="0"
+                                   min="0"
+                                   class="input-field w-24 px-3 py-2 rounded-lg text-purple-400 font-mono text-center placeholder-slate-600"
+                                   oninput="updateValue(${item.id}, 'r2', this.value)">
+                        </td>
+                        <td class="px-6 py-4">
+                            <input type="number" 
+                                   value="${item.r3}" 
+                                   placeholder="0"
+                                   min="0"
+                                   class="input-field w-24 px-3 py-2 rounded-lg text-amber-400 font-mono text-center placeholder-slate-600"
+                                   oninput="updateValue(${item.id}, 'r3', this.value)">
+                        </td>
+                        <td class="px-6 py-4">
+                            <span id="total-${item.id}" class="font-bold text-white font-mono text-lg">${total}</span>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <button onclick="deleteRow(${item.id})" 
+                                    class="p-2 hover:bg-red-500/20 rounded-lg text-slate-400 hover:text-red-400 transition-colors"
+                                    title="删除">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </td>
                     </tr>
                 `;
             }).join('');
         }
 
-        function animateNumber(elementId, targetValue) {
-            const element = document.getElementById(elementId);
-            const startValue = parseFloat(element.textContent) || 0;
-            const duration = 500;
-            const startTime = performance.now();
-
-            function update(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const easeProgress = 1 - Math.pow(1 - progress, 3);
-
-                const current = startValue + (targetValue - startValue) * easeProgress;
-
-                if (targetValue % 1 === 0) {
-                    element.textContent = Math.round(current);
-                } else {
-                    element.textContent = current.toFixed(1);
-                }
-
-                if (progress < 1) {
-                    requestAnimationFrame(update);
-                }
+        // Download data as CSV
+        function downloadData() {
+            if (data.length === 0) {
+                alert('没有数据可导出');
+                return;
             }
 
-            requestAnimationFrame(update);
+            let csv = '序号,账户名称,R1,R2,R3,合计\n';
+            
+            data.forEach((item, index) => {
+                const total = (parseInt(item.r1) || 0) + (parseInt(item.r2) || 0) + (parseInt(item.r3) || 0);
+                csv += `${index + 1},${item.account || ''},${item.r1 || 0},${item.r2 || 0},${item.r3 || 0},${total}\n`;
+            });
+
+            const totalR1 = data.reduce((sum, item) => sum + (parseInt(item.r1) || 0), 0);
+            const totalR2 = data.reduce((sum, item) => sum + (parseInt(item.r2) || 0), 0);
+            const totalR3 = data.reduce((sum, item) => sum + (parseInt(item.r3) || 0), 0);
+            const grandTotal = totalR1 + totalR2 + totalR3;
+            
+            csv += `\n总计,,${totalR1},${totalR2},${totalR3},${grandTotal}\n`;
+
+            const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+            
+            link.href = URL.createObjectURL(blob);
+            link.download = `RS统计表_${timestamp}.csv`;
+            link.style.display = 'none';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            const btn = document.querySelector('.btn-success');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                下载成功
+            `;
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
         }
 
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // 点击外部取消编辑
-        document.addEventListener('click', function(e) {
-            if (editingId !== null && !e.target.closest('td')) {
-                saveEdit();
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                if (document.getElementById('addModal').classList.contains('hidden')) {
+                    openAddModal();
+                }
+            }
+            if (e.key === 'Escape') {
+                closeAddModal();
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                downloadData();
             }
         });
 
-        // 初始化
-        document.getElementById('accountInput').focus();
+        // Close modal when clicking outside
+        document.getElementById('addModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('addModal')) {
+                closeAddModal();
+            }
+        });
     </script>
 </body>
 </html>
