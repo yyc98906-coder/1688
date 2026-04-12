@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎉 RS 统计表 - 新春特别版</title>
+    <title>📊 RS 统计管理系统</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Sans SC', sans-serif;
-            background: linear-gradient(135deg, #dc2626 0%, #991b1b 50%, #7f1d1d 100%);
+            background: linear-gradient(135deg, #e0f7fa 0%, #80deea 25%, #4dd0e1 50%, #26c6da 75%, #00bcd4 100%);
             min-height: 100vh;
             overflow-x: hidden;
+            background-attachment: fixed;
         }
         
-        /* 喜庆背景装饰 */
+        /* 清新背景装饰 */
         .bg-pattern {
             position: fixed;
             top: 0;
@@ -22,121 +23,106 @@
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
         
-        /* 飘落金币动画 */
-        .coin {
+        /* 漂浮气泡动画 */
+        .bubble {
             position: fixed;
-            color: #fbbf24;
-            font-size: 20px;
-            animation: fall linear infinite;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float linear infinite;
             pointer-events: none;
             z-index: 1;
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
         }
         
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
             }
         }
         
         .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px);
-            border: 2px solid rgba(251, 191, 36, 0.3);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 
-                        0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-                        0 0 30px rgba(251, 191, 36, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(0, 188, 212, 0.15), 
+                        0 0 0 1px rgba(255, 255, 255, 0.6) inset;
         }
         
         .input-field {
-            background: rgba(254, 242, 242, 0.8);
-            border: 2px solid rgba(220, 38, 38, 0.2);
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(0, 188, 212, 0.2);
             transition: all 0.3s ease;
         }
         
         .input-field:focus {
-            border-color: #dc2626;
-            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+            border-color: #00bcd4;
+            box-shadow: 0 0 0 4px rgba(0, 188, 212, 0.1);
             outline: none;
             transform: translateY(-2px);
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-            border: 2px solid rgba(251, 191, 36, 0.5);
+            background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+            border: none;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            color: white;
         }
         
         .btn-primary:hover {
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 20px 40px -5px rgba(220, 38, 38, 0.4),
-                        0 0 20px rgba(251, 191, 36, 0.4);
-        }
-        
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent 30%,
-                rgba(255, 255, 255, 0.3) 50%,
-                transparent 70%
-            );
-            transform: rotate(45deg);
-            transition: all 0.5s;
-            opacity: 0;
-        }
-        
-        .btn-primary:hover::after {
-            animation: shine 0.5s ease-in-out;
-        }
-        
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+            box-shadow: 0 15px 30px rgba(0, 188, 212, 0.3);
         }
         
         .btn-success {
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
-            border: 2px solid rgba(251, 191, 36, 0.3);
+            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+            border: none;
             transition: all 0.3s ease;
+            color: white;
         }
         
         .btn-success:hover {
             transform: translateY(-3px);
-            box-shadow: 0 20px 40px -5px rgba(5, 150, 105, 0.4);
+            box-shadow: 0 15px 30px rgba(67, 160, 71, 0.3);
         }
         
-        .btn-gold {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            color: #7f1d1d;
-            border: 2px solid rgba(220, 38, 38, 0.2);
-            font-weight: 700;
+        .btn-copy {
+            background: linear-gradient(135deg, #ff7043 0%, #f4511e 100%);
+            border: none;
             transition: all 0.3s ease;
+            color: white;
         }
         
-        .btn-gold:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 20px 40px -5px rgba(251, 191, 36, 0.5);
+        .btn-copy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(244, 81, 30, 0.3);
+        }
+        
+        .btn-copy.copied {
+            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
         }
         
         .stat-card {
-            background: linear-gradient(135deg, rgba(254, 242, 242, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%);
-            border: 2px solid rgba(220, 38, 38, 0.15);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(224, 247, 250, 0.9) 100%);
+            border: 1px solid rgba(0, 188, 212, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -148,7 +134,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #dc2626, #fbbf24, #dc2626);
+            background: linear-gradient(90deg, #00bcd4, #4dd0e1, #00bcd4);
         }
         
         .account-badge {
@@ -162,15 +148,15 @@
         }
         
         .badge-normal {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-            color: #1e40af;
-            border: 1px solid #3b82f6;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: #1565c0;
+            border: 1px solid #42a5f5;
         }
         
         .badge-smurf {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            color: #92400e;
-            border: 1px solid #f59e0b;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            color: #ef6c00;
+            border: 1px solid #ff9800;
         }
         
         .row-enter {
@@ -188,44 +174,45 @@
             }
         }
         
-        /* 统计表模态框样式 */
-        .stats-modal {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border: 3px solid #fbbf24;
+        .rank-1 { background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%); color: #fff; }
+        .rank-2 { background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%); color: #fff; }
+        .rank-3 { background: linear-gradient(135deg, #cd7f32 0%, #b87333 100%); color: #fff; }
+        
+        .delete-btn {
+            background: rgba(239, 83, 80, 0.1);
+            color: #ef5350;
+            transition: all 0.3s;
         }
         
-        .stats-header {
-            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
-            border-bottom: 3px solid #fbbf24;
-        }
-        
-        .stats-row {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(251, 191, 36, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .stats-row:hover {
-            background: rgba(251, 191, 36, 0.1);
-            transform: translateX(5px);
-        }
-        
-        .copy-btn {
-            background: rgba(251, 191, 36, 0.2);
-            border: 1px solid #fbbf24;
-            color: #fbbf24;
-            transition: all 0.2s;
-        }
-        
-        .copy-btn:hover {
-            background: #fbbf24;
-            color: #1a1a2e;
-        }
-        
-        .copy-btn.copied {
-            background: #10b981;
-            border-color: #10b981;
+        .delete-btn:hover {
+            background: #ef5350;
             color: white;
+            transform: rotate(90deg);
+        }
+        
+        .total-display {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            color: #00838f;
+            font-weight: 900;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            border: 2px solid #00bcd4;
+            display: inline-block;
+        }
+        
+        .copy-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(224, 247, 250, 0.95) 100%);
+            border: 2px solid rgba(0, 188, 212, 0.3);
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 35px rgba(0, 188, 212, 0.1);
+        }
+        
+        .preview-box {
+            background: linear-gradient(135deg, #263238 0%, #37474f 100%);
+            border: 2px solid #00bcd4;
+            border-radius: 1rem;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
         }
         
         ::-webkit-scrollbar {
@@ -234,109 +221,33 @@
         }
         
         ::-webkit-scrollbar-track {
-            background: rgba(220, 38, 38, 0.1);
+            background: rgba(0, 188, 212, 0.1);
             border-radius: 5px;
         }
         
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #dc2626 0%, #fbbf24 100%);
+            background: linear-gradient(135deg, #00bcd4 0%, #4dd0e1 100%);
             border-radius: 5px;
             border: 2px solid transparent;
             background-clip: content-box;
         }
         
-        .delete-btn {
-            background: rgba(220, 38, 38, 0.1);
-            color: #dc2626;
-            transition: all 0.3s;
-        }
-        
-        .delete-btn:hover {
-            background: #dc2626;
+        .leaderboard-header {
+            background: linear-gradient(135deg, #00acc1 0%, #0097a7 100%);
             color: white;
-            transform: rotate(90deg);
-        }
-        
-        .total-display {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            color: #92400e;
             font-weight: 900;
-            padding: 0.5rem 1rem;
-            border-radius: 0.75rem;
-            border: 2px solid #fbbf24;
-            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
-        .language-tab {
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.7);
-            transition: all 0.3s;
-            border: 1px solid transparent;
+        .leaderboard-row:nth-child(even) {
+            background: rgba(0, 188, 212, 0.05);
         }
         
-        .language-tab.active {
-            background: #fbbf24;
-            color: #7f1d1d;
-            font-weight: 700;
-            border-color: #fbbf24;
-        }
-        
-        .language-tab:hover:not(.active) {
-            background: rgba(251, 191, 36, 0.3);
-            color: #fbbf24;
-        }
-        
-        .trilingual-text {
-            font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
-            line-height: 1.6;
-        }
-        
-        .masked-text {
-            font-family: 'Courier New', monospace;
-            letter-spacing: 2px;
-        }
-        
-        .privacy-badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.5rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-            border: 1px solid #10b981;
-        }
-        
-        /* 结尾文案样式 */
-        .ending-quote {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(220, 38, 38, 0.1) 100%);
-            border: 2px solid rgba(251, 191, 36, 0.3);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            text-align: center;
-            font-style: italic;
-            color: #fbbf24;
-            line-height: 1.8;
-            position: relative;
-        }
-        
-        .ending-quote::before {
-            content: '"';
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            font-size: 4rem;
-            color: rgba(251, 191, 36, 0.3);
-            font-family: serif;
-        }
-        
-        .ending-question {
-            color: #fff;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-top: 1rem;
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        .leaderboard-row:hover {
+            background: rgba(0, 188, 212, 0.1);
+            transform: scale(1.01);
+            transition: all 0.2s;
         }
     </style>
 <base target="_blank">
@@ -345,132 +256,197 @@
 
     <!-- 背景装饰 -->
     <div class="bg-pattern"></div>
-    <div id="coinContainer"></div>
+    <div id="bubbleContainer"></div>
 
     <div class="max-w-7xl mx-auto relative z-10">
-        <!-- 喜庆标题 -->
+        <!-- 清新标题 -->
         <div class="mb-8 text-center">
             <div class="inline-block p-6 rounded-3xl glass-panel mb-4">
-                <h1 class="text-5xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-r from-red-600 via-yellow-500 to-red-600 mb-2 drop-shadow-lg">
-                    🧧 RS 统计表 🧧
+                <h1 class="text-5xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 via-teal-500 to-cyan-600 mb-2 drop-shadow-sm">
+                    📊 RS 统计管理系统
                 </h1>
-                <div class="flex items-center justify-center gap-4 text-lg md:text-xl font-bold text-red-700 mt-2">
-                    <span>🏮</span>
-                    <span>R1 · R2 · R3 数据管理</span>
-                    <span>🏮</span>
+                <div class="flex items-center justify-center gap-4 text-lg md:text-xl font-bold text-cyan-700 mt-2">
+                    <span>🎯</span>
+                    <span>自动排序 · 隐私保护 · 三语支持</span>
+                    <span>🎯</span>
                 </div>
             </div>
-            <p class="text-yellow-200 font-medium text-lg drop-shadow-md">自动保存 · 一键导出 · 隐私保护统计表</p>
+            <p class="text-cyan-600 font-medium text-lg">数据自动保存本地 · 排行榜实时生成 · 一键复制分享</p>
         </div>
 
         <!-- 统计卡片 -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="stat-card rounded-2xl p-6 transform hover:scale-105 transition-transform">
-                <div class="text-red-600 text-sm font-bold mb-2 uppercase tracking-wider">R1 总量</div>
-                <div class="text-5xl font-black text-red-600" id="totalR1">0</div>
-                <div class="text-red-400 text-sm mt-1">🔥 红红火火</div>
+                <div class="text-cyan-600 text-sm font-bold mb-2 uppercase tracking-wider">R1 总量</div>
+                <div class="text-5xl font-black text-cyan-600" id="totalR1">0</div>
+                <div class="text-cyan-400 text-sm mt-1">🔥 火热进行中</div>
             </div>
             <div class="stat-card rounded-2xl p-6 transform hover:scale-105 transition-transform">
                 <div class="text-purple-600 text-sm font-bold mb-2 uppercase tracking-wider">R2 总量</div>
                 <div class="text-5xl font-black text-purple-600" id="totalR2">0</div>
-                <div class="text-purple-400 text-sm mt-1">💜 紫气东来</div>
+                <div class="text-purple-400 text-sm mt-1">💜 稳步增长</div>
             </div>
             <div class="stat-card rounded-2xl p-6 transform hover:scale-105 transition-transform">
                 <div class="text-amber-600 text-sm font-bold mb-2 uppercase tracking-wider">R3 总量</div>
                 <div class="text-5xl font-black text-amber-600" id="totalR3">0</div>
-                <div class="text-amber-500 text-sm mt-1">⚜️ 黄金万两</div>
+                <div class="text-amber-500 text-sm mt-1">⚜️ 黄金战绩</div>
             </div>
         </div>
 
         <!-- 控制面板 -->
         <div class="glass-panel rounded-2xl p-6 mb-8 flex flex-wrap gap-4 items-center justify-between">
             <div class="flex items-center gap-4 flex-wrap">
-                <button onclick="openAddModal()" class="btn-primary px-8 py-4 rounded-xl font-bold text-white flex items-center gap-2 text-lg shadow-xl">
+                <button onclick="openAddModal()" class="btn-primary px-8 py-4 rounded-xl font-bold flex items-center gap-2 text-lg shadow-xl">
                     <span class="text-2xl">➕</span>
                     添加账户
                 </button>
-                <button onclick="openStatsModal()" class="btn-gold px-8 py-4 rounded-xl flex items-center gap-2 text-lg shadow-xl">
-                    <span class="text-2xl">📊</span>
-                    统计表
-                </button>
-                <button onclick="downloadData()" class="btn-success px-6 py-4 rounded-xl font-bold text-white flex items-center gap-2 shadow-xl">
+                <button onclick="downloadData()" class="btn-success px-6 py-4 rounded-xl font-bold flex items-center gap-2 shadow-xl">
                     <span class="text-xl">💾</span>
                     导出数据
                 </button>
             </div>
             
             <div class="flex items-center gap-4">
-                <div class="flex items-center gap-2 bg-red-50 px-4 py-2 rounded-full border border-red-200">
+                <div class="flex items-center gap-2 bg-cyan-50 px-4 py-2 rounded-full border border-cyan-200">
                     <span class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></span>
-                    <span class="text-red-700 font-medium text-sm" id="saveStatus">自动保存已开启</span>
+                    <span class="text-cyan-700 font-medium text-sm" id="saveStatus">自动保存已开启</span>
                 </div>
-                <button onclick="clearAll()" class="px-4 py-2 rounded-lg bg-red-100 hover:bg-red-200 text-red-700 font-bold transition-colors border border-red-300">
+                <button onclick="clearAll()" class="px-4 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 font-bold transition-colors border border-red-200">
                     🗑️ 清空
                 </button>
             </div>
         </div>
 
-        <!-- 数据表格（仅自己可见，显示完整信息） -->
-        <div class="glass-panel rounded-2xl overflow-hidden shadow-2xl">
-            <div class="bg-gradient-to-r from-red-600 to-red-700 px-6 py-4 flex items-center justify-between">
-                <h3 class="text-white font-bold text-lg">📋 账户管理（仅自己可见）</h3>
-                <span class="privacy-badge">🔒 隐私模式已开启</span>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full">
-                    <thead>
-                        <tr class="bg-red-50 border-b border-red-200">
-                            <th class="px-6 py-4 text-left text-sm font-bold text-red-800 w-16">序号</th>
-                            <th class="px-6 py-4 text-left text-sm font-bold text-red-800">完整账户名</th>
-                            <th class="px-6 py-4 text-left text-sm font-bold text-red-800">类型标识</th>
-                            <th class="px-6 py-4 text-left text-sm font-bold text-red-600">R1</th>
-                            <th class="px-6 py-4 text-left text-sm font-bold text-purple-600">R2</th>
-                            <th class="px-6 py-4 text-left text-sm font-bold text-amber-600">R3</th>
-                            <th class="px-6 py-4 text-left text-sm font-bold text-red-800">合计</th>
-                            <th class="px-6 py-4 text-center text-sm font-bold text-red-800 w-24">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody" class="divide-y divide-red-100">
-                        <!-- Rows will be inserted here -->
-                    </tbody>
-                </table>
+        <!-- 排行榜复制区域（直接展示在页面） -->
+        <div class="copy-section p-6 mb-8">
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">📋</span>
+                    <h3 class="text-2xl font-black text-gray-800">排行榜文案生成</h3>
+                    <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">隐私模式：显示前2位+****+后4位</span>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="copyStats('zh')" class="btn-copy px-6 py-3 rounded-xl font-bold flex items-center gap-2" id="btn-zh">
+                        <span>🇨🇳</span>
+                        <span>复制中文</span>
+                    </button>
+                    <button onclick="copyStats('ms')" class="btn-copy px-6 py-3 rounded-xl font-bold flex items-center gap-2" id="btn-ms">
+                        <span>🇲🇾</span>
+                        <span>复制Malay</span>
+                    </button>
+                    <button onclick="copyStats('en')" class="btn-copy px-6 py-3 rounded-xl font-bold flex items-center gap-2" id="btn-en">
+                        <span>🇬🇧</span>
+                        <span>复制English</span>
+                    </button>
+                    <button onclick="copyStats('all')" class="btn-copy px-6 py-3 rounded-xl font-bold flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500" id="btn-all">
+                        <span>🌍</span>
+                        <span>复制三语</span>
+                    </button>
+                </div>
             </div>
             
-            <!-- 空状态 -->
-            <div id="emptyState" class="py-20 text-center text-gray-400">
-                <div class="text-8xl mb-4">🧨</div>
-                <p class="text-xl font-medium text-gray-500">暂无数据，点击"添加账户"开始录入</p>
-                <p class="text-sm text-gray-400 mt-2">支持正常账户与小号分类管理</p>
+            <!-- 预览区域 -->
+            <div class="preview-box p-6 text-gray-300 text-sm overflow-x-auto">
+                <pre id="previewText" class="whitespace-pre-wrap">点击上方按钮生成排行榜文案...</pre>
+            </div>
+        </div>
+
+        <!-- 双排行榜管理区域 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- 正常账户排行榜 -->
+            <div class="glass-panel rounded-2xl overflow-hidden shadow-2xl">
+                <div class="leaderboard-header px-6 py-4 flex items-center justify-between">
+                    <h3 class="text-white font-bold text-lg flex items-center gap-2">
+                        <span>👤</span>
+                        正常账户排行榜
+                    </h3>
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-sm" id="normalCount">0 人</span>
+                </div>
+                <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                    <table class="w-full">
+                        <thead class="sticky top-0 bg-cyan-50">
+                            <tr class="border-b border-cyan-200">
+                                <th class="px-4 py-3 text-left text-xs font-bold text-cyan-800 w-12">排名</th>
+                                <th class="px-4 py-3 text-left text-xs font-bold text-cyan-800">账户</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-cyan-600">R1</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-purple-600">R2</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-amber-600">R3</th>
+                                <th class="px-4 py-3 text-right text-xs font-bold text-cyan-800">总计</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-cyan-800 w-16">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="normalTableBody" class="divide-y divide-cyan-100">
+                            <!-- 动态生成 -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="normalEmpty" class="py-12 text-center text-gray-400 hidden">
+                    <div class="text-6xl mb-4">📭</div>
+                    <p class="text-lg">暂无正常账户数据</p>
+                </div>
+            </div>
+
+            <!-- 小号排行榜 -->
+            <div class="glass-panel rounded-2xl overflow-hidden shadow-2xl">
+                <div class="leaderboard-header px-6 py-4 flex items-center justify-between" style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);">
+                    <h3 class="text-white font-bold text-lg flex items-center gap-2">
+                        <span>🎭</span>
+                        小号排行榜
+                    </h3>
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-sm" id="smurfCount">0 人</span>
+                </div>
+                <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                    <table class="w-full">
+                        <thead class="sticky top-0 bg-orange-50">
+                            <tr class="border-b border-orange-200">
+                                <th class="px-4 py-3 text-left text-xs font-bold text-orange-800 w-12">排名</th>
+                                <th class="px-4 py-3 text-left text-xs font-bold text-orange-800">账户</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-cyan-600">R1</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-purple-600">R2</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-amber-600">R3</th>
+                                <th class="px-4 py-3 text-right text-xs font-bold text-orange-800">总计</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-orange-800 w-16">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="smurfTableBody" class="divide-y divide-orange-100">
+                            <!-- 动态生成 -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="smurfEmpty" class="py-12 text-center text-gray-400 hidden">
+                    <div class="text-6xl mb-4">📭</div>
+                    <p class="text-lg">暂无小号数据</p>
+                </div>
             </div>
         </div>
 
         <!-- 页脚 -->
         <div class="mt-8 text-center">
             <div class="inline-block glass-panel px-8 py-4 rounded-full">
-                <p class="text-red-700 font-medium text-sm">
-                    🎊 数据本地自动存储 · 统计表对外隐藏账户类型 · 中间6位自动打码保护隐私 🎊
+                <p class="text-cyan-700 font-medium text-sm">
+                    🎯 数据本地自动存储 · 管理界面区分账户类型 · 对外展示统一排行榜 · 隐私保护已开启
                 </p>
             </div>
         </div>
     </div>
 
     <!-- 添加账户模态框 -->
-    <div id="addModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center z-50">
-        <div class="glass-panel rounded-3xl p-8 w-full max-w-lg mx-4 transform transition-all scale-100 shadow-2xl border-red-300">
+    <div id="addModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="glass-panel rounded-3xl p-8 w-full max-w-lg mx-4 transform transition-all scale-100 shadow-2xl">
             <div class="flex items-center gap-3 mb-6">
-                <span class="text-4xl">🧧</span>
-                <h3 class="text-2xl font-black text-red-800">添加新账户</h3>
+                <span class="text-4xl">➕</span>
+                <h3 class="text-2xl font-black text-cyan-800">添加新账户</h3>
             </div>
             
             <div class="space-y-5">
                 <div>
-                    <label class="block text-red-700 font-bold mb-2">账户名称</label>
+                    <label class="block text-cyan-700 font-bold mb-2">账户名称</label>
                     <input type="text" id="newAccountName" placeholder="输入账户名称..." 
                            class="input-field w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-400 text-lg">
                 </div>
                 
                 <div>
-                    <label class="block text-red-700 font-bold mb-3">账户类型（仅自己可见）</label>
+                    <label class="block text-cyan-700 font-bold mb-3">账户类型（仅自己可见）</label>
                     <div class="grid grid-cols-2 gap-4">
                         <label class="cursor-pointer">
                             <input type="radio" name="accountType" value="normal" checked class="hidden peer">
@@ -481,9 +457,9 @@
                         </label>
                         <label class="cursor-pointer">
                             <input type="radio" name="accountType" value="smurf" class="hidden peer">
-                            <div class="p-4 rounded-xl border-2 border-amber-200 bg-amber-50 peer-checked:border-amber-600 peer-checked:bg-amber-100 transition-all text-center">
+                            <div class="p-4 rounded-xl border-2 border-orange-200 bg-orange-50 peer-checked:border-orange-600 peer-checked:bg-orange-100 transition-all text-center">
                                 <div class="text-2xl mb-1">🎭</div>
-                                <div class="font-bold text-amber-800">小号</div>
+                                <div class="font-bold text-orange-800">小号</div>
                             </div>
                         </label>
                     </div>
@@ -491,9 +467,9 @@
                 
                 <div class="grid grid-cols-3 gap-4">
                     <div>
-                        <label class="block text-red-600 font-bold mb-2 text-sm">R1 数量</label>
+                        <label class="block text-cyan-600 font-bold mb-2 text-sm">R1 数量</label>
                         <input type="number" id="newR1" placeholder="0" min="0"
-                               class="input-field w-full px-4 py-4 rounded-xl text-red-600 font-mono text-center text-lg font-bold placeholder-gray-300">
+                               class="input-field w-full px-4 py-4 rounded-xl text-cyan-600 font-mono text-center text-lg font-bold placeholder-gray-300">
                     </div>
                     <div>
                         <label class="block text-purple-600 font-bold mb-2 text-sm">R2 数量</label>
@@ -512,49 +488,8 @@
                 <button onclick="closeAddModal()" class="flex-1 px-6 py-4 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold transition-colors border-2 border-gray-200">
                     取消
                 </button>
-                <button onclick="confirmAdd()" class="flex-1 btn-primary px-6 py-4 rounded-xl text-white font-bold text-lg shadow-xl">
-                    确认添加 🎉
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 统计表模态框（对外展示用，隐私保护） -->
-    <div id="statsModal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center z-50">
-        <div class="stats-modal rounded-3xl w-full max-w-5xl mx-4 max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
-            <!-- 头部 -->
-            <div class="stats-header p-6 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <span class="text-4xl">📊</span>
-                    <div>
-                        <h3 class="text-2xl font-black text-white">实力战报新鲜出炉</h3>
-                        <p class="text-yellow-200 text-sm">Laporan Prestasi / Performance Report / 实力战报</p>
-                    </div>
-                </div>
-                <button onclick="closeStatsModal()" class="text-white/80 hover:text-white text-3xl transition-colors">&times;</button>
-            </div>
-            
-            <!-- 语言切换 -->
-            <div class="p-4 bg-black/20 flex gap-2 justify-center border-b border-yellow-500/30">
-                <button onclick="switchLanguage('zh')" class="language-tab active px-6 py-2 rounded-full text-sm font-medium" id="tab-zh">中文</button>
-                <button onclick="switchLanguage('ms')" class="language-tab px-6 py-2 rounded-full text-sm font-medium" id="tab-ms">Malay</button>
-                <button onclick="switchLanguage('en')" class="language-tab px-6 py-2 rounded-full text-sm font-medium" id="tab-en">English</button>
-            </div>
-            
-            <!-- 统计表内容 -->
-            <div class="flex-1 overflow-y-auto p-6" id="statsContent">
-                <!-- 动态生成 -->
-            </div>
-            
-            <!-- 底部复制按钮 -->
-            <div class="p-6 bg-black/30 border-t border-yellow-500/30 flex justify-center gap-4 flex-wrap">
-                <button onclick="copyStats('current')" class="copy-btn px-6 py-3 rounded-xl font-bold flex items-center gap-2">
-                    <span>📋</span>
-                    <span id="copyCurrentBtn">复制当前语言</span>
-                </button>
-                <button onclick="copyStats('all')" class="copy-btn px-6 py-3 rounded-xl font-bold flex items-center gap-2 bg-blue-500/20 border-blue-400 text-blue-400 hover:bg-blue-500 hover:text-white">
-                    <span>🌍</span>
-                    <span id="copyAllBtn">复制三语版本</span>
+                <button onclick="confirmAdd()" class="flex-1 btn-primary px-6 py-4 rounded-xl font-bold text-lg shadow-xl">
+                    确认添加 ✅
                 </button>
             </div>
         </div>
@@ -563,61 +498,57 @@
     <script>
         // 数据管理
         let data = [];
-        let currentLang = 'zh';
-        const STORAGE_KEY = 'rs_statistics_data_v5_privacy';
+        const STORAGE_KEY = 'rs_statistics_data_v6_fresh';
         
-        // 翻译字典 - 统计表专用（不区分类型）
+        // 翻译字典
         const translations = {
             zh: {
-                title: '📊 实力战报新鲜出炉',
-                account: '账户',
-                r1: 'R1',
-                r2: 'R2',
-                r3: 'R3',
-                total: '合计',
-                copyCurrent: '复制当前语言',
-                copyAll: '复制三语版本',
-                copied: '已复制!',
-                noData: '暂无数据',
-                ending: '把努力交给时间，把结果交给坚持。还没抵达终点的伙伴别慌——奇迹的另一个名字，叫"再试一次"。你的高光时刻，正在加载中...✨',
-                question: '现在的你，正在为哪个目标默默蓄力呢？'
-            },
-            ms: {
-                title: '📊 Laporan Prestasi Terkini',
-                account: 'Akaun',
-                r1: 'R1',
-                r2: 'R2',
-                r3: 'R3',
-                total: 'Jumlah',
-                copyCurrent: 'Salin Bahasa Semasa',
-                copyAll: 'Salin Versi 3 Bahasa',
-                copied: 'Disalin!',
-                noData: 'Tiada data',
-                ending: 'Serahkan usaha kepada masa, serahkan hasil kepada ketekunan. Kawan-kawan yang belum sampai ke destinasi, jangan panik—nama lain untuk keajaiban ialah "cuba sekali lagi". Saat kegemilangan anda sedang dimuatkan...✨',
-                question: 'Anda sekarang, sedang berusaha untuk matlamat yang mana?'
-            },
-            en: {
-                title: '📊 Fresh Performance Report',
-                account: 'Account',
+                title: '📊 成绩不会凭空出现，所有上榜的人，都只是比别人先行动一步。',
+                subtitle: '今天的排名，不是终点，而是新的起点。',
+                account: '',
                 r1: 'R1',
                 r2: 'R2',
                 r3: 'R3',
                 total: 'Total',
-                copyCurrent: 'Copy Current Language',
-                copyAll: 'Copy Trilingual Version',
+                copied: '已复制!',
+                noData: '暂无数据',
+                ending: '别小看每一次分享和每一次邀约，它们都可能成为成绩增长的转折点。\n有人已经拿到结果，说明方向是对的；你现在要做的，不是继续观望，而是马上行动。\n想上榜、想放大结果、想让团队动起来，就从现在开始，多聊一个人，多邀一个人，多带一个人。',
+                question: '谁先迈出去，谁就先拿到结果；谁先开始带人，谁就更容易把优势越拉越大。'
+            },
+            ms: {
+                title: '📊 Kejayaan tidak datang secara kebetulan, semua yang tersenarai hanya bertindak lebih awal dari orang lain.',
+                subtitle: 'Kedudukan hari ini bukanlah destinasi, tetapi titik permulaan yang baharu.',
+                account: '',
+                r1: 'R1',
+                r2: 'R2',
+                r3: 'R3',
+                total: 'Jumlah',
+                copied: 'Disalin!',
+                noData: 'Tiada data',
+                ending: 'Jangan pandang rendah setiap perkongsian dan setiap jemputan, kerana mereka mungkin menjadi titik perubahan untuk pertumbuhan prestasi.\nSesetengah orang telah mendapat keputusan, menunjukkan arahnya betul; apa yang perlu anda lakukan sekarang bukanlah terus memerhati, tetapi bertindak segera.\nMahukah tersenarai, mahukah memperbesar keputusan, mahukah menggerakkan pasukan? Mulai sekarang, bercakap dengan satu orang lagi, menjemput satu orang lagi, membawa satu orang lagi.',
+                question: 'Siapa yang bergerak dahulu akan mendapat keputusan dahulu; siapa yang mula membawa orang akan lebih mudah memperbesar kelebihan.'
+            },
+            en: {
+                title: '📊 Success doesn\'t appear out of nowhere. Those on the list simply took action one step earlier than others.',
+                subtitle: 'Today\'s ranking is not the destination, but a new starting point.',
+                account: '',
+                r1: 'R1',
+                r2: 'R2',
+                r3: 'R3',
+                total: 'Total',
                 copied: 'Copied!',
                 noData: 'No data',
-                ending: 'Leave the effort to time, leave the results to persistence. Friends who haven\'t reached the destination yet, don\'t panic—another name for miracle is "try again". Your highlight moment is loading...✨',
-                question: 'Right now, which goal are you silently building strength for?'
+                ending: 'Never underestimate every share and every invitation—they could be the turning point for performance growth.\nSome have already achieved results, proving the direction is right; what you need to do now is not to keep watching, but to take action immediately.\nWant to be on the list? Want to amplify results? Want to mobilize the team? Start now—talk to one more person, invite one more person, bring one more person.',
+                question: 'Whoever steps out first gets results first; whoever starts leading others finds it easier to widen the advantage.'
             }
         };
 
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
-            renderTable();
-            updateStats();
-            createCoins();
+            renderAll();
+            createBubbles();
+            updatePreview();
             
             // 回车提交
             document.getElementById('addModal').addEventListener('keydown', (e) => {
@@ -628,22 +559,22 @@
             });
         });
 
-        // 创建飘落金币
-        function createCoins() {
-            const container = document.getElementById('coinContainer');
-            const coins = ['🧧', '💰', '💎', '🏮', '⭐'];
+        // 创建漂浮气泡
+        function createBubbles() {
+            const container = document.getElementById('bubbleContainer');
             
             setInterval(() => {
-                const coin = document.createElement('div');
-                coin.className = 'coin';
-                coin.textContent = coins[Math.floor(Math.random() * coins.length)];
-                coin.style.left = Math.random() * 100 + 'vw';
-                coin.style.animationDuration = (Math.random() * 3 + 4) + 's';
-                coin.style.fontSize = (Math.random() * 15 + 15) + 'px';
-                container.appendChild(coin);
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const size = Math.random() * 20 + 10;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = Math.random() * 100 + 'vw';
+                bubble.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                container.appendChild(bubble);
                 
-                setTimeout(() => coin.remove(), 7000);
-            }, 2000);
+                setTimeout(() => bubble.remove(), 10000);
+            }, 3000);
         }
 
         // 加载数据
@@ -668,20 +599,130 @@
             }, 1000);
         }
 
-        // 隐私保护函数 - 中间6位打码
+        // 隐私保护函数 - 前2位+****+后4位
         function maskAccountName(name) {
             if (!name || name.length <= 6) return name;
             
             const len = name.length;
-            if (len <= 8) {
-                // 短名称：显示前2后2，中间打码
-                return name.substring(0, 2) + '****' + name.substring(len - 2);
+            if (len <= 6) {
+                return name.substring(0, 2) + '****';
             } else {
-                // 长名称：显示前3后3，中间6位打码
-                const start = name.substring(0, 3);
-                const end = name.substring(len - 3);
-                return start + '******' + end;
+                // 显示前2位 + **** + 后4位
+                const start = name.substring(0, 2);
+                const end = name.substring(len - 4);
+                return start + '****' + end;
             }
+        }
+
+        // 获取排序后的数据（按总数降序）
+        function getSortedData() {
+            return [...data].map(item => ({
+                ...item,
+                total: (parseInt(item.r1) || 0) + (parseInt(item.r2) || 0) + (parseInt(item.r3) || 0)
+            })).sort((a, b) => b.total - a.total);
+        }
+
+        // 渲染所有内容
+        function renderAll() {
+            renderLeaderboards();
+            updateStats();
+            updatePreview();
+        }
+
+        // 渲染双排行榜
+        function renderLeaderboards() {
+            const sortedData = getSortedData();
+            const normalData = sortedData.filter(item => item.type === 'normal');
+            const smurfData = sortedData.filter(item => item.type === 'smurf');
+
+            renderTable('normalTableBody', 'normalEmpty', 'normalCount', normalData, 'normal');
+            renderTable('smurfTableBody', 'smurfEmpty', 'smurfCount', smurfData, 'smurf');
+        }
+
+        // 渲染单个表格
+        function renderTable(tbodyId, emptyId, countId, items, type) {
+            const tbody = document.getElementById(tbodyId);
+            const emptyState = document.getElementById(emptyId);
+            const countBadge = document.getElementById(countId);
+            
+            countBadge.textContent = items.length + ' 人';
+            
+            if (items.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            emptyState.classList.add('hidden');
+            
+            tbody.innerHTML = items.map((item, index) => {
+                const rank = index + 1;
+                let rankClass = '';
+                let rankDisplay = rank;
+                
+                if (rank === 1) {
+                    rankClass = 'rank-1';
+                    rankDisplay = '🥇';
+                } else if (rank === 2) {
+                    rankClass = 'rank-2';
+                    rankDisplay = '🥈';
+                } else if (rank === 3) {
+                    rankClass = 'rank-3';
+                    rankDisplay = '🥉';
+                }
+
+                const rowClass = type === 'smurf' ? 'hover:bg-orange-50' : 'hover:bg-cyan-50';
+                
+                return `
+                    <tr class="leaderboard-row row-enter ${rowClass} transition-all border-b ${type === 'smurf' ? 'border-orange-100' : 'border-cyan-100'}">
+                        <td class="px-4 py-3">
+                            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold ${rankClass}">
+                                ${rankDisplay}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div class="font-bold text-gray-800 cursor-pointer hover:text-cyan-600 transition-colors" 
+                                 onclick="editAccountName(${item.id}, this)">
+                                ${item.account || '未命名'}
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-center">
+                            <input type="number" 
+                                   value="${item.r1}" 
+                                   placeholder="0"
+                                   min="0"
+                                   class="input-field w-20 px-2 py-1 rounded-lg text-cyan-600 font-mono text-center font-bold text-sm"
+                                   oninput="updateValue(${item.id}, 'r1', this.value)">
+                        </td>
+                        <td class="px-4 py-3 text-center">
+                            <input type="number" 
+                                   value="${item.r2}" 
+                                   placeholder="0"
+                                   min="0"
+                                   class="input-field w-20 px-2 py-1 rounded-lg text-purple-600 font-mono text-center font-bold text-sm"
+                                   oninput="updateValue(${item.id}, 'r2', this.value)">
+                        </td>
+                        <td class="px-4 py-3 text-center">
+                            <input type="number" 
+                                   value="${item.r3}" 
+                                   placeholder="0"
+                                   min="0"
+                                   class="input-field w-20 px-2 py-1 rounded-lg text-amber-600 font-mono text-center font-bold text-sm"
+                                   oninput="updateValue(${item.id}, 'r3', this.value)">
+                        </td>
+                        <td class="px-4 py-3 text-right">
+                            <span class="total-display text-lg">${item.total.toLocaleString()}</span>
+                        </td>
+                        <td class="px-4 py-3 text-center">
+                            <button onclick="deleteRow(${item.id})" 
+                                    class="delete-btn p-2 rounded-lg transition-all"
+                                    title="删除">
+                                🗑️
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         // 模态框控制
@@ -726,8 +767,7 @@
             
             data.push(newRow);
             saveData();
-            renderTable();
-            updateStats();
+            renderAll();
             closeAddModal();
         }
 
@@ -736,8 +776,7 @@
             if (confirm('确定要删除这条记录吗？')) {
                 data = data.filter(item => item.id !== id);
                 saveData();
-                renderTable();
-                updateStats();
+                renderAll();
             }
         }
 
@@ -747,8 +786,7 @@
             if (confirm('确定要清空所有数据吗？此操作不可恢复！')) {
                 data = [];
                 saveData();
-                renderTable();
-                updateStats();
+                renderAll();
             }
         }
 
@@ -758,20 +796,7 @@
             if (item) {
                 item[field] = value;
                 saveData();
-                updateStats();
-                updateRowTotal(id);
-            }
-        }
-
-        // 更新单行合计
-        function updateRowTotal(id) {
-            const item = data.find(d => d.id === id);
-            if (item) {
-                const total = (parseInt(item.r1) || 0) + (parseInt(item.r2) || 0) + (parseInt(item.r3) || 0);
-                const totalCell = document.getElementById(`total-${id}`);
-                if (totalCell) {
-                    totalCell.textContent = total.toLocaleString();
-                }
+                renderAll();
             }
         }
 
@@ -784,7 +809,7 @@
             const input = document.createElement('input');
             input.type = 'text';
             input.value = currentValue;
-            input.className = 'input-field w-full px-3 py-2 rounded-lg text-gray-800 font-bold bg-white';
+            input.className = 'input-field w-full px-3 py-2 rounded-lg text-gray-800 font-bold bg-white text-sm';
             
             element.innerHTML = '';
             element.appendChild(input);
@@ -797,13 +822,13 @@
                     item.account = newValue;
                     saveData();
                 }
-                renderTable();
+                renderAll();
             }
             
             input.addEventListener('blur', save);
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') save();
-                if (e.key === 'Escape') renderTable();
+                if (e.key === 'Escape') renderAll();
             });
         }
 
@@ -818,229 +843,85 @@
             document.getElementById('totalR3').textContent = totalR3.toLocaleString();
         }
 
-        // 渲染管理表格（仅自己可见，显示完整信息）
-        function renderTable() {
-            const tbody = document.getElementById('tableBody');
-            const emptyState = document.getElementById('emptyState');
-            
-            if (data.length === 0) {
-                tbody.innerHTML = '';
-                emptyState.style.display = 'block';
+        // 更新预览文本
+        function updatePreview() {
+            const sortedData = getSortedData();
+            if (sortedData.length === 0) {
+                document.getElementById('previewText').textContent = '暂无数据，请添加账户后生成排行榜...';
                 return;
             }
             
-            emptyState.style.display = 'none';
-            tbody.innerHTML = data.map((item, index) => {
-                const total = (parseInt(item.r1) || 0) + (parseInt(item.r2) || 0) + (parseInt(item.r3) || 0);
-                const isSmurf = item.type === 'smurf';
-                const badgeClass = isSmurf ? 'badge-smurf' : 'badge-normal';
-                const badgeText = isSmurf ? '🎭 小号' : '👤 正常';
-                const rowClass = isSmurf ? 'bg-amber-50/50' : 'bg-blue-50/30';
-                
-                return `
-                    <tr class="row-enter ${rowClass} hover:bg-red-50 transition-colors border-b border-red-100">
-                        <td class="px-6 py-4 text-gray-500 font-mono font-bold">${index + 1}</td>
-                        <td class="px-6 py-4">
-                            <div class="account-display font-bold text-gray-800 text-lg cursor-pointer hover:text-red-600 transition-colors" 
-                                 onclick="editAccountName(${item.id}, this)">
-                                ${item.account || '未命名'}
-                                <span class="text-xs text-gray-400 ml-2">(点击编辑)</span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="account-badge ${badgeClass}">${badgeText}</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <input type="number" 
-                                   value="${item.r1}" 
-                                   placeholder="0"
-                                   min="0"
-                                   class="input-field w-28 px-3 py-2 rounded-lg text-red-600 font-mono text-center font-bold"
-                                   oninput="updateValue(${item.id}, 'r1', this.value)">
-                        </td>
-                        <td class="px-6 py-4">
-                            <input type="number" 
-                                   value="${item.r2}" 
-                                   placeholder="0"
-                                   min="0"
-                                   class="input-field w-28 px-3 py-2 rounded-lg text-purple-600 font-mono text-center font-bold"
-                                   oninput="updateValue(${item.id}, 'r2', this.value)">
-                        </td>
-                        <td class="px-6 py-4">
-                            <input type="number" 
-                                   value="${item.r3}" 
-                                   placeholder="0"
-                                   min="0"
-                                   class="input-field w-28 px-3 py-2 rounded-lg text-amber-600 font-mono text-center font-bold"
-                                   oninput="updateValue(${item.id}, 'r3', this.value)">
-                        </td>
-                        <td class="px-6 py-4">
-                            <span id="total-${item.id}" class="total-display text-xl">${total.toLocaleString()}</span>
-                        </td>
-                        <td class="px-6 py-4 text-center">
-                            <button onclick="deleteRow(${item.id})" 
-                                    class="delete-btn p-3 rounded-xl transition-all"
-                                    title="删除">
-                                🗑️
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
+            const t = translations.zh;
+            let text = generateStatsText(sortedData, 'zh', t);
+            document.getElementById('previewText').textContent = text;
         }
 
-        // 统计表功能（对外展示，隐私保护）
-        function openStatsModal() {
-            document.getElementById('statsModal').classList.remove('hidden');
-            document.getElementById('statsModal').classList.add('flex');
-            renderStats();
-        }
-
-        function closeStatsModal() {
-            document.getElementById('statsModal').classList.add('hidden');
-            document.getElementById('statsModal').classList.remove('flex');
-        }
-
-        function switchLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('.language-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.getElementById(`tab-${lang}`).classList.add('active');
-            renderStats();
-        }
-
-        function renderStats() {
-            const content = document.getElementById('statsContent');
-            const t = translations[currentLang];
-            
-            if (data.length === 0) {
-                content.innerHTML = `
-                    <div class="text-center py-12 text-gray-400">
-                        <div class="text-6xl mb-4">📭</div>
-                        <p class="text-xl">${t.noData}</p>
-                    </div>
-                `;
-                return;
-            }
-
-            // 排序数据（按总数降序）
-            const sortedData = [...data].map(item => ({
-                ...item,
-                total: (parseInt(item.r1) || 0) + (parseInt(item.r2) || 0) + (parseInt(item.r3) || 0)
-            })).sort((a, b) => b.total - a.total);
-
-            let html = `
-                <div class="mb-6 text-center">
-                    <h2 class="text-3xl font-black text-yellow-400 mb-2">${t.title}</h2>
-                    <p class="text-gray-400 text-sm">🔒 隐私保护模式 - 账户已脱敏处理</p>
-                </div>
-                
-                <div class="space-y-2">
-                    <div class="grid grid-cols-12 gap-2 text-yellow-400 font-bold text-xs mb-3 px-4 py-2 bg-white/5 rounded-lg">
-                        <div class="col-span-1 text-center">#</div>
-                        <div class="col-span-4">${t.account}</div>
-                        <div class="col-span-2 text-center text-red-400">${t.r1}</div>
-                        <div class="col-span-2 text-center text-purple-400">${t.r2}</div>
-                        <div class="col-span-2 text-center text-amber-400">${t.r3}</div>
-                        <div class="col-span-1 text-right">${t.total}</div>
-                    </div>
-            `;
-
-            sortedData.forEach((item, index) => {
-                const maskedName = maskAccountName(item.account);
-                
-                html += `
-                    <div class="stats-row rounded-lg p-3 grid grid-cols-12 gap-2 items-center text-white text-sm">
-                        <div class="col-span-1 text-center font-bold text-yellow-400">${index + 1}</div>
-                        <div class="col-span-4 font-medium masked-text text-gray-200" title="隐私保护：完整账户名已隐藏">
-                            ${maskedName}
-                        </div>
-                        <div class="col-span-2 text-center font-mono text-red-300">${item.r1 || 0}</div>
-                        <div class="col-span-2 text-center font-mono text-purple-300">${item.r2 || 0}</div>
-                        <div class="col-span-2 text-center font-mono text-amber-300">${item.r3 || 0}</div>
-                        <div class="col-span-1 text-right font-bold text-yellow-400 text-lg">${item.total.toLocaleString()}</div>
-                    </div>
-                `;
-            });
-
-            // 结尾文案（不显示总计）
-            html += `
-                </div>
-                
-                <div class="ending-quote">
-                    <div class="trilingual-text text-lg mb-3 relative z-10">
-                        ${t.ending}
-                    </div>
-                    <div class="ending-question relative z-10">
-                        ${t.question}
-                    </div>
-                </div>
-            `;
-
-            content.innerHTML = html;
-        }
-
-        // 复制统计表功能
-        function copyStats(format) {
-            const sortedData = [...data].map(item => ({
-                ...item,
-                total: (parseInt(item.r1) || 0) + (parseInt(item.r2) || 0) + (parseInt(item.r3) || 0)
-            })).sort((a, b) => b.total - a.total);
-
-            let text = '';
-
-            if (format === 'current') {
-                // 仅当前语言
-                const t = translations[currentLang];
-                text = generateStatsText(sortedData, currentLang, t);
-                showCopySuccess('copyCurrentBtn', t.copied);
-            } else {
-                // 三语版本
-                text += generateStatsText(sortedData, 'zh', translations.zh);
-                text += '\n━━━━━━━━━━━━━━━━━━━━━━\n\n';
-                text += generateStatsText(sortedData, 'ms', translations.ms);
-                text += '\n━━━━━━━━━━━━━━━━━━━━━━\n\n';
-                text += generateStatsText(sortedData, 'en', translations.en);
-                text += '\n━━━━━━━━━━━━━━━━━━━━━━\n🔒 隐私保护：账户已脱敏处理\n';
-                showCopySuccess('copyAllBtn', '已复制三语版本!');
-            }
-
-            navigator.clipboard.writeText(text);
-        }
-
+        // 生成统计文本
         function generateStatsText(sortedData, lang, t) {
-            let text = `${t.title}\n`;
+            let text = `${t.title}\n${t.subtitle}\n\n`;
             text += `━━━━━━━━━━━━━━━━━━━━━━\n\n`;
             
             sortedData.forEach((item, index) => {
                 const maskedName = maskAccountName(item.account);
-                text += `${index + 1}. ${maskedName}\n`;
-                text += `   ${t.r1}: ${item.r1 || 0} | ${t.r2}: ${item.r2 || 0} | ${t.r3}: ${item.r3 || 0}\n`;
-                text += `   ${t.total}: ${item.total.toLocaleString()}\n\n`;
+                const r1 = parseInt(item.r1) || 0;
+                const r2 = parseInt(item.r2) || 0;
+                const r3 = parseInt(item.r3) || 0;
+                
+                text += `${maskedName} ${t.r1}: ${r1} | ${t.r2}: ${r2} | ${t.r3}: ${r3}  ${t.total}: ${item.total}\n`;
             });
 
-            // 添加结尾文案（不显示总计数字）
-            text += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+            text += `\n━━━━━━━━━━━━━━━━━━━━━━\n\n`;
             text += `${t.ending}\n\n`;
-            text += `💭 ${t.question}\n`;
+            text += `${t.question}`;
 
             return text;
         }
 
-        function showCopySuccess(btnId, text) {
+        // 复制功能
+        function copyStats(format) {
+            const sortedData = getSortedData();
+            
+            if (sortedData.length === 0) {
+                alert('没有数据可复制！');
+                return;
+            }
+
+            let text = '';
+            let btnId = '';
+
+            if (format === 'all') {
+                // 三语版本
+                text += generateStatsText(sortedData, 'zh', translations.zh);
+                text += '\n\n━━━━━━━━━━━━━━━━━━━━━━\n\n';
+                text += generateStatsText(sortedData, 'ms', translations.ms);
+                text += '\n\n━━━━━━━━━━━━━━━━━━━━━━\n\n';
+                text += generateStatsText(sortedData, 'en', translations.en);
+                btnId = 'btn-all';
+            } else {
+                const t = translations[format];
+                text = generateStatsText(sortedData, format, t);
+                btnId = 'btn-' + format;
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                showCopySuccess(btnId);
+            });
+        }
+
+        function showCopySuccess(btnId) {
             const btn = document.getElementById(btnId);
-            const originalText = btn.textContent;
-            btn.textContent = text;
-            btn.parentElement.classList.add('copied');
+            const originalHTML = btn.innerHTML;
+            
+            btn.classList.add('copied');
+            btn.innerHTML = '<span>✅</span><span>已复制!</span>';
             
             setTimeout(() => {
-                btn.textContent = originalText;
-                btn.parentElement.classList.remove('copied');
+                btn.classList.remove('copied');
+                btn.innerHTML = originalHTML;
             }, 2000);
         }
 
-        // 导出CSV（管理用，包含完整信息）
+        // 导出CSV
         function downloadData() {
             if (data.length === 0) {
                 alert('没有数据可导出！');
@@ -1049,10 +930,10 @@
 
             let csv = '\ufeff序号,完整账户名,账户类型,R1,R2,R3,合计\n';
             
-            data.forEach((item, index) => {
-                const total = (parseInt(item.r1) || 0) + (parseInt(item.r2) || 0) + (parseInt(item.r3) || 0);
+            const sortedData = getSortedData();
+            sortedData.forEach((item, index) => {
                 const typeText = item.type === 'smurf' ? '小号' : '正常';
-                csv += `${index + 1},${item.account},${typeText},${item.r1 || 0},${item.r2 || 0},${item.r3 || 0},${total}\n`;
+                csv += `${index + 1},${item.account},${typeText},${item.r1 || 0},${item.r2 || 0},${item.r3 || 0},${item.total}\n`;
             });
 
             const totalR1 = data.reduce((sum, item) => sum + (parseInt(item.r1) || 0), 0);
@@ -1069,35 +950,24 @@
             link.href = URL.createObjectURL(blob);
             link.download = `RS统计表_完整数据_${timestamp}.csv`;
             link.click();
-            
-            // 按钮反馈
-            const btn = event.target.closest('button');
-            const original = btn.innerHTML;
-            btn.innerHTML = '<span class="text-xl">✅</span> 导出成功';
-            setTimeout(() => btn.innerHTML = original, 2000);
         }
 
         // 键盘快捷键
         document.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
                 e.preventDefault();
-                if (document.getElementById('addModal').classList.contains('hidden') && 
-                    document.getElementById('statsModal').classList.contains('hidden')) {
+                if (document.getElementById('addModal').classList.contains('hidden')) {
                     openAddModal();
                 }
             }
             if (e.key === 'Escape') {
                 closeAddModal();
-                closeStatsModal();
             }
         });
 
         // 点击外部关闭
         document.getElementById('addModal').addEventListener('click', (e) => {
             if (e.target === document.getElementById('addModal')) closeAddModal();
-        });
-        document.getElementById('statsModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('statsModal')) closeStatsModal();
         });
     </script>
 </body>
