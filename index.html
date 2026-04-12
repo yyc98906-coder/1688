@@ -249,10 +249,123 @@
             transform: scale(1.01);
             transition: all 0.2s;
         }
+
+        /* Toast Notification Styles */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+        
+        .toast {
+            background: white;
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            max-width: 400px;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            border-left: 4px solid;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .toast.success {
+            border-left-color: #66bb6a;
+            background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%);
+        }
+        
+        .toast.info {
+            border-left-color: #42a5f5;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        }
+        
+        .toast.warning {
+            border-left-color: #ffa726;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+        }
+        
+        .toast.error {
+            border-left-color: #ef5350;
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+        }
+        
+        .toast-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .toast-content {
+            flex: 1;
+        }
+        
+        .toast-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 2px;
+            font-size: 14px;
+        }
+        
+        .toast-message {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        .toast-close {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        
+        .toast-close:hover {
+            background: rgba(0,0,0,0.1);
+            color: #333;
+        }
+
+        .merge-info {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border: 2px dashed #ffa726;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #f57c00;
+            font-size: 14px;
+        }
     </style>
 <base target="_blank">
 </head>
 <body class="text-gray-800 p-4 md:p-8 relative">
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
 
     <!-- 背景装饰 -->
     <div class="bg-pattern"></div>
@@ -267,11 +380,11 @@
                 </h1>
                 <div class="flex items-center justify-center gap-4 text-lg md:text-xl font-bold text-cyan-700 mt-2">
                     <span>🎯</span>
-                    <span>自动排序 · 隐私保护 · 三语支持</span>
+                    <span>自动排序 · 智能合并 · 隐私保护</span>
                     <span>🎯</span>
                 </div>
             </div>
-            <p class="text-cyan-600 font-medium text-lg">数据自动保存本地 · 排行榜实时生成 · 一键复制分享</p>
+            <p class="text-cyan-600 font-medium text-lg">重复号码自动累加 · 数据实时同步 · 三语一键复制</p>
         </div>
 
         <!-- 统计卡片 -->
@@ -325,20 +438,20 @@
                     <h3 class="text-2xl font-black text-gray-800">排行榜文案生成</h3>
                     <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">隐私模式：显示前2位+****+后4位</span>
                 </div>
-                <div class="flex gap-2">
-                    <button onclick="copyStats('zh')" class="btn-copy px-6 py-3 rounded-xl font-bold flex items-center gap-2" id="btn-zh">
+                <div class="flex gap-2 flex-wrap">
+                    <button onclick="copyStats('zh')" class="btn-copy px-5 py-3 rounded-xl font-bold flex items-center gap-2 text-sm" id="btn-zh">
                         <span>🇨🇳</span>
                         <span>复制中文</span>
                     </button>
-                    <button onclick="copyStats('ms')" class="btn-copy px-6 py-3 rounded-xl font-bold flex items-center gap-2" id="btn-ms">
+                    <button onclick="copyStats('ms')" class="btn-copy px-5 py-3 rounded-xl font-bold flex items-center gap-2 text-sm" id="btn-ms">
                         <span>🇲🇾</span>
                         <span>复制Malay</span>
                     </button>
-                    <button onclick="copyStats('en')" class="btn-copy px-6 py-3 rounded-xl font-bold flex items-center gap-2" id="btn-en">
+                    <button onclick="copyStats('en')" class="btn-copy px-5 py-3 rounded-xl font-bold flex items-center gap-2 text-sm" id="btn-en">
                         <span>🇬🇧</span>
                         <span>复制English</span>
                     </button>
-                    <button onclick="copyStats('all')" class="btn-copy px-6 py-3 rounded-xl font-bold flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500" id="btn-all">
+                    <button onclick="copyStats('all')" class="btn-copy px-5 py-3 rounded-xl font-bold flex items-center gap-2 text-sm bg-gradient-to-r from-purple-500 to-pink-500" id="btn-all">
                         <span>🌍</span>
                         <span>复制三语</span>
                     </button>
@@ -424,7 +537,7 @@
         <div class="mt-8 text-center">
             <div class="inline-block glass-panel px-8 py-4 rounded-full">
                 <p class="text-cyan-700 font-medium text-sm">
-                    🎯 数据本地自动存储 · 管理界面区分账户类型 · 对外展示统一排行榜 · 隐私保护已开启
+                    🎯 数据本地自动存储 · 重复号码智能合并 · 管理界面双榜区分 · 对外展示统一排行
                 </p>
             </div>
         </div>
@@ -433,9 +546,15 @@
     <!-- 添加账户模态框 -->
     <div id="addModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
         <div class="glass-panel rounded-3xl p-8 w-full max-w-lg mx-4 transform transition-all scale-100 shadow-2xl">
-            <div class="flex items-center gap-3 mb-6">
+            <div class="flex items-center gap-3 mb-4">
                 <span class="text-4xl">➕</span>
                 <h3 class="text-2xl font-black text-cyan-800">添加新账户</h3>
+            </div>
+
+            <!-- 智能合并提示 -->
+            <div class="merge-info">
+                <span class="text-2xl">💡</span>
+                <span>提示：如果输入已存在的账户名，系统会自动将数据累加到原有记录上</span>
             </div>
             
             <div class="space-y-5">
@@ -498,7 +617,7 @@
     <script>
         // 数据管理
         let data = [];
-        const STORAGE_KEY = 'rs_statistics_data_v6_fresh';
+        const STORAGE_KEY = 'rs_statistics_data_v7_merge';
         
         // 翻译字典
         const translations = {
@@ -543,12 +662,45 @@
             }
         };
 
+        // Toast Notification System
+        function showToast(title, message, type = 'info', duration = 3000) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                success: '✅',
+                info: 'ℹ️',
+                warning: '⚠️',
+                error: '❌'
+            };
+            
+            toast.innerHTML = `
+                <div class="toast-icon">${icons[type]}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="this.parentElement.remove()">×</button>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            // Auto remove
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
             renderAll();
             createBubbles();
-            updatePreview();
             
             // 回车提交
             document.getElementById('addModal').addEventListener('keydown', (e) => {
@@ -747,36 +899,71 @@
         function confirmAdd() {
             const account = document.getElementById('newAccountName').value.trim();
             const type = document.querySelector('input[name="accountType"]:checked').value;
-            const r1 = document.getElementById('newR1').value;
-            const r2 = document.getElementById('newR2').value;
-            const r3 = document.getElementById('newR3').value;
+            const r1 = parseInt(document.getElementById('newR1').value) || 0;
+            const r2 = parseInt(document.getElementById('newR2').value) || 0;
+            const r3 = parseInt(document.getElementById('newR3').value) || 0;
             
             if (!account) {
-                alert('请输入账户名称！');
+                showToast('输入错误', '请输入账户名称！', 'error');
                 return;
             }
             
-            const newRow = {
-                id: Date.now(),
-                account: account,
-                type: type,
-                r1: r1 || '',
-                r2: r2 || '',
-                r3: r3 || ''
-            };
+            // 检查是否已存在相同账户名（不区分类型，只匹配名称）
+            const existingIndex = data.findIndex(item => item.account === account);
             
-            data.push(newRow);
-            saveData();
-            renderAll();
-            closeAddModal();
+            if (existingIndex !== -1) {
+                // 已存在，执行累加操作
+                const existing = data[existingIndex];
+                const oldR1 = parseInt(existing.r1) || 0;
+                const oldR2 = parseInt(existing.r2) || 0;
+                const oldR3 = parseInt(existing.r3) || 0;
+                
+                // 累加新数据
+                existing.r1 = oldR1 + r1;
+                existing.r2 = oldR2 + r2;
+                existing.r3 = oldR3 + r3;
+                
+                // 如果类型不同，提示用户但保持原有类型（或可以更新类型，根据需求）
+                if (existing.type !== type) {
+                    showToast('类型不一致', `账户 "${account}" 已存在为${existing.type === 'normal' ? '正常账户' : '小号'}，数据已累加但类型未更改`, 'warning');
+                } else {
+                    showToast('数据已合并', `账户 "${account}" 数据已自动累加：R1 +${r1}, R2 +${r2}, R3 +${r3}`, 'success');
+                }
+                
+                saveData();
+                renderAll();
+                closeAddModal();
+            } else {
+                // 不存在，创建新记录
+                const newRow = {
+                    id: Date.now(),
+                    account: account,
+                    type: type,
+                    r1: r1 || '',
+                    r2: r2 || '',
+                    r3: r3 || ''
+                };
+                
+                data.push(newRow);
+                saveData();
+                renderAll();
+                closeAddModal();
+                
+                showToast('添加成功', `账户 "${account}" 已成功添加！`, 'success');
+            }
         }
 
         // 删除行
         function deleteRow(id) {
             if (confirm('确定要删除这条记录吗？')) {
+                const item = data.find(d => d.id === id);
                 data = data.filter(item => item.id !== id);
                 saveData();
                 renderAll();
+                
+                if (item) {
+                    showToast('删除成功', `账户 "${item.account}" 已删除`, 'info');
+                }
             }
         }
 
@@ -784,9 +971,12 @@
         function clearAll() {
             if (data.length === 0) return;
             if (confirm('确定要清空所有数据吗？此操作不可恢复！')) {
+                const count = data.length;
                 data = [];
                 saveData();
                 renderAll();
+                
+                showToast('数据已清空', `已清空 ${count} 条记录`, 'warning');
             }
         }
 
@@ -818,9 +1008,18 @@
             
             function save() {
                 const newValue = input.value.trim();
-                if (newValue) {
+                if (newValue && newValue !== currentValue) {
+                    // 检查新名称是否与其他账户冲突
+                    const conflict = data.find(d => d.id !== id && d.account === newValue);
+                    if (conflict) {
+                        showToast('名称冲突', `账户名 "${newValue}" 已存在，无法重命名`, 'error');
+                        renderAll();
+                        return;
+                    }
+                    
                     item.account = newValue;
                     saveData();
+                    showToast('修改成功', `账户名已更新为 "${newValue}"`, 'success');
                 }
                 renderAll();
             }
@@ -882,7 +1081,7 @@
             const sortedData = getSortedData();
             
             if (sortedData.length === 0) {
-                alert('没有数据可复制！');
+                showToast('无数据', '没有数据可复制！', 'warning');
                 return;
             }
 
@@ -905,6 +1104,9 @@
 
             navigator.clipboard.writeText(text).then(() => {
                 showCopySuccess(btnId);
+                
+                const langNames = { zh: '中文', ms: 'Malay', en: 'English', all: '三语' };
+                showToast('复制成功', `${langNames[format]}版本排行榜已复制到剪贴板`, 'success');
             });
         }
 
@@ -924,7 +1126,7 @@
         // 导出CSV
         function downloadData() {
             if (data.length === 0) {
-                alert('没有数据可导出！');
+                showToast('无数据', '没有数据可导出！', 'warning');
                 return;
             }
 
@@ -950,6 +1152,8 @@
             link.href = URL.createObjectURL(blob);
             link.download = `RS统计表_完整数据_${timestamp}.csv`;
             link.click();
+            
+            showToast('导出成功', `数据已导出为 CSV 文件`, 'success');
         }
 
         // 键盘快捷键
