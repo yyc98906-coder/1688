@@ -14,70 +14,55 @@
             overflow-x: hidden;
             background-attachment: fixed;
         }
-        
-        /* 清新背景装饰 */
+
         .bg-pattern {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 30%),
-                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.3) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+                radial-gradient(circle at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(255,255,255,0.3) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
-        
-        /* 漂浮气泡动画 */
+
         .bubble {
             position: fixed;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255,255,255,0.3);
             animation: float linear infinite;
             pointer-events: none;
             z-index: 1;
         }
-        
+
         @keyframes float {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) scale(1);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
         }
-        
+
         .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255,255,255,0.85);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 40px rgba(0, 188, 212, 0.15), 
-                        0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 10px 40px rgba(0,188,212,0.15), 0 0 0 1px rgba(255,255,255,0.6) inset;
         }
-        
+
         .input-field {
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid rgba(0, 188, 212, 0.2);
+            background: rgba(255,255,255,0.9);
+            border: 2px solid rgba(0,188,212,0.2);
             transition: all 0.3s ease;
         }
-        
+
         .input-field:focus {
             border-color: #00bcd4;
-            box-shadow: 0 0 0 4px rgba(0, 188, 212, 0.1);
+            box-shadow: 0 0 0 4px rgba(0,188,212,0.1);
             outline: none;
             transform: translateY(-2px);
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
             border: none;
@@ -86,110 +71,80 @@
             overflow: hidden;
             color: white;
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0, 188, 212, 0.3);
+            box-shadow: 0 15px 30px rgba(0,188,212,0.3);
         }
-        
+
         .btn-success {
             background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
             border: none;
             transition: all 0.3s ease;
             color: white;
         }
-        
+
         .btn-success:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(67, 160, 71, 0.3);
+            box-shadow: 0 15px 30px rgba(67,160,71,0.3);
         }
-        
+
         .btn-copy {
             background: linear-gradient(135deg, #ff7043 0%, #f4511e 100%);
             border: none;
             transition: all 0.3s ease;
             color: white;
         }
-        
+
         .btn-copy:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(244, 81, 30, 0.3);
+            box-shadow: 0 10px 25px rgba(244,81,30,0.3);
         }
-        
+
         .btn-copy.copied {
             background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
         }
-        
+
         .stat-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(224, 247, 250, 0.9) 100%);
-            border: 1px solid rgba(0, 188, 212, 0.2);
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(224,247,250,0.9) 100%);
+            border: 1px solid rgba(0,188,212,0.2);
             position: relative;
             overflow: hidden;
         }
-        
+
         .stat-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 4px;
             background: linear-gradient(90deg, #00bcd4, #4dd0e1, #00bcd4);
         }
-        
-        .account-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-left: 0.5rem;
-        }
-        
-        .badge-normal {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            color: #1565c0;
-            border: 1px solid #42a5f5;
-        }
-        
-        .badge-smurf {
-            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-            color: #ef6c00;
-            border: 1px solid #ff9800;
-        }
-        
+
         .row-enter {
             animation: slideIn 0.4s ease-out;
         }
-        
+
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
-        
+
         .rank-1 { background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%); color: #fff; }
         .rank-2 { background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%); color: #fff; }
         .rank-3 { background: linear-gradient(135deg, #cd7f32 0%, #b87333 100%); color: #fff; }
-        
+
         .delete-btn {
-            background: rgba(239, 83, 80, 0.1);
+            background: rgba(239,83,80,0.1);
             color: #ef5350;
             transition: all 0.3s;
         }
-        
+
         .delete-btn:hover {
             background: #ef5350;
             color: white;
             transform: rotate(90deg);
         }
-        
+
         .total-display {
             background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
             color: #00838f;
@@ -199,14 +154,14 @@
             border: 2px solid #00bcd4;
             display: inline-block;
         }
-        
+
         .copy-section {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(224, 247, 250, 0.95) 100%);
-            border: 2px solid rgba(0, 188, 212, 0.3);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(224,247,250,0.95) 100%);
+            border: 2px solid rgba(0,188,212,0.3);
             border-radius: 1.5rem;
-            box-shadow: 0 15px 35px rgba(0, 188, 212, 0.1);
+            box-shadow: 0 15px 35px rgba(0,188,212,0.1);
         }
-        
+
         .preview-box {
             background: linear-gradient(135deg, #263238 0%, #37474f 100%);
             border: 2px solid #00bcd4;
@@ -214,24 +169,24 @@
             font-family: 'Courier New', monospace;
             line-height: 1.6;
         }
-        
+
         ::-webkit-scrollbar {
             width: 10px;
             height: 10px;
         }
-        
+
         ::-webkit-scrollbar-track {
-            background: rgba(0, 188, 212, 0.1);
+            background: rgba(0,188,212,0.1);
             border-radius: 5px;
         }
-        
+
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #00bcd4 0%, #4dd0e1 100%);
             border-radius: 5px;
             border: 2px solid transparent;
             background-clip: content-box;
         }
-        
+
         .leaderboard-header {
             background: linear-gradient(135deg, #00acc1 0%, #0097a7 100%);
             color: white;
@@ -239,15 +194,27 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
-        .leaderboard-row:nth-child(even) {
-            background: rgba(0, 188, 212, 0.05);
+
+        .leaderboard-header-smurf {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
         }
-        
+
+        .leaderboard-row:nth-child(even) {
+            background: rgba(0,188,212,0.05);
+        }
+
         .leaderboard-row:hover {
-            background: rgba(0, 188, 212, 0.1);
+            background: rgba(0,188,212,0.1);
             transform: scale(1.01);
             transition: all 0.2s;
+        }
+
+        .leaderboard-row-smurf:nth-child(even) {
+            background: rgba(255,152,0,0.05);
+        }
+
+        .leaderboard-row-smurf:hover {
+            background: rgba(255,152,0,0.1);
         }
 
         /* Toast Notification Styles */
@@ -261,7 +228,7 @@
             gap: 10px;
             pointer-events: none;
         }
-        
+
         .toast {
             background: white;
             border-radius: 12px;
@@ -278,54 +245,21 @@
             pointer-events: auto;
             border-left: 4px solid;
         }
-        
+
         .toast.show {
             transform: translateX(0);
             opacity: 1;
         }
-        
-        .toast.success {
-            border-left-color: #66bb6a;
-            background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%);
-        }
-        
-        .toast.info {
-            border-left-color: #42a5f5;
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-        }
-        
-        .toast.warning {
-            border-left-color: #ffa726;
-            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-        }
-        
-        .toast.error {
-            border-left-color: #ef5350;
-            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
-        }
-        
-        .toast-icon {
-            font-size: 24px;
-            flex-shrink: 0;
-        }
-        
-        .toast-content {
-            flex: 1;
-        }
-        
-        .toast-title {
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 2px;
-            font-size: 14px;
-        }
-        
-        .toast-message {
-            color: #666;
-            font-size: 13px;
-            line-height: 1.4;
-        }
-        
+
+        .toast.success { border-left-color: #66bb6a; background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%); }
+        .toast.info { border-left-color: #42a5f5; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
+        .toast.warning { border-left-color: #ffa726; background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); }
+        .toast.error { border-left-color: #ef5350; background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); }
+
+        .toast-icon { font-size: 24px; flex-shrink: 0; }
+        .toast-content { flex: 1; }
+        .toast-title { font-weight: 700; color: #333; margin-bottom: 2px; font-size: 14px; }
+        .toast-message { color: #666; font-size: 13px; line-height: 1.4; }
         .toast-close {
             background: none;
             border: none;
@@ -341,11 +275,7 @@
             border-radius: 50%;
             transition: all 0.2s;
         }
-        
-        .toast-close:hover {
-            background: rgba(0,0,0,0.1);
-            color: #333;
-        }
+        .toast-close:hover { background: rgba(0,0,0,0.1); color: #333; }
 
         .merge-info {
             background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
@@ -359,7 +289,36 @@
             color: #f57c00;
             font-size: 14px;
         }
+
+        /* 内联删除按钮 */
+        .inline-delete-btn {
+            background: rgba(239,83,80,0.1);
+            color: #ef5350;
+            border: none;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: 6px;
+        }
+
+        .inline-delete-btn:hover {
+            background: #ef5350;
+            color: white;
+        }
+
+        .inline-delete-btn-smurf {
+            background: rgba(239,83,80,0.1);
+            color: #ef5350;
+        }
+
+        .inline-delete-btn-smurf:hover {
+            background: #ef5350;
+            color: white;
+        }
     </style>
+<base target="_blank">
 <base target="_blank">
 </head>
 <body class="text-gray-800 p-4 md:p-8 relative">
@@ -418,7 +377,7 @@
                     导出数据
                 </button>
             </div>
-            
+
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2 bg-cyan-50 px-4 py-2 rounded-full border border-cyan-200">
                     <span class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></span>
@@ -430,7 +389,7 @@
             </div>
         </div>
 
-        <!-- 排行榜复制区域（直接展示在页面） -->
+        <!-- 排行榜文案生成 -->
         <div class="copy-section p-6 mb-8">
             <div class="flex items-center justify-between mb-4 flex-wrap gap-4">
                 <div class="flex items-center gap-3">
@@ -440,96 +399,88 @@
                 </div>
                 <div class="flex gap-2 flex-wrap">
                     <button onclick="copyStats('zh')" class="btn-copy px-5 py-3 rounded-xl font-bold flex items-center gap-2 text-sm" id="btn-zh">
-                        <span>🇨🇳</span>
-                        <span>复制中文</span>
+                        <span>🇨🇳</span><span>复制中文</span>
                     </button>
                     <button onclick="copyStats('ms')" class="btn-copy px-5 py-3 rounded-xl font-bold flex items-center gap-2 text-sm" id="btn-ms">
-                        <span>🇲🇾</span>
-                        <span>复制Malay</span>
+                        <span>🇲🇾</span><span>复制Malay</span>
                     </button>
                     <button onclick="copyStats('en')" class="btn-copy px-5 py-3 rounded-xl font-bold flex items-center gap-2 text-sm" id="btn-en">
-                        <span>🇬🇧</span>
-                        <span>复制English</span>
+                        <span>🇬🇧</span><span>复制English</span>
                     </button>
                     <button onclick="copyStats('all')" class="btn-copy px-5 py-3 rounded-xl font-bold flex items-center gap-2 text-sm bg-gradient-to-r from-purple-500 to-pink-500" id="btn-all">
-                        <span>🌍</span>
-                        <span>复制三语</span>
+                        <span>🌍</span><span>复制三语</span>
                     </button>
                 </div>
             </div>
-            
-            <!-- 预览区域 -->
+
             <div class="preview-box p-6 text-gray-300 text-sm overflow-x-auto">
                 <pre id="previewText" class="whitespace-pre-wrap">点击上方按钮生成排行榜文案...</pre>
             </div>
         </div>
 
-        <!-- 双排行榜管理区域 -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- 正常账户排行榜 -->
-            <div class="glass-panel rounded-2xl overflow-hidden shadow-2xl">
-                <div class="leaderboard-header px-6 py-4 flex items-center justify-between">
-                    <h3 class="text-white font-bold text-lg flex items-center gap-2">
-                        <span>👤</span>
-                        正常账户排行榜
-                    </h3>
-                    <span class="bg-white/20 px-3 py-1 rounded-full text-sm" id="normalCount">0 人</span>
-                </div>
-                <div class="overflow-x-auto max-h-96 overflow-y-auto">
-                    <table class="w-full">
-                        <thead class="sticky top-0 bg-cyan-50">
-                            <tr class="border-b border-cyan-200">
-                                <th class="px-4 py-3 text-left text-xs font-bold text-cyan-800 w-12">排名</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-cyan-800">账户</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-cyan-600">R1</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-purple-600">R2</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-amber-600">R3</th>
-                                <th class="px-4 py-3 text-right text-xs font-bold text-cyan-800">总计</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-cyan-800 w-16">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="normalTableBody" class="divide-y divide-cyan-100">
-                            <!-- 动态生成 -->
-                        </tbody>
-                    </table>
-                </div>
-                <div id="normalEmpty" class="py-12 text-center text-gray-400 hidden">
-                    <div class="text-6xl mb-4">📭</div>
-                    <p class="text-lg">暂无正常账户数据</p>
-                </div>
+        <!-- ===== 正常账户排行榜（上） ===== -->
+        <div class="glass-panel rounded-2xl overflow-hidden shadow-2xl mb-8">
+            <div class="leaderboard-header px-6 py-4 flex items-center justify-between">
+                <h3 class="text-white font-bold text-lg flex items-center gap-2">
+                    <span>👤</span>
+                    正常账户排行榜
+                </h3>
+                <span class="bg-white/20 px-3 py-1 rounded-full text-sm" id="normalCount">0 人</span>
             </div>
+            <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                <table class="w-full">
+                    <thead class="sticky top-0 bg-cyan-50">
+                        <tr class="border-b border-cyan-200">
+                            <th class="px-4 py-3 text-left text-xs font-bold text-cyan-800 w-12">排名</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-cyan-800">账户</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-cyan-600">R1</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-purple-600">R2</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-amber-600">R3</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-cyan-800">总计</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-cyan-800 w-20">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="normalTableBody" class="divide-y divide-cyan-100">
+                        <!-- 动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="normalEmpty" class="py-12 text-center text-gray-400 hidden">
+                <div class="text-6xl mb-4">📭</div>
+                <p class="text-lg">暂无正常账户数据</p>
+            </div>
+        </div>
 
-            <!-- 小号排行榜 -->
-            <div class="glass-panel rounded-2xl overflow-hidden shadow-2xl">
-                <div class="leaderboard-header px-6 py-4 flex items-center justify-between" style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);">
-                    <h3 class="text-white font-bold text-lg flex items-center gap-2">
-                        <span>🎭</span>
-                        小号排行榜
-                    </h3>
-                    <span class="bg-white/20 px-3 py-1 rounded-full text-sm" id="smurfCount">0 人</span>
-                </div>
-                <div class="overflow-x-auto max-h-96 overflow-y-auto">
-                    <table class="w-full">
-                        <thead class="sticky top-0 bg-orange-50">
-                            <tr class="border-b border-orange-200">
-                                <th class="px-4 py-3 text-left text-xs font-bold text-orange-800 w-12">排名</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-orange-800">账户</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-cyan-600">R1</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-purple-600">R2</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-amber-600">R3</th>
-                                <th class="px-4 py-3 text-right text-xs font-bold text-orange-800">总计</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-orange-800 w-16">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="smurfTableBody" class="divide-y divide-orange-100">
-                            <!-- 动态生成 -->
-                        </tbody>
-                    </table>
-                </div>
-                <div id="smurfEmpty" class="py-12 text-center text-gray-400 hidden">
-                    <div class="text-6xl mb-4">📭</div>
-                    <p class="text-lg">暂无小号数据</p>
-                </div>
+        <!-- ===== 小号排行榜（下） ===== -->
+        <div class="glass-panel rounded-2xl overflow-hidden shadow-2xl mb-8">
+            <div class="leaderboard-header leaderboard-header-smurf px-6 py-4 flex items-center justify-between">
+                <h3 class="text-white font-bold text-lg flex items-center gap-2">
+                    <span>🎭</span>
+                    小号排行榜
+                </h3>
+                <span class="bg-white/20 px-3 py-1 rounded-full text-sm" id="smurfCount">0 人</span>
+            </div>
+            <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                <table class="w-full">
+                    <thead class="sticky top-0 bg-orange-50">
+                        <tr class="border-b border-orange-200">
+                            <th class="px-4 py-3 text-left text-xs font-bold text-orange-800 w-12">排名</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-orange-800">账户</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-cyan-600">R1</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-purple-600">R2</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-amber-600">R3</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-orange-800">总计</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-orange-800 w-20">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="smurfTableBody" class="divide-y divide-orange-100">
+                        <!-- 动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="smurfEmpty" class="py-12 text-center text-gray-400 hidden">
+                <div class="text-6xl mb-4">📭</div>
+                <p class="text-lg">暂无小号数据</p>
             </div>
         </div>
 
@@ -556,14 +507,14 @@
                 <span class="text-2xl">💡</span>
                 <span>提示：如果输入已存在的账户名，系统会自动将数据累加到原有记录上</span>
             </div>
-            
+
             <div class="space-y-5">
                 <div>
                     <label class="block text-cyan-700 font-bold mb-2">账户名称</label>
                     <input type="text" id="newAccountName" placeholder="输入账户名称..." 
                            class="input-field w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-400 text-lg">
                 </div>
-                
+
                 <div>
                     <label class="block text-cyan-700 font-bold mb-3">账户类型（仅自己可见）</label>
                     <div class="grid grid-cols-2 gap-4">
@@ -583,7 +534,7 @@
                         </label>
                     </div>
                 </div>
-                
+
                 <div class="grid grid-cols-3 gap-4">
                     <div>
                         <label class="block text-cyan-600 font-bold mb-2 text-sm">R1 数量</label>
@@ -602,7 +553,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="flex gap-4 mt-8">
                 <button onclick="closeAddModal()" class="flex-1 px-6 py-4 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold transition-colors border-2 border-gray-200">
                     取消
@@ -615,10 +566,10 @@
     </div>
 
     <script>
-        // 数据管理
+        // ========== 数据管理 ==========
         let data = [];
-        const STORAGE_KEY = 'rs_statistics_data_v7_merge';
-        
+        const STORAGE_KEY = 'rs_statistics_data_v8_deleteable';
+
         // 翻译字典
         const translations = {
             zh: {
@@ -662,19 +613,14 @@
             }
         };
 
-        // Toast Notification System
+        // ========== Toast 通知 ==========
         function showToast(title, message, type = 'info', duration = 3000) {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
-            
-            const icons = {
-                success: '✅',
-                info: 'ℹ️',
-                warning: '⚠️',
-                error: '❌'
-            };
-            
+
+            const icons = { success: '✅', info: 'ℹ️', warning: '⚠️', error: '❌' };
+
             toast.innerHTML = `
                 <div class="toast-icon">${icons[type]}</div>
                 <div class="toast-content">
@@ -683,26 +629,22 @@
                 </div>
                 <button class="toast-close" onclick="this.parentElement.remove()">×</button>
             `;
-            
+
             container.appendChild(toast);
-            
-            // Trigger animation
             setTimeout(() => toast.classList.add('show'), 10);
-            
-            // Auto remove
+
             setTimeout(() => {
                 toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 300);
             }, duration);
         }
 
-        // 初始化
+        // ========== 初始化 ==========
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
             renderAll();
             createBubbles();
-            
-            // 回车提交
+
             document.getElementById('addModal').addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
@@ -711,10 +653,9 @@
             });
         });
 
-        // 创建漂浮气泡
+        // ========== 漂浮气泡 ==========
         function createBubbles() {
             const container = document.getElementById('bubbleContainer');
-            
             setInterval(() => {
                 const bubble = document.createElement('div');
                 bubble.className = 'bubble';
@@ -724,49 +665,34 @@
                 bubble.style.left = Math.random() * 100 + 'vw';
                 bubble.style.animationDuration = (Math.random() * 5 + 5) + 's';
                 container.appendChild(bubble);
-                
                 setTimeout(() => bubble.remove(), 10000);
             }, 3000);
         }
 
-        // 加载数据
+        // ========== 数据操作 ==========
         function loadData() {
             const saved = localStorage.getItem(STORAGE_KEY);
             if (saved) {
-                try {
-                    data = JSON.parse(saved);
-                } catch (e) {
-                    data = [];
-                }
+                try { data = JSON.parse(saved); } catch (e) { data = []; }
             }
         }
 
-        // 保存数据
         function saveData() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
             const status = document.getElementById('saveStatus');
             status.textContent = '💾 已保存';
-            setTimeout(() => {
-                status.textContent = '🟢 自动保存已开启';
-            }, 1000);
+            setTimeout(() => { status.textContent = '🟢 自动保存已开启'; }, 1000);
         }
 
-        // 隐私保护函数 - 前2位+****+后4位
+        // ========== 隐私保护 ==========
         function maskAccountName(name) {
             if (!name || name.length <= 6) return name;
-            
-            const len = name.length;
-            if (len <= 6) {
-                return name.substring(0, 2) + '****';
-            } else {
-                // 显示前2位 + **** + 后4位
-                const start = name.substring(0, 2);
-                const end = name.substring(len - 4);
-                return start + '****' + end;
-            }
+            const start = name.substring(0, 2);
+            const end = name.substring(name.length - 4);
+            return start + '****' + end;
         }
 
-        // 获取排序后的数据（按总数降序）
+        // ========== 排序 ==========
         function getSortedData() {
             return [...data].map(item => ({
                 ...item,
@@ -774,14 +700,14 @@
             })).sort((a, b) => b.total - a.total);
         }
 
-        // 渲染所有内容
+        // ========== 渲染 ==========
         function renderAll() {
             renderLeaderboards();
             updateStats();
             updatePreview();
         }
 
-        // 渲染双排行榜
+        // ========== 渲染双榜（上下排列） ==========
         function renderLeaderboards() {
             const sortedData = getSortedData();
             const normalData = sortedData.filter(item => item.type === 'normal');
@@ -791,42 +717,36 @@
             renderTable('smurfTableBody', 'smurfEmpty', 'smurfCount', smurfData, 'smurf');
         }
 
-        // 渲染单个表格
+        // ========== 渲染单个表格（带删除按钮） ==========
         function renderTable(tbodyId, emptyId, countId, items, type) {
             const tbody = document.getElementById(tbodyId);
             const emptyState = document.getElementById(emptyId);
             const countBadge = document.getElementById(countId);
-            
+
             countBadge.textContent = items.length + ' 人';
-            
+
             if (items.length === 0) {
                 tbody.innerHTML = '';
                 emptyState.classList.remove('hidden');
                 return;
             }
-            
+
             emptyState.classList.add('hidden');
-            
+
             tbody.innerHTML = items.map((item, index) => {
                 const rank = index + 1;
                 let rankClass = '';
                 let rankDisplay = rank;
-                
-                if (rank === 1) {
-                    rankClass = 'rank-1';
-                    rankDisplay = '🥇';
-                } else if (rank === 2) {
-                    rankClass = 'rank-2';
-                    rankDisplay = '🥈';
-                } else if (rank === 3) {
-                    rankClass = 'rank-3';
-                    rankDisplay = '🥉';
-                }
 
-                const rowClass = type === 'smurf' ? 'hover:bg-orange-50' : 'hover:bg-cyan-50';
-                
+                if (rank === 1) { rankClass = 'rank-1'; rankDisplay = '🥇'; }
+                else if (rank === 2) { rankClass = 'rank-2'; rankDisplay = '🥈'; }
+                else if (rank === 3) { rankClass = 'rank-3'; rankDisplay = '🥉'; }
+
+                const rowClass = type === 'smurf' ? 'leaderboard-row-smurf' : 'leaderboard-row';
+                const borderClass = type === 'smurf' ? 'border-orange-100' : 'border-cyan-100';
+
                 return `
-                    <tr class="leaderboard-row row-enter ${rowClass} transition-all border-b ${type === 'smurf' ? 'border-orange-100' : 'border-cyan-100'}">
+                    <tr class="${rowClass} row-enter transition-all border-b ${borderClass}">
                         <td class="px-4 py-3">
                             <span class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold ${rankClass}">
                                 ${rankDisplay}
@@ -867,9 +787,9 @@
                         </td>
                         <td class="px-4 py-3 text-center">
                             <button onclick="deleteRow(${item.id})" 
-                                    class="delete-btn p-2 rounded-lg transition-all"
+                                    class="inline-delete-btn ${type === 'smurf' ? 'inline-delete-btn-smurf' : ''}"
                                     title="删除">
-                                🗑️
+                                删除
                             </button>
                         </td>
                     </tr>
@@ -877,13 +797,11 @@
             }).join('');
         }
 
-        // 模态框控制
+        // ========== 模态框 ==========
         function openAddModal() {
             document.getElementById('addModal').classList.remove('hidden');
             document.getElementById('addModal').classList.add('flex');
             document.getElementById('newAccountName').focus();
-            
-            // 清空输入
             document.getElementById('newAccountName').value = '';
             document.getElementById('newR1').value = '';
             document.getElementById('newR2').value = '';
@@ -896,45 +814,41 @@
             document.getElementById('addModal').classList.remove('flex');
         }
 
+        // ========== 添加账户 ==========
         function confirmAdd() {
             const account = document.getElementById('newAccountName').value.trim();
             const type = document.querySelector('input[name="accountType"]:checked').value;
             const r1 = parseInt(document.getElementById('newR1').value) || 0;
             const r2 = parseInt(document.getElementById('newR2').value) || 0;
             const r3 = parseInt(document.getElementById('newR3').value) || 0;
-            
+
             if (!account) {
                 showToast('输入错误', '请输入账户名称！', 'error');
                 return;
             }
-            
-            // 检查是否已存在相同账户名（不区分类型，只匹配名称）
+
             const existingIndex = data.findIndex(item => item.account === account);
-            
+
             if (existingIndex !== -1) {
-                // 已存在，执行累加操作
                 const existing = data[existingIndex];
                 const oldR1 = parseInt(existing.r1) || 0;
                 const oldR2 = parseInt(existing.r2) || 0;
                 const oldR3 = parseInt(existing.r3) || 0;
-                
-                // 累加新数据
+
                 existing.r1 = oldR1 + r1;
                 existing.r2 = oldR2 + r2;
                 existing.r3 = oldR3 + r3;
-                
-                // 如果类型不同，提示用户但保持原有类型（或可以更新类型，根据需求）
+
                 if (existing.type !== type) {
                     showToast('类型不一致', `账户 "${account}" 已存在为${existing.type === 'normal' ? '正常账户' : '小号'}，数据已累加但类型未更改`, 'warning');
                 } else {
                     showToast('数据已合并', `账户 "${account}" 数据已自动累加：R1 +${r1}, R2 +${r2}, R3 +${r3}`, 'success');
                 }
-                
+
                 saveData();
                 renderAll();
                 closeAddModal();
             } else {
-                // 不存在，创建新记录
                 const newRow = {
                     id: Date.now(),
                     account: account,
@@ -943,31 +857,29 @@
                     r2: r2 || '',
                     r3: r3 || ''
                 };
-                
+
                 data.push(newRow);
                 saveData();
                 renderAll();
                 closeAddModal();
-                
                 showToast('添加成功', `账户 "${account}" 已成功添加！`, 'success');
             }
         }
 
-        // 删除行
+        // ========== 删除行 ==========
         function deleteRow(id) {
-            if (confirm('确定要删除这条记录吗？')) {
-                const item = data.find(d => d.id === id);
-                data = data.filter(item => item.id !== id);
+            const item = data.find(d => d.id === id);
+            if (!item) return;
+
+            if (confirm(`确定要删除账户 "${item.account}" 吗？此操作不可恢复！`)) {
+                data = data.filter(d => d.id !== id);
                 saveData();
                 renderAll();
-                
-                if (item) {
-                    showToast('删除成功', `账户 "${item.account}" 已删除`, 'info');
-                }
+                showToast('删除成功', `账户 "${item.account}" 已删除`, 'info');
             }
         }
 
-        // 清空所有
+        // ========== 清空所有 ==========
         function clearAll() {
             if (data.length === 0) return;
             if (confirm('确定要清空所有数据吗？此操作不可恢复！')) {
@@ -975,12 +887,11 @@
                 data = [];
                 saveData();
                 renderAll();
-                
                 showToast('数据已清空', `已清空 ${count} 条记录`, 'warning');
             }
         }
 
-        // 更新数值
+        // ========== 更新数值 ==========
         function updateValue(id, field, value) {
             const item = data.find(d => d.id === id);
             if (item) {
@@ -990,40 +901,38 @@
             }
         }
 
-        // 编辑账户名
+        // ========== 编辑账户名 ==========
         function editAccountName(id, element) {
             const item = data.find(d => d.id === id);
             if (!item) return;
-            
+
             const currentValue = item.account;
             const input = document.createElement('input');
             input.type = 'text';
             input.value = currentValue;
             input.className = 'input-field w-full px-3 py-2 rounded-lg text-gray-800 font-bold bg-white text-sm';
-            
+
             element.innerHTML = '';
             element.appendChild(input);
             input.focus();
             input.select();
-            
+
             function save() {
                 const newValue = input.value.trim();
                 if (newValue && newValue !== currentValue) {
-                    // 检查新名称是否与其他账户冲突
                     const conflict = data.find(d => d.id !== id && d.account === newValue);
                     if (conflict) {
                         showToast('名称冲突', `账户名 "${newValue}" 已存在，无法重命名`, 'error');
                         renderAll();
                         return;
                     }
-                    
                     item.account = newValue;
                     saveData();
                     showToast('修改成功', `账户名已更新为 "${newValue}"`, 'success');
                 }
                 renderAll();
             }
-            
+
             input.addEventListener('blur', save);
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') save();
@@ -1031,7 +940,7 @@
             });
         }
 
-        // 更新统计
+        // ========== 更新统计 ==========
         function updateStats() {
             const totalR1 = data.reduce((sum, item) => sum + (parseInt(item.r1) || 0), 0);
             const totalR2 = data.reduce((sum, item) => sum + (parseInt(item.r2) || 0), 0);
@@ -1042,30 +951,29 @@
             document.getElementById('totalR3').textContent = totalR3.toLocaleString();
         }
 
-        // 更新预览文本
+        // ========== 更新预览 ==========
         function updatePreview() {
             const sortedData = getSortedData();
             if (sortedData.length === 0) {
                 document.getElementById('previewText').textContent = '暂无数据，请添加账户后生成排行榜...';
                 return;
             }
-            
+
             const t = translations.zh;
             let text = generateStatsText(sortedData, 'zh', t);
             document.getElementById('previewText').textContent = text;
         }
 
-        // 生成统计文本
+        // ========== 生成统计文本 ==========
         function generateStatsText(sortedData, lang, t) {
             let text = `${t.title}\n${t.subtitle}\n\n`;
             text += `━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-            
-            sortedData.forEach((item, index) => {
+
+            sortedData.forEach((item) => {
                 const maskedName = maskAccountName(item.account);
                 const r1 = parseInt(item.r1) || 0;
                 const r2 = parseInt(item.r2) || 0;
                 const r3 = parseInt(item.r3) || 0;
-                
                 text += `${maskedName} ${t.r1}: ${r1} | ${t.r2}: ${r2} | ${t.r3}: ${r3}  ${t.total}: ${item.total}\n`;
             });
 
@@ -1076,10 +984,10 @@
             return text;
         }
 
-        // 复制功能
+        // ========== 复制功能 ==========
         function copyStats(format) {
             const sortedData = getSortedData();
-            
+
             if (sortedData.length === 0) {
                 showToast('无数据', '没有数据可复制！', 'warning');
                 return;
@@ -1089,7 +997,6 @@
             let btnId = '';
 
             if (format === 'all') {
-                // 三语版本
                 text += generateStatsText(sortedData, 'zh', translations.zh);
                 text += '\n\n━━━━━━━━━━━━━━━━━━━━━━\n\n';
                 text += generateStatsText(sortedData, 'ms', translations.ms);
@@ -1104,7 +1011,6 @@
 
             navigator.clipboard.writeText(text).then(() => {
                 showCopySuccess(btnId);
-                
                 const langNames = { zh: '中文', ms: 'Malay', en: 'English', all: '三语' };
                 showToast('复制成功', `${langNames[format]}版本排行榜已复制到剪贴板`, 'success');
             });
@@ -1113,17 +1019,17 @@
         function showCopySuccess(btnId) {
             const btn = document.getElementById(btnId);
             const originalHTML = btn.innerHTML;
-            
+
             btn.classList.add('copied');
             btn.innerHTML = '<span>✅</span><span>已复制!</span>';
-            
+
             setTimeout(() => {
                 btn.classList.remove('copied');
                 btn.innerHTML = originalHTML;
             }, 2000);
         }
 
-        // 导出CSV
+        // ========== 导出CSV ==========
         function downloadData() {
             if (data.length === 0) {
                 showToast('无数据', '没有数据可导出！', 'warning');
@@ -1131,7 +1037,7 @@
             }
 
             let csv = '\ufeff序号,完整账户名,账户类型,R1,R2,R3,合计\n';
-            
+
             const sortedData = getSortedData();
             sortedData.forEach((item, index) => {
                 const typeText = item.type === 'smurf' ? '小号' : '正常';
@@ -1142,21 +1048,21 @@
             const totalR2 = data.reduce((sum, item) => sum + (parseInt(item.r2) || 0), 0);
             const totalR3 = data.reduce((sum, item) => sum + (parseInt(item.r3) || 0), 0);
             const grandTotal = totalR1 + totalR2 + totalR3;
-            
+
             csv += `\n总计,,,${totalR1},${totalR2},${totalR3},${grandTotal}\n`;
 
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
-            
+
             link.href = URL.createObjectURL(blob);
             link.download = `RS统计表_完整数据_${timestamp}.csv`;
             link.click();
-            
+
             showToast('导出成功', `数据已导出为 CSV 文件`, 'success');
         }
 
-        // 键盘快捷键
+        // ========== 键盘快捷键 ==========
         document.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
                 e.preventDefault();
@@ -1169,7 +1075,7 @@
             }
         });
 
-        // 点击外部关闭
+        // ========== 点击外部关闭模态框 ==========
         document.getElementById('addModal').addEventListener('click', (e) => {
             if (e.target === document.getElementById('addModal')) closeAddModal();
         });
